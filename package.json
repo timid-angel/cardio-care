@@ -1,0 +1,18 @@
+{
+  "name": "cardio-care",
+  "version": "1.0.0",
+  "description": "Final project for Fundamentals of Software Engineering",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "dependencies": {
+    "mongod": "^2.0.0",
+    "mongoose": "^8.0.3"
+  }
+}
