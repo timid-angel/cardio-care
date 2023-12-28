@@ -1,28 +1,22 @@
 const mongoose = require('mongoose')
 const Doctor = require('./Doctor')
+const MedicalRecord = require('./MedicalRecord')
+const { dailyReadingLog, symptomsLog, doctorOrder } = require('./Logs')
 
 const schema = new mongoose.Schema({
     name: {
-        first: {
-            type: String,
-            required: true
-        },
+        first: String,
         middle: String,
-        last: {
-            type: String,
-            required: true
-        }
+        last: String
     },
     gender: String,
     uuid: String,
     passkey: String,
     email: {
-        type: String,
-        required: true
+        type: String
     },
     phoneNumber: {
-        type: String,
-        required: true
+        type: String
     },
     adddress: {
         city: String,
@@ -30,30 +24,49 @@ const schema = new mongoose.Schema({
         woreda: Number,
         houseNumber: Number
     },
-    dateOfBirth: {
-        type: String,
-        required: true
-    },
+    dateOfBirth: Date,
     authorized: {
-        type: String,
+        type: Boolean,
         default: true
     },
     lastPaymentDate: Date,
     cuurentAppointment: Date,
     pastAppointments: [Date],
-    medicalRecord: [],
-    dailyReading: [],
-    symptomLog: [],
-    orderLog: [],
+    medicalRecord: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "MedicalRecord"
+    },
+    dailyReading: [dailyReadingLog],
+    symptomLog: [symptomsLog],
+    orderLog: [doctorOrder],
     mainDoctor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Doctor"
-        // required: true
     },
     tempDoctor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Doctor"
     }
 })
+
+schema.methods.changeAuthorization = function (bool) {
+    this.authorized = bool
+    this.save()
+}
+
+schema.methods.addDailyReading = function (dailyReading) {
+    this.dailyReading.push(dailyReading)
+    this.save()
+}
+
+schema.methods.addSymptom = function (symptom) {
+    this.symptomLog.push(symptom)
+    this.save()
+}
+
+schema.methods.addOrder = function (order) {
+    this.orderLog.push(order)
+    this.save()
+}
 
 module.exports = mongoose.model("Patient", schema)

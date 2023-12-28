@@ -1,31 +1,24 @@
 const mongoose = require('mongoose')
 const Calendar = require('./Calendar')
+const { doctorNote } = require('./Logs')
 
 const schema = new mongoose.Schema({
     name: {
-        first: {
-            type: String,
-            required: true
-        },
+        first: String,
         middle: String,
-        last: {
-            type: String,
-            required: true
-        }
+        last: String
     },
     gender: String,
     uuid: String,
     passkey: String,
     email: {
-        type: String,
-        required: true
+        type: String
     },
     phoneNumber: {
         type: String
     },
     cellPhoneNumber: {
-        type: String,
-        required: true
+        type: String
     },
     adddress: {
         city: String,
@@ -35,21 +28,25 @@ const schema = new mongoose.Schema({
     },
     state: {
         type: String,
-        default: true
+        default: "active"
     },
     expertise: [String],
-    notes: [],
+    notes: [doctorNote],
     calendar: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Calendar",
-        required: true
+        ref: "Calendar"
     },
-    patients: [String]
+    patients: [] // patients
 
 })
 
 schema.methods.setStatus = function (str) {
     this.state = str.trim()
+}
+
+schema.methods.addNote = function (note) {
+    this.notes.push(note)
+    this.save()
 }
 
 module.exports = mongoose.model('Doctor', schema)
