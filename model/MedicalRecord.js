@@ -16,6 +16,7 @@ const Medication = {
 }
 
 const medicalRecordSchema = mongoose.Schema({
+    creationDate: Date,
     bloodPressure: [vitalReading],
     bloodSugar: [vitalReading],
     bodyTemperature: [vitalReading],

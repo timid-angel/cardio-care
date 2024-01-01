@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000
 const receptionistRouter = require('./routers/receptionist')
 const adminRouter = require('./routers/admin')
 const patientRouter = require('./routers/patient')
+const doctorRouter = require('./routers/doctor')
 
 // db connection and server startup
 mongoose.connect('mongodb://0.0.0.0:27017/cardio-test')
@@ -28,3 +29,4 @@ app.set('view engine', "ejs")
 app.use('/receptionist', receptionistRouter)
 app.use('/admin', adminRouter)
 app.use('/patient', patientRouter)
+app.use('/doctor', doctorRouter)

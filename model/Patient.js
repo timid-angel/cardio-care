@@ -10,10 +10,12 @@ const schema = new mongoose.Schema({
         last: String
     },
     gender: String,
-    uuid: String,
-    passkey: String,
+    password: String,
     email: {
-        type: String
+        type: String,
+        unique: true,
+        required: true,
+        lowercase: true
     },
     phoneNumber: {
         type: String
@@ -30,7 +32,7 @@ const schema = new mongoose.Schema({
         default: true
     },
     lastPaymentDate: Date,
-    cuurentAppointment: Date,
+    currentAppointment: Date,
     pastAppointments: [Date],
     medicalRecord: {
         type: mongoose.Schema.Types.ObjectId,

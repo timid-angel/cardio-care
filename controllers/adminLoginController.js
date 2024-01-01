@@ -1,9 +1,9 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
-const Receptionist = require('../model/Receptionist')
+const Admin = require('../model/Admin')
 
-const receptionistLoginController = async (req, res) => {
+const adminLoginController = async (req, res) => {
     const { email, password } = req.body
     if (!email || !password) {
         res.status(400).json({ 'error': 'was good fam, there is nothing here' })
@@ -11,12 +11,12 @@ const receptionistLoginController = async (req, res) => {
     }
 
     try {
-        const receptionist = await Receptionist.findOne({ email: email })
-        if (!receptionist) {
+        const admin = await Admin.findOne({ email: email })
+        if (!admin) {
             res.status(409).json({ 'error': 'Incorrect email or password' })
             return
         }
-        const correct = await bcrypt.compare(password, receptionist.password) // returns a promise apparently
+        const correct = await bcrypt.compare(password, admin.password) // returns a promise apparently
         if (!correct) {
             res.cookie('jwt', '', { httpOnly: true, maxAge: 1 })
             res.status(409).json({ 'error': 'Incorrect email or password' })
@@ -25,7 +25,7 @@ const receptionistLoginController = async (req, res) => {
 
         // sign the jwt and send it as a cookie upon login
         const token = jwt.sign(
-            { id: receptionist._id, role: 1 },
+            { id: admin._id, role: 0 },
             process.env.ACCESS_TOKEN_KEY,
             { expiresIn: 24 * 3600 }
         )
@@ -39,4 +39,4 @@ const receptionistLoginController = async (req, res) => {
 
 }
 
-module.exports = receptionistLoginController
+module.exports = adminLoginController
