@@ -41,7 +41,7 @@ calendar.methods.changeStatus = function (appointment, status) {
     })
 
     if (!appo) {
-        console.log('change stauts error: appointment not found')
+        console.log('change status error: appointment not found')
         return
     }
     this.upcomingAppointments.splice(idx, 1)

@@ -1,24 +1,26 @@
-const mongoose = require('mongoose')
-const Patient = require('./model/Patient')
-const Doctor = require('./model/Doctor')
+const express = require('express');
+const mongoose = require('mongoose');
+const app = express();
 
-mongoose.connect('mongodb://0.0.0.0:27017/cardio-test')
+// Require the routes
+const patientRoutes = require('./routes/patientRoutes');
+const doctorRoutes = require('./routes/doctorRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const receptionistRoutes = require('./routes/receptionistRoutes');
 
-async function run(doctorEmail) {
-    try {
-        const patient = await Patient.findOne({ email: "medicalRecord@gmail.com" })
-        const doctor = await Doctor.findOne({ email: doctorEmail })
-        patient.addOrder({
-            noteType: "Medication",
-            date: new Date(),
-            description: "Asprin, then rat poision at 12PM everyday",
-            doctor: doctor.email,
-            startTime: new Date('2020-12-12'),
-            endTime: new Date('2022-1-3')
-        })
 
-    } catch (err) {
-        console.log(err.message)
-    }
-}
-run("doctor1@gmail.com")
+mongoose.connect('mongodb://localhost:27017/cardio-test');
+// Middleware to parse request bodies as JSON
+app.use(express.json());
+
+// Mount the routes
+app.use('/patients', patientRoutes);
+app.use('/doctors', doctorRoutes);
+app.use('/admins', adminRoutes);
+app.use('/receptionists', receptionistRoutes);
+
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

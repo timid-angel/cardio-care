@@ -4,7 +4,8 @@
   "description": "Final project for Fundamentals of Software Engineering",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +16,8 @@
     "express": "^4.18.2",
     "mongod": "^2.0.0",
     "mongoose": "^8.0.3"
+  },
+  "directories": {
+    "test": "tests"
   }
 }
