@@ -1,24 +1,26 @@
+const express = require('express')
+const app = express();
 const mongoose = require('mongoose')
-const Patient = require('./model/Patient')
-const Doctor = require('./model/Doctor')
+const cookieParser = require('cookie-parser')
+require('dotenv').config()
+const PORT = process.env.PORT || 3000
 
+// routers
+const receptionistRouter = require('./routers/receptionist')
+const adminRouter = require('./routers/admin')
+
+// db connection and server startup
 mongoose.connect('mongodb://0.0.0.0:27017/cardio-test')
+    .then(() => {
+        app.listen(PORT)
+        console.log('Server listening on port', PORT)
+    })
 
-async function run(doctorEmail) {
-    try {
-        const patient = await Patient.findOne({ email: "medicalRecord@gmail.com" })
-        const doctor = await Doctor.findOne({ email: doctorEmail })
-        patient.addOrder({
-            noteType: "Medication",
-            date: new Date(),
-            description: "Asprin, then rat poision at 12PM everyday",
-            doctor: doctor.email,
-            startTime: new Date('2020-12-12'),
-            endTime: new Date('2022-1-3')
-        })
+// middleware
+app.use(express.json())
+app.use(cookieParser())
 
-    } catch (err) {
-        console.log(err.message)
-    }
-}
-run("doctor1@gmail.com")
+
+// routes
+app.use('/receptionist', receptionistRouter)
+app.use('/admin', adminRouter)

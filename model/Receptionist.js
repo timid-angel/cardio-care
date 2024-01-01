@@ -7,10 +7,12 @@ const schema = new mongoose.Schema({
         last: String
     },
     gender: String,
-    uuid: String,
-    passkey: String,
+    password: String,
     email: {
-        type: String
+        type: String,
+        unique: true,
+        required: true,
+        lowercase: true
     },
     phoneNumber: {
         type: String

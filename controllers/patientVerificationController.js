@@ -1,0 +1,3 @@
+const patientVerificationController = (req, res) => {
+
+}
