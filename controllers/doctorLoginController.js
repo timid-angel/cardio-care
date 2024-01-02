@@ -6,7 +6,7 @@ const Doctor = require('../model/Doctor')
 const doctorLoginController = async (req, res) => {
     const { email, password } = req.body
     if (!email || !password) {
-        res.status(400).json({ 'error': 'was good fam, there is nothing here' })
+        res.status(400).json({ 'error': 'Both email and password are required' })
         return
     }
 
@@ -16,7 +16,7 @@ const doctorLoginController = async (req, res) => {
             res.status(409).json({ 'error': 'Incorrect email or password' })
             return
         }
-        const correct = await bcrypt.compare(password, patient.password) // returns a promise apparently
+        const correct = await bcrypt.compare(password, doctor.password) // Fixed variable name to 'doctor'
         if (!correct) {
             res.cookie('jwt', '', { httpOnly: true, maxAge: 1 })
             res.status(409).json({ 'error': 'Incorrect email or password' })
@@ -25,7 +25,7 @@ const doctorLoginController = async (req, res) => {
 
         // sign the jwt and send it as a cookie upon login
         const token = jwt.sign(
-            { id: patient._id, role: 2 },
+            { id: doctor._id, role: 2 },
             process.env.ACCESS_TOKEN_KEY,
             { expiresIn: 24 * 3600 }
         )

@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express();
 const mongoose = require('mongoose')
+const cors= require('cors')
 const cookieParser = require('cookie-parser')
 const ejs = require('ejs')
 require('dotenv').config()
@@ -20,6 +21,7 @@ mongoose.connect('mongodb://0.0.0.0:27017/cardio-test')
     })
 
 // middleware
+app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
 app.set('view engine', "ejs")
