@@ -11,19 +11,23 @@ const linkController = async (req, res) => {
         const key = type === "main" ? "mainDoctor" : type === "temp" ? "tempDoctor" : 0
         if (!key) {
             res.status(400).json({ 'error': "Invalid 'type' input" })
+            return
         }
 
         if (doctor.patients.indexOf(patient._id) !== -1) {
             res.status(400).json({ "error": "Patient and doctor are already linked" })
+            return
         }
         if (patient[key]) {
             res.status(400).json({ "error": `Patient already has a ${key} doctor` })
+            return
         }
         patient[key] = doctor._id
         doctor.patients.push(patient._id)
 
         patient.save()
         doctor.save()
+        res.status(200).json({ 'success': `Patient: ${patientEmail} has been linked with Doctor: ${doctorEmail} with type: ${type}.` })
     } catch (err) {
         res.status(400).json({ "error": err.message })
     }

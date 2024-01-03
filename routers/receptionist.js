@@ -2,11 +2,11 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer')
 // controllers
-const receptionistLoginController = require('../controllers/receptionistLoginController')
+const { receptionistLoginController } = require('../controllers/loginController')
 const linkController = require('../controllers/linkController')
 const unlinkController = require('../controllers/unlinkController')
 const paymentVerification = require('../controllers/paymentVerification')
-const createPatientController = require('../controllers/createPatientController')
+const { createPatientController } = require('../controllers/accountController')
 // middleware
 const authReceptionist = require('../middleware/authReceptionist')
 

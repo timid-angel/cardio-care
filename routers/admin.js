@@ -1,10 +1,8 @@
 const express = require('express')
 const router = express.Router()
 // controllers
-const createReceptionistController = require('../controllers/createReceptionistController')
-const createDoctorController = require('../controllers/createDoctorController')
-const adminLoginController = require('../controllers/adminLoginController')
-const createAdminController = require('../controllers/createAdminController')
+const { createAdminController, createReceptionistController, createDoctorController } = require('../controllers/accountController')
+const { adminLoginController } = require('../controllers/loginController')
 // middleware
 const authAdmin = require('../middleware/authAdmin')
 

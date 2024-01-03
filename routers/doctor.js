@@ -1,6 +1,7 @@
 const express = require('express')
 // controllers
-const doctorLoginController = require('../controllers/doctorLoginController')
+const { doctorLoginController } = require('../controllers/loginController')
+const appointmentController = require('../controllers/appointmentController')
 // middleware
 const authDoctor = require('../middleware/authDoctor')
 
@@ -12,6 +13,10 @@ router.get('/login', (req, res) => {
     res.send('THIS IS THE DOCTOR LOGIN PAGE')
 })
 router.post('/login', doctorLoginController)
+
+// appointment routes
+router.get('/unresolved-appointments', authDoctor, appointmentController.getUnresolvedAppointments)
+router.patch('/appointments', authDoctor, appointmentController.changeAppointmentStatus)
 
 // test route
 router.get('/authTEST', authDoctor, (req, res) => {

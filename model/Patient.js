@@ -33,7 +33,6 @@ const schema = new mongoose.Schema({
     },
     lastPaymentDate: Date,
     currentAppointment: Date,
-    pastAppointments: [Date],
     medicalRecord: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "MedicalRecord"

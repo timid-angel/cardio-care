@@ -1,13 +1,16 @@
 const mongoose = require('mongoose')
+const { ObjectId } = require('mongodb')
 
 //calendar
 const calendar = mongoose.Schema({
     oldAppointments: [{
+        patientId: String,
         date: Date,
         durationMins: Number,
         status: String
     }],
     upcomingAppointments: [{
+        patientId: String,
         date: Date,
         durationMins: Number,
         status: String
@@ -26,33 +29,29 @@ calendar.methods.addAppointment = function (appointment) {
     return this.upcomingAppointments
 }
 
-calendar.methods.removeAppointment = function (appointment) {
+calendar.methods.removeAppointment = function (id) {
     const retArr = this.upcomingAppointments.filter((item) => {
-        return !(item.date.getTime() === appointment.date.getTime() && item.durationMins === appointment.durationMins);
+        return item._id.valueOf() !== new ObjectId(id).valueOf();
     })
     return retArr
 }
 
-calendar.methods.changeStatus = function (appointment, status) {
-    let idx
-    const appo = this.upcomingAppointments.find((item, index) => {
-        idx = index
-        return item.date.getTime() === appointment.date.getTime() && item.durationMins === appointment.durationMins
-    })
-
-    if (!appo) {
-        console.log('change stauts error: appointment not found')
-        return
+calendar.methods.findUnresolved = function () {
+    const arr = []
+    for (let i = 0; i < this.upcomingAppointments.length; i++) {
+        if (this.upcomingAppointments[i].status === "unresolved") {
+            arr.push(this.upcomingAppointments[i])
+        }
     }
-    this.upcomingAppointments.splice(idx, 1)
-    appo.status = status
-
-    if (status === "completed" || status === "past") {
-        this.oldAppointments.push(appo)
-    }
-
-    return { upcomingAppointments: this.upcomingAppointments, oldAppointments: this.oldAppointments, status: status }
+    return arr
 }
 
-const Calendar = mongoose.model('Calendar', calendar)
-module.exports = Calendar
+calendar.methods.findAppointment = function (id) {
+    for (let i = 0; i < this.upcomingAppointments.length; i++) {
+        if (this.upcomingAppointments[i]._id.valueOf() === new ObjectId(id).valueOf()) {
+            return this.upcomingAppointments[i]
+        }
+    }
+}
+
+module.exports = mongoose.model('Calendar', calendar)

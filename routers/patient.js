@@ -1,7 +1,8 @@
 const express = require('express')
 // controllers
 const paymentVerification = require('../controllers/paymentVerification')
-const patientLoginController = require('../controllers/patientLoginController')
+const { patientLoginController } = require('../controllers/loginController')
+const appointmentController = require('../controllers/appointmentController')
 // middleware
 const authPatient = require('../middleware/authPatient')
 
@@ -13,6 +14,9 @@ router.get('/login', (req, res) => {
     res.send('THIS IS THE PATIENT LOGIN PAGE')
 })
 router.post('/login', patientLoginController)
+
+// appointment routes
+router.post('/appointments', authPatient, appointmentController.addAppointment)
 
 // payment verification routes
 router.get('/payment', paymentVerification.getPage)

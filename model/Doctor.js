@@ -38,8 +38,7 @@ const schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Calendar"
     },
-    patients: [] // patient EMAILS
-
+    patients: []
 })
 
 schema.methods.setStatus = function (str) {
