@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
+const Patient = require('../model/Patient');
 // controllers
 const receptionistLoginController = require('../controllers/receptionistLoginController')
 const linkController = require('../controllers/linkController')
@@ -33,5 +34,16 @@ router.post('/patients', createPatientController)
 router.get('/authTEST', authReceptionist, (req, res) => {
     res.json({ 'yes': 'YIPPIIEEEE' })
 })
+router.get('/patients', async (req, res) => {
+    try {
+        const patients = await Patient.find({}, { 'name.first': 1, 'name.middle': 1, 'name.last': 1, _id: 0 });
+
+        res.status(200).json({ patients }); // Send the list of patients as JSON
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
 
 module.exports = router
