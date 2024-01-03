@@ -1,10 +1,12 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const receptionistForm = document.getElementById('receptionistForm');
+// scripts/adminLogin.js
 
-    receptionistForm.addEventListener('submit', async (event) => {
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('loginForm');
+
+    loginForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const formData = new FormData(receptionistForm);
+        const formData = new FormData(loginForm);
         const payload = {};
 
         for (const [key, value] of formData.entries()) {
@@ -12,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:3000/admin/receptionist', {
+            const response = await fetch('http://127.0.0.1:3000/patient/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -21,11 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                // Handle successful creation
-                alert('Receptionist created successfully!');
+                alert('Login Successful');
+                window.location.href = 'patientDashboard.html';
             } else {
-                // Handle creation failure
-                alert('Receptionist creation failed');
+                console.log("unable to login")
             }
         } catch (error) {
             console.error('Error:', error);

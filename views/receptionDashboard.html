@@ -44,58 +44,10 @@
         <div class="flex flex-col justify-center items-center md:flex md:flex-row">
        
 <div style="width: 350px;" class="mr-5 rounded-lg p-8 font-bold text-2xl py-11 mt-5 bg-white text-center justify-center items-center text-gray-800 mb-5 hover:shadow-2xl cursor-pointer">
-    <a id="openModalBtn">Add Patient</a>
+    <a id="openModalBtn" href="addPatient.html">Add Patient</a>
     <i class="fa-regular fa-plus font-bold text-3xl"></i>
 </div>
-<div id="addPatientModal" class="modal hidden fixed inset-0 bg-gray-500 bg-opacity-75 justify-center items-center">
-    <div class="modal-content bg-white p-8 rounded-lg shadow-lg">
-        <h2 class="text-2xl font-bold mb-4">Add Patient</h2>
-        <form id="patientForm">
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" name="firstName" required>
-        
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastName" required>
-        
-            <label for="gender">Gender:</label>
-            <select id="gender" name="gender" required>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-    
-            </select>
-        
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        
-            <label for="phoneNumber">Phone Number:</label>
-            <input type="text" id="phoneNumber" name="phoneNumber">
-        
-            <label for="city">City:</label>
-            <input type="text" id="city" name="city">
-        
-            <label for="subCity">Subcity:</label>
-            <input type="text" id="subCity" name="subCity">
-        
-            <label for="woreda">Woreda:</label>
-            <input type="number" id="woreda" name="woreda">
-        
-            <label for="houseNumber">House Number:</label>
-            <input type="number" id="houseNumber" name="houseNumber">
-        
-            <label for="dateOfBirth">Date of Birth:</label>
-            <input type="date" id="dateOfBirth" name="dateOfBirth" required>
-        
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        
-           
-        
-            <button type="submit">Add Patient</button>
-        </form>
-        
-        <button id="closeModalBtn" class="mt-4 text-gray-600 hover:text-gray-900">Close</button>
-    </div>
-</div>
+
 
 
             <div style="width:350px;" class="mt-5 mr-5 ml-3 rounded-lg p-8 py-11 font-bold text-2xl bg-gray-600 text-center justify-center items-center text-white mb-5 hover:shadow-2xl cursor-pointer">
@@ -110,11 +62,11 @@
 
     </section>
     <div class="flex justify-between p-10 ml-5">
-        <h1 class="text-2xl  font-bold text-black px-6 py-1  text-center">Patients List </h1>
+        <h1 class="text-2xl  font-bold text-black px-6 py-1  text-center"> </h1>
      
       
        
-             <div class="flex items-center justify-end p-4">
+             <div class="flex items-center justify-end py-2 px-3">
                  <input type="text" placeholder="Search Patients" class="bg-gray-800 text-white border-gray-600 px-6 py-1 rounded-l-full focus:outline-none focus:ring focus:border-blue-300 w-64">
                  <button class="bg-gray-800 text-white px-6 py-1 rounded-r-full">
                      <i class="fas fa-search"></i>
@@ -122,47 +74,26 @@
              </div>
       
      </div>
-    <section style="width:78%;" class="flex-col justify-center items-center mx-auto font-bold  bg-slate-500 py-4 hidden md:flex md-block">
+    <section style="width:78%;" class="flex-col justify-center items-center mx-auto font-bold  bg-slate-500 py-2 hidden md:flex md-block">
 
-        <ul style="width:90%;" class="flex flex-row justify-between text-xl items-center text-white font-bold font-serif">
-            <li>Patient Name</li>
-            <li>Patient ID</li>
-            <li>Date of Registration</li>
-            <li>Linked Doctor</li>
-            <li>Contact</li>
-            <li>Link</li>
-        </ul>
+        <h1 style="width:90%;" class=" text-2xl  text-white font-bold font-serif">
+            Patients List
+        </h1>
         
         
     </section>
 
     <section class="mb-5 hidden md:block ">
-        <div style="width:78%;" class="flex flex-col justify-center items-center mx-auto font-bold bg-white py-4 mt-4 rounded-lg">
+        <div style="width:78%;" class=" flex flex-col justify-center items-center mx-auto font-bold py-4 mt-4 rounded-lg">
 
-            <ul style="width:90%;" class="flex justify-between text-sm items-center text-gray-800 font-bold font-serif rounded-lg">
+            <ol style="width:90%;" id="patientList" class=" patient-list  text-gray-800 font-bold font-serif rounded-lg">
                 <div class="flex" >
-                    <i class="fa-solid fa-hospital-user pr-1"></i>
-                    <li>Bereket werku</li>
-                </div>
-                <li>PRH3456434</li>
-                <li>2023/12/22</li>
-                <div class="flex">
-                    <i class="fa-solid fa-user-doctor pr-1"></i>
-                    <li>Dr.Amanuel kebede</li>
-                </div>
-                <a href="#"><i class="fa-regular fa-id-card"></i></a>
-                
-                    
-                <a href="#"><i class="fa-solid fa-link text-red-600"></i></a>
-                
-                
-                
-        
-            </ul>
+                     
+                </ol>
          
-            
-            
+    
         </div>
+       
 
     
   
@@ -179,7 +110,7 @@
     
   
 
-    <script src="scripts/addPatient.js"></script>
+    <script src="scripts/getPatient.js"></script>
 
     
 </body>
