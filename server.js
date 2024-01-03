@@ -14,7 +14,7 @@ const patientRouter = require('./routers/patient')
 const doctorRouter = require('./routers/doctor')
 
 // db connection and server startup
-mongoose.connect('mongodb://0.0.0.0:27017/cardio-test')
+mongoose.connect('mongodb+srv://lidiyamkt:111@cluster0.y4kxaub.mongodb.net/cardio-test')
     .then(() => {
         app.listen(PORT)
         console.log('Server listening on port', PORT)
