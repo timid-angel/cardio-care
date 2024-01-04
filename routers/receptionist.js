@@ -4,8 +4,7 @@ const multer = require('multer')
 const Patient = require('../model/Patient');
 // controllers
 const { receptionistLoginController } = require('../controllers/loginController')
-const linkController = require('../controllers/linkController')
-const unlinkController = require('../controllers/unlinkController')
+const { linkController, unlinkController } = require('../controllers/linkageController')
 const paymentVerification = require('../controllers/paymentVerification')
 const { createPatientController } = require('../controllers/accountController')
 // middleware

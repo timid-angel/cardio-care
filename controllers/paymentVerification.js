@@ -1,4 +1,5 @@
 const Payment = require('../model/Payment')
+const Patient = require('../model/Patient')
 const path = require('path')
 
 // image upload
@@ -72,15 +73,21 @@ const verify = async (req, res) => {
     const payment = await Payment.findOne({ patient: req.body.patient })
     if (req.body.status == "false") {
         payment.checked = true
-    } else if (req.body.status == "true") {
-        payment.checked = true
-        payment.accepted = true
+        await payment.save
+        return
     }
 
+    payment.checked = true
+    payment.accepted = true
     await payment.save
 
     // CHANGE PATIENT STATUS ONCE DONE
-
+    const patient = await Patient.findOne({ email: payment.patient })
+    const date = new Date(Number(path.basename(payment.img)))
+    patient.lastPaymentDate = date
+    patient.authorized = true
+    await patient.save()
+    res.sendStatus(200)
 }
 
 
