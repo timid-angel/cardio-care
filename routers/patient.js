@@ -37,9 +37,9 @@ router.post('/symptoms', authPatient, addSymptom)
 router.delete('/symptoms', authPatient, deleteSymtpom)
 
 // daily readings
-router.get('/symptoms', authPatient, getReadingsPatient)
-router.post('/symptoms', authPatient, addDailyReading)
-router.delete('/symptoms', authPatient, deleteReading)
+router.get('/readings', authPatient, getReadingsPatient)
+router.post('/readings', authPatient, addDailyReading)
+router.delete('/readings', authPatient, deleteReading)
 
 // orders
 router.get('/orders', authPatient, getOrdersPatient)

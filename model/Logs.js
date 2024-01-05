@@ -14,6 +14,7 @@ const dailyReadingLog = {
 
 const symptomsLog = {
     noteType: String,
+    date: Date,
     description: String,
     trigger: String,
     startTime: Date,

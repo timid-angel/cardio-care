@@ -5,6 +5,7 @@ const Patient = require('../model/Patient')
 const MedicalRecord = require('../model/MedicalRecord')
 const Receptionist = require('../model/Receptionist')
 const bcrypt = require('bcrypt')
+const path = require('path')
 const multer = require('multer')
 
 // multer middleware for patients
@@ -13,7 +14,6 @@ const storagePatient = multer.diskStorage({
         cb(null, path.join(__dirname, "..", "images", "patients"))
     },
     filename: (req, file, cb) => {
-        console.log(file)
         cb(null, Date.now() + path.extname(file.originalname))
     }
 })
@@ -25,7 +25,6 @@ const storageDoctor = multer.diskStorage({
         cb(null, path.join(__dirname, "..", "images", "doctors"))
     },
     filename: (req, file, cb) => {
-        console.log(file)
         cb(null, Date.now() + path.extname(file.originalname))
     }
 })
@@ -73,7 +72,7 @@ const createDoctorController = async (req, res) => {
         }
 
         // add default values and changes to the incoming doctor account
-        if (req.file?.image) {
+        if (req.file?.filename) {
             body.img = req.file.filename
         }
         body.password = await bcrypt.hash(body.password, 10)
@@ -106,7 +105,7 @@ const createPatientController = async (req, res) => {
         }
 
         // add default values and changes to the incoming patient account
-        if (req.file?.image) {
+        if (req.file?.filename) {
             body.img = req.file.filename
         }
         body.password = await bcrypt.hash(body.password, 10)

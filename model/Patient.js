@@ -11,8 +11,7 @@ const schema = new mongoose.Schema({
     },
     gender: String,
     img: {
-        type: String,
-        unique: true
+        type: String
     },
     password: String,
     email: {
