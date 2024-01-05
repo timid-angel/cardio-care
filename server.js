@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express();
 const mongoose = require('mongoose')
-const cors= require('cors')
+const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const ejs = require('ejs')
 require('dotenv').config()
@@ -14,7 +14,7 @@ const patientRouter = require('./routers/patient')
 const doctorRouter = require('./routers/doctor')
 
 // db connection and server startup
-mongoose.connect('mongodb+srv://lidiyamkt:111@cluster0.y4kxaub.mongodb.net/cardio-test')
+mongoose.connect('mongodb://0.0.0.0:27017/cardio-test')
     .then(() => {
         app.listen(PORT)
         console.log('Server listening on port', PORT)
@@ -25,7 +25,6 @@ app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
 app.set('view engine', "ejs")
-
 
 // routes
 app.use('/receptionist', receptionistRouter)

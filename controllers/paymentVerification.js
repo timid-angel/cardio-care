@@ -6,7 +6,7 @@ const path = require('path')
 const multer = require('multer')
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, "..", "images"))
+        cb(null, path.join(__dirname, "..", "images", "payments"))
     },
     filename: (req, file, cb) => {
         console.log(file)
@@ -35,13 +35,12 @@ const getPaymentReceipt = async (req, res) => {
     }
 
     const patient = await Payment.findOne({ patient: req.body.patient })
-    console.log(patient)
     if (!patient) {
         res.status(400).json({ 'error': 'Patient not found' })
         return
     }
 
-    const filePath = path.join(__dirname, "..", "images") + "/" + patient.img
+    const filePath = path.join(__dirname, "..", "images", "payments") + "/" + patient.img
     console.log(filePath)
     res.sendFile(filePath)
 }
@@ -56,6 +55,7 @@ const postPayment = async (req, res) => {
         patient: req.body.email,
         img: req.file.filename
     })
+    res.sendStatus(201)
 }
 
 // verify/reject receipt

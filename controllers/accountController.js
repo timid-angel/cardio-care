@@ -5,6 +5,31 @@ const Patient = require('../model/Patient')
 const MedicalRecord = require('../model/MedicalRecord')
 const Receptionist = require('../model/Receptionist')
 const bcrypt = require('bcrypt')
+const multer = require('multer')
+
+// multer middleware for patients
+const storagePatient = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, "..", "images", "patients"))
+    },
+    filename: (req, file, cb) => {
+        console.log(file)
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+})
+const uploadPatient = multer({ storage: storagePatient })
+
+// multer middleware for doctors
+const storageDoctor = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, "..", "images", "doctors"))
+    },
+    filename: (req, file, cb) => {
+        console.log(file)
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+})
+const uploadDoctor = multer({ storage: storageDoctor })
 
 const createAdminController = async (req, res) => {
     try {
@@ -47,7 +72,10 @@ const createDoctorController = async (req, res) => {
             return
         }
 
-        // add default values to the incoming doctor account
+        // add default values and changes to the incoming doctor account
+        if (req.file?.image) {
+            body.img = req.file.filename
+        }
         body.password = await bcrypt.hash(body.password, 10)
         if (!body.calendar) {
             const calendar = await Calendar.create({ creationDate: new Date() })
@@ -77,7 +105,10 @@ const createPatientController = async (req, res) => {
             return
         }
 
-        // add default values to the incoming patient account
+        // add default values and changes to the incoming patient account
+        if (req.file?.image) {
+            body.img = req.file.filename
+        }
         body.password = await bcrypt.hash(body.password, 10)
         body.lastPaymentDate = new Date()
         if (!body.currentAppointment) {
@@ -120,4 +151,11 @@ const createReceptionistController = async (req, res) => {
     }
 }
 
-module.exports = { createAdminController, createDoctorController, createPatientController, createReceptionistController }
+module.exports = {
+    createAdminController,
+    createDoctorController,
+    createPatientController,
+    createReceptionistController,
+    uploadPatient,
+    uploadDoctor
+}

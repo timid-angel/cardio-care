@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 // controllers
-const { createAdminController, createReceptionistController, createDoctorController } = require('../controllers/accountController')
+const { createAdminController, createReceptionistController, createDoctorController, uploadDoctor } = require('../controllers/accountController')
 const { adminLoginController } = require('../controllers/loginController')
 // middleware
 const authAdmin = require('../middleware/authAdmin')
@@ -16,7 +16,7 @@ router.post('/login', adminLoginController)
 // account creation
 router.post('/', createAdminController)
 router.post('/receptionist', createReceptionistController)
-router.post('/doctor', createDoctorController)
+router.post('/doctor', uploadDoctor.single('image'), createDoctorController)
 
 // test route
 router.get('/authTEST', authAdmin, (req, res) => {

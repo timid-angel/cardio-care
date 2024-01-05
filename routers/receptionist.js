@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const multer = require('multer')
 const Patient = require('../model/Patient');
 // controllers
 const { receptionistLoginController } = require('../controllers/loginController')
 const { linkController, unlinkController } = require('../controllers/linkageController')
-const paymentVerification = require('../controllers/paymentVerification')
-const { createPatientController } = require('../controllers/accountController')
+const { getPayments, getPaymentReceipt, verify } = require('../controllers/paymentVerification')
+const { createPatientController, uploadPatient } = require('../controllers/accountController')
+const { getPatients } = require('../controllers/getController')
 // middleware
 const authReceptionist = require('../middleware/authReceptionist')
 
@@ -18,31 +18,21 @@ router.get('/login', (req, res) => {
 router.post('/login', receptionistLoginController)
 
 // payment routes
-router.get('/payments', paymentVerification.getPayments)
-router.get('/payments/receipt', paymentVerification.getPaymentReceipt)
-router.post('/payments/receipt', paymentVerification.verify)
+router.get('/payments', getPayments)
+router.get('/payments/receipt', getPaymentReceipt)
+router.post('/payments/receipt', verify)
 
 // link routes
 router.post('/link', authReceptionist, linkController)
 router.post('/unlink', authReceptionist, unlinkController)
 
-// patient creation route
-router.post('/patients', createPatientController)
+// patient routes
+router.post('/patients', uploadPatient.single('image'), createPatientController)
+router.get('/patients', getPatients);
 
 // test routes
 router.get('/authTEST', authReceptionist, (req, res) => {
     res.json({ 'yes': 'YIPPIIEEEE' })
 })
-router.get('/patients', async (req, res) => {
-    try {
-        const patients = await Patient.find({}, { 'name.first': 1, 'name.middle': 1, 'name.last': 1, _id: 0 });
-
-        res.status(200).json({ patients }); // Send the list of patients as JSON
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-
 
 module.exports = router
