@@ -3,6 +3,15 @@ const express = require('express')
 const { getPage, postPayment, upload } = require('../controllers/paymentVerification')
 const { patientLoginController } = require('../controllers/loginController')
 const appointmentController = require('../controllers/appointmentController')
+const {
+    addSymptom,
+    getSymptomsPatient,
+    deleteSymtpom,
+    addDailyReading,
+    getReadingsPatient,
+    deleteReading,
+    getOrdersPatient
+} = require('../controllers/logController')
 // middleware
 const authPatient = require('../middleware/authPatient')
 
@@ -21,6 +30,19 @@ router.post('/appointments', authPatient, appointmentController.addAppointment)
 // payment verification routes
 router.get('/payment', getPage)
 router.post('/payment', upload.single('image'), postPayment)
+
+// symptom logs
+router.get('/symptoms', authPatient, getSymptomsPatient)
+router.post('/symptoms', authPatient, addSymptom)
+router.delete('/symptoms', authPatient, deleteSymtpom)
+
+// daily readings
+router.get('/symptoms', authPatient, getReadingsPatient)
+router.post('/symptoms', authPatient, addDailyReading)
+router.delete('/symptoms', authPatient, deleteReading)
+
+// orders
+router.get('/orders', authPatient, getOrdersPatient)
 
 // test route
 router.get('/authTEST', authPatient, (req, res) => {

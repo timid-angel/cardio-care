@@ -1,5 +1,6 @@
 const doctorNote = {
     noteType: String,
+    patient: String,
     date: Date,
     description: String
 }
@@ -13,7 +14,6 @@ const dailyReadingLog = {
 
 const symptomsLog = {
     noteType: String,
-    date: Date,
     description: String,
     trigger: String,
     startTime: Date,

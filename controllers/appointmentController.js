@@ -2,33 +2,7 @@ const Patient = require('../model/Patient')
 const Doctor = require('../model/Doctor')
 const Calendar = require('../model/Calendar')
 const jwt = require('jsonwebtoken')
-
-// get patient through the web token
-const getPatient = (token) => {
-    let patientId
-    jwt.verify(
-        token,
-        process.env.ACCESS_TOKEN_KEY,
-        (err, decoded) => {
-            patientId = decoded.id
-        }
-    )
-    return patientId
-}
-
-// get doctor through the web token
-const getDoctor = (token) => {
-    let doctor
-    jwt.verify(
-        token,
-        process.env.ACCESS_TOKEN_KEY,
-        (err, decoded) => {
-            doctor = decoded.id
-        }
-    )
-    return doctor
-}
-
+const { getPatientJWTID, getDoctorJWTID } = require('./jwtIDs')
 
 // patient appointment request
 const addAppointment = async (req, res) => {
@@ -46,7 +20,7 @@ const addAppointment = async (req, res) => {
     }
 
     try {
-        const patientId = getPatient(req.cookies.jwt)
+        const patientId = getPatientJWTID(req.cookies.jwt)
         if (!patientId) return res.sendStatus(500)
         const patient = await Patient.findOne({ _id: patientId })
         const doctor = await Doctor.findOne({ _id: patient.mainDoctor })
@@ -77,7 +51,7 @@ const addAppointment = async (req, res) => {
 // obtain appointments that are yet to be resolved
 const getUnresolvedAppointments = async (req, res) => {
     try {
-        const doctorId = getDoctor(req.cookies.jwt)
+        const doctorId = getDoctorJWTID(req.cookies.jwt)
         if (!doctorId) return res.sendStatus(500)
         const doctor = await Doctor.findOne({ _id: doctorId })
         const calendar = await Calendar.findOne({ _id: doctor.calendar })
