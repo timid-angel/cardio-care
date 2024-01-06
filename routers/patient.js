@@ -46,7 +46,7 @@ router.get('/orders', authPatient, getOrdersPatient)
 
 // test route
 router.get('/authTEST', authPatient, (req, res) => {
-    res.send('Authenticated successfully')
+    res.json({ 'success': 'Authenticated successfully' })
 })
 
 module.exports = router

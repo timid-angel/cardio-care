@@ -46,7 +46,7 @@ router.delete('/notes', authDoctor, deleteNote)
 
 // test route
 router.get('/authTEST', authDoctor, (req, res) => {
-    res.send('Authenticated successfully')
+    res.json({ 'success': 'Authenticated successfully' })
 })
 
 module.exports = router

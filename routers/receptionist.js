@@ -1,11 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const Patient = require('../model/Patient');
 // controllers
 const { receptionistLoginController } = require('../controllers/loginController')
 const { linkController, unlinkController } = require('../controllers/linkageController')
 const { getPayments, getPaymentReceipt, verify } = require('../controllers/paymentVerification')
-const { createPatientController, uploadPatient } = require('../controllers/accountController')
+const { createPatientController, uploadPatient, deletePatient } = require('../controllers/accountController')
 const { getPatients } = require('../controllers/getController')
 // middleware
 const authReceptionist = require('../middleware/authReceptionist')
@@ -27,12 +26,13 @@ router.post('/link', authReceptionist, linkController)
 router.post('/unlink', authReceptionist, unlinkController)
 
 // patient routes
-router.post('/patients', uploadPatient.single('image'), createPatientController)
 router.get('/patients', getPatients);
+router.post('/patients', uploadPatient.single('image'), createPatientController)
+router.delete('/patients/:id', authReceptionist, deletePatient)
 
 // test routes
 router.get('/authTEST', authReceptionist, (req, res) => {
-    res.json({ 'yes': 'YIPPIIEEEE' })
+    res.json({ 'success': 'Authenticated successfully' })
 })
 
 module.exports = router

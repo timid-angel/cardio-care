@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 // controllers
-const { createAdminController, createReceptionistController, createDoctorController, uploadDoctor } = require('../controllers/accountController')
+const { createAdminController, createReceptionistController, createDoctorController, uploadDoctor, deleteDoctor, deleteReceptionist } = require('../controllers/accountController')
 const { adminLoginController } = require('../controllers/loginController')
 // middleware
 const authAdmin = require('../middleware/authAdmin')
@@ -14,13 +14,17 @@ router.get('/login', (req, res) => {
 router.post('/login', adminLoginController)
 
 // account creation
-router.post('/', createAdminController)
-router.post('/receptionist', createReceptionistController)
-router.post('/doctor', uploadDoctor.single('image'), createDoctorController)
+router.post('/', authAdmin, createAdminController)
+router.post('/receptionists', authAdmin, createReceptionistController)
+router.post('/doctors', authAdmin, uploadDoctor.single('image'), createDoctorController)
+
+// account deletion
+router.delete('/doctors/:id', authAdmin, deleteDoctor)
+router.delete('/receptionists/:id', authAdmin, deleteReceptionist)
 
 // test route
 router.get('/authTEST', authAdmin, (req, res) => {
-    res.send('Authenticated successfully')
+    res.json({ 'success': 'Authenticated successfully' })
 })
 
 module.exports = router
