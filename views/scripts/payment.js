@@ -1,22 +1,23 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const patientForm = document.getElementById('patientForm');
+    const form = document.getElementById('paymentForm');
 
-    patientForm.addEventListener('submit', async (event) => {
+    
+    form.addEventListener('submit', async (event) => {
         event.preventDefault();
-
-        const formData = new FormData(patientForm);
-
+        
+        const formData = new FormData(form);
+      
         try {
-            const response = await fetch('http://localhost:3000/receptionist/patients', {
+            const response = await fetch('http://localhost:3000/patient/payment', {
                 method: 'POST',
-                body: formData,
+                body: formData
             });
-
+            
             if (response.ok) {
-                alert('Patient added successfully');
+                alert('Payment proof sent successfully');
                 // Handle success (redirect, update UI, etc.)
             } else {
-                alert('Failed to add patient');
+                alert('Failed to send payment try again!');
                 // Handle failure (display error message, etc.)
             }
         } catch (error) {

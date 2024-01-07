@@ -1,12 +1,15 @@
 const express = require('express')
 const router = express.Router()
 const Patient = require('../model/Patient');
+const Payment = require('../model/Payment');
 // controllers
 const { receptionistLoginController } = require('../controllers/loginController')
 const { linkController, unlinkController } = require('../controllers/linkageController')
-const { getPayments, getPaymentReceipt, verify } = require('../controllers/paymentVerification')
+
 const { createPatientController, uploadPatient } = require('../controllers/accountController')
 const { getPatients } = require('../controllers/getController')
+const { getPayments } = require('../controllers/getController')
+const { getDoctors } = require('../controllers/getController')
 // middleware
 const authReceptionist = require('../middleware/authReceptionist')
 
@@ -18,9 +21,13 @@ router.get('/login', (req, res) => {
 router.post('/login', receptionistLoginController)
 
 // payment routes
-router.get('/payments', getPayments)
-router.get('/payments/receipt', getPaymentReceipt)
-router.post('/payments/receipt', verify)
+
+
+
+
+// Handle GET request to /patient/payment
+router.get('/payment', getPayments);
+
 
 // link routes
 router.post('/link', authReceptionist, linkController)
@@ -34,5 +41,5 @@ router.get('/patients', getPatients);
 router.get('/authTEST', authReceptionist, (req, res) => {
     res.json({ 'yes': 'YIPPIIEEEE' })
 })
-
+router.get('/Doctor', getDoctors);
 module.exports = router
