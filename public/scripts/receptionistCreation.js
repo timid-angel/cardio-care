@@ -1,12 +1,10 @@
-// scripts/adminLogin.js
-
 document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('loginForm');
+    const receptionistForm = document.getElementById('receptionistForm');
 
-    loginForm.addEventListener('submit', async (event) => {
+    receptionistForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const formData = new FormData(loginForm);
+        const formData = new FormData(receptionistForm);
         const payload = {};
 
         for (const [key, value] of formData.entries()) {
@@ -14,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:3000/receptionist/login', {
+            const response = await fetch('http://127.0.0.1:3000/admin/receptionist', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,10 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                alert('Login Successful');
-                window.location.href = 'receptionDashboard.html';
+                // Handle successful creation
+                alert('Receptionist created successfully!');
             } else {
-                console.log("unable to login")
+                // Handle creation failure
+                alert('Receptionist creation failed');
             }
         } catch (error) {
             console.error('Error:', error);
@@ -34,8 +33,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-
-
-
-

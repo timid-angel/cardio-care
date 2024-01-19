@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const fetchPayments = async () => {
         try {
             const response = await fetch('http://localhost:3000/receptionist/payment');
+
             if (response.ok) {
                 const payments = await response.json();
                 renderPayments(payments.payments);
@@ -18,9 +19,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const fetchPatients = async () => {
         try {
             const response = await fetch('http://localhost:3000/receptionist/patients');
+
             if (response.ok) {
-                const data = await response.json();
-                renderPatients(data.patients);
+                const patientsData = await response.json();
+                renderPatients(patientsData);
             } else {
                 console.error('Failed to fetch patients');
             }
@@ -28,6 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error('Error:', error);
         }
     };
+
 
     const renderPayments = (payments) => {
         const orderedList = document.createElement('ol');
@@ -40,21 +43,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             const emailElement = document.createElement('span');
             emailElement.textContent = `Patient Email: ${payment.patient}`;
             emailElement.style.fontWeight = 'bold';
-            emailElement.style.paddingTop = '40px';
-            emailElement.style.padding = '20px';
-            emailElement.style.display = 'block';
 
-        
             const imageElement = document.createElement('img');
             imageElement.src = `/cardio-care/images/payments/${payment.img}`;
-            imageElement.alt = 'No Receipt';
+            imageElement.alt = 'Receipt';
             imageElement.classList.add('payment-image');
-            imageElement.style.padding = '30px';
-            imageElement.style.padding = '10px';
 
             const buttonContainer = document.createElement('div');
             buttonContainer.classList.add('button-container');
-            buttonContainer.style.marginBottom='50px';
 
             const verifyButton = document.createElement('button');
             verifyButton.textContent = 'Verify';
@@ -64,53 +60,52 @@ document.addEventListener('DOMContentLoaded', async () => {
             verifyButton.style.color = 'white';
             verifyButton.style.borderRadius = '5px';
             verifyButton.style.marginRight = '10px';
-            verifyButton.style.marginLeft = '10px';
             verifyButton.style.padding = '5px';
             verifyButton.style.fontWeight = 'bold';
-            verifyButton.style.width = '150px';
 
             const deactivateButton = document.createElement('button');
             deactivateButton.textContent = 'Deactivate';
+            deactivateButton.classList.add('deactivate-btn');
             deactivateButton.classList.add('button');
             deactivateButton.style.backgroundColor = 'red';
             deactivateButton.style.color = 'white';
             deactivateButton.style.borderRadius = '5px';
             deactivateButton.style.padding = '5px';
             deactivateButton.style.fontWeight = 'bold';
-            deactivateButton.style.width = '150px';
 
-            verifyButton.addEventListener('click', async () => {
-                const confirmMessage = confirm('Are you sure you want to verify this payment?');
-                if (confirmMessage) {
-               
-                    const paymentItem = deactivateButton.parentElement.parentElement;
-                    verifyButton.style.display = 'none';
-                    imageElement.style.display = 'none';
-                    deactivateButton.style.display = 'none';
-                    paymentItem.style.display = 'none';
-
-                   
-                }
-            });
-
-
-
-
-            // Append elements to DOM
             buttonContainer.appendChild(verifyButton);
             buttonContainer.appendChild(deactivateButton);
+
             listItem.appendChild(emailElement);
             listItem.appendChild(imageElement);
             listItem.appendChild(buttonContainer);
+
             orderedList.appendChild(listItem);
         });
 
         paymentDetails.appendChild(orderedList);
     };
 
-    
-    
-   
-    fetchPayments();
+    const renderPatients = (patients) => {
+        const paymentItems = document.querySelectorAll('.payment-item');
 
+        paymentItems.forEach((paymentItem) => {
+            const emailElement = paymentItem.querySelector('span');
+            const email = emailElement.textContent.split(': ')[1];
+
+            const matchingPatient = patients.find((patient) => patient.email === email);
+            if (matchingPatient) {
+                const fullName = `${matchingPatient.name.first} ${matchingPatient.name.middle || ''} ${matchingPatient.name.last || ''}`;
+                const fullNameElement = document.createElement('span');
+                fullNameElement.textContent = `Full Name: ${fullName}`;
+                fullNameElement.style.fontWeight = 'bold';
+                paymentItem.insertBefore(fullNameElement, emailElement.nextSibling);
+            }
+        });
+    };
+
+
+
+    fetchPayments();
+    fetchPatients();
 });

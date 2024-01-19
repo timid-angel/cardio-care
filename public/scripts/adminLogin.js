@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:3000/receptionist/login', {
+            const response = await fetch('http://127.0.0.1:3000/admin/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -24,9 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 alert('Login Successful');
-                window.location.href = 'receptionDashboard.html';
+                window.location.href = 'adminDashboard.html';
             } else {
-                console.log("unable to login")
+                // Handle login failure (incorrect credentials, server error, etc.)
+               console.log("Unable to log you in")
             }
         } catch (error) {
             console.error('Error:', error);
@@ -34,8 +35,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-
-
-
-

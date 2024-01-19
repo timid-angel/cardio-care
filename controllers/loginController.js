@@ -43,40 +43,44 @@ const receptionistLoginController = async (req, res) => {
 }
 
 const patientLoginController = async (req, res) => {
-    const { email, password } = req.body
+    const { email, password } = req.body;
     if (!email || !password) {
-        res.status(400).json({ 'error': 'was good fam, there is nothing here' })
-        return
+        res.status(400).json({ error: 'Please provide email and password' });
+        return;
     }
 
     try {
-        const patient = await Patient.findOne({ email: email })
+        const patient = await Patient.findOne({ email });
         if (!patient) {
-            res.status(409).json({ 'error': 'Incorrect email or password' })
-            return
-        }
-        const correct = await bcrypt.compare(password, patient.password) // returns a promise apparently
-        if (!correct) {
-            res.cookie('jwt', '', { httpOnly: true, maxAge: 1 })
-            res.status(409).json({ 'error': 'Incorrect email or password' })
-            return
+            res.status(409).json({ error: 'Incorrect email or password' });
+            return;
         }
 
-        // sign the jwt and send it as a cookie upon login
+        const correctPassword = await bcrypt.compare(password, patient.password);
+        if (!correctPassword) {
+            res.status(409).json({ error: 'Incorrect email or password' });
+            return;
+        }
+
+        if (!patient.authorized) {
+            res.status(403).json({ error: 'Account not authorized' });
+            alert('Your account has been deactivated contact your hospital for support')
+            return;
+        }
+
         const token = jwt.sign(
             { id: patient._id, role: 3 },
             process.env.ACCESS_TOKEN_KEY,
-            { expiresIn: 24 * 3600 }
-        )
+            { expiresIn: '24h' }
+        );
 
-        res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 3600000 })
-        res.status(200).json({ 'success': 'Correct credentials' })
-
+        res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 3600000 });
+        res.status(200).json({ success: 'Correct credentials' });
     } catch (err) {
-        res.status(409).json({ 'error': err.message })
+        res.status(500).json({ error: err.message });
     }
+};
 
-}
 
 const doctorLoginController = async (req, res) => {
     const { email, password } = req.body

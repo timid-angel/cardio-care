@@ -1,1 +1,6 @@
-GET http://localhost:3000/localhost:3000/receptionist/Doctor
+PUT http://localhost:3000/receptionist/deactivate-patient/659e6ae9fe53ec4dd34a829f
+Content-Type: application/json
+
+{
+   "authorized": false
+}

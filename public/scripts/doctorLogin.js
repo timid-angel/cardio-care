@@ -1,4 +1,4 @@
-// scripts/adminLogin.js
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:3000/receptionist/login', {
+            const response = await fetch('http://127.0.0.1:3000/doctor/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 alert('Login Successful');
-                window.location.href = 'receptionDashboard.html';
+                window.location.href = 'doctorDashboard.html';
             } else {
                 console.log("unable to login")
             }
@@ -34,8 +34,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-
-
-
-
