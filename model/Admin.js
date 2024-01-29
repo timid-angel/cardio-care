@@ -16,7 +16,7 @@ const schema = new mongoose.Schema({
     phoneNumber: {
         type: String
     },
-    adddress: {
+    address: {
         city: String,
         subCity: String,
         woreda: Number,

@@ -23,7 +23,7 @@ const schema = new mongoose.Schema({
     phoneNumber: {
         type: String
     },
-    adddress: {
+    address: {
         city: String,
         subCity: String,
         woreda: Number,
@@ -34,7 +34,6 @@ const schema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
-    
     linkState: {
         type: String,
         enum: ['inactive', 'active'],

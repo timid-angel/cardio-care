@@ -64,6 +64,21 @@ const getUnresolvedAppointments = async (req, res) => {
     }
 }
 
+// obtain appointments that are yet to be resolved
+const getUpcomingAppointments = async (req, res) => {
+    try {
+        const doctorId = getDoctorJWTID(req.cookies.jwt)
+        if (!doctorId) return res.sendStatus(500)
+        const doctor = await Doctor.findOne({ _id: doctorId })
+        const calendar = await Calendar.findOne({ _id: doctor.calendar })
+
+        res.status(200).json(calendar.upcomingAppointments)
+
+    } catch (err) {
+        res.status(400).json({ 'error': err.message })
+    }
+}
+
 // general method for changing statuses
 const changeAppointmentStatus = async (req, res) => {
     try {
@@ -102,4 +117,4 @@ const changeAppointmentStatus = async (req, res) => {
 }
 
 
-module.exports = { addAppointment, getUnresolvedAppointments, changeAppointmentStatus }
+module.exports = { addAppointment, getUnresolvedAppointments, changeAppointmentStatus, getUpcomingAppointments }
