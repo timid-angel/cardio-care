@@ -78,6 +78,56 @@ router.post('/patients/link', async (req, res) => {
 });
 
 
+router.delete('/unlink/:email', async (req, res) => {
+    const patientEmail = req.params.email;
+
+    try {
+        const updatedPatient = await Patient.findOneAndUpdate(
+            { email: patientEmail },
+            { $unset: { mainDoctor: 1, tempDoctor: 1 }, $set: { linkState: 'inactive' } },
+            { new: true }
+        );
+
+        if (!updatedPatient) {
+            return res.status(404).json({ error: 'Patient not found' });
+        }
+
+        // Remove patientEmail from all doctors' patients arrays
+        const mainDoctorId = updatedPatient.mainDoctor;
+        const tempDoctorId = updatedPatient.tempDoctor;
+
+        const patientEmail = updatedPatient.email;
+        const removePatientFromDoctor = async (doctorId, patientEmail) => {
+            if (doctorId) {
+                console.log(`Removing ${patientEmail} from doctor ${doctorId}`);
+                await Doctor.updateOne(
+                    { _id: doctorId },
+                    { $pull: { patients: patientEmail } }
+                );
+            }
+        };
+
+        await removePatientFromDoctor(mainDoctorId, patientEmail);
+
+        if (tempDoctorId && tempDoctorId !== mainDoctorId) {
+            await removePatientFromDoctor(tempDoctorId, patientEmail);
+        }
+
+        const allDoctors = await Doctor.find({});
+        for (const doctor of allDoctors) {
+            await removePatientFromDoctor(doctor._id, patientEmail);
+        }
+
+        console.log('Patient unlinked successfully');
+        res.status(200).json({ message: 'Patient unlinked successfully', patient: updatedPatient });
+    } catch (error) {
+        console.error('Error unlinking patient:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
 // Route for updating doctor's patients array
 router.post('/doctors/patients', async (req, res) => {
     try {
@@ -137,6 +187,53 @@ router.put('/reactivate-patient/:email', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+router.put(`/verify-payment/:email`, async (req, res) => {
+    const patientEmail = req.params.email;
+
+    try {
+        // Find the payment by patient email and update the 'checked' and 'accepted' attributes
+        const updatedPayment = await Payment.findOneAndUpdate(
+            { patient: patientEmail },
+            { checked: true, accepted: true },
+            { new: true } // To return the updated document
+        );
+
+        if (!updatedPayment) {
+            return res.status(404).json({ error: 'Payment not found' });
+        }
+
+        res.status(200).json({ message: 'Payment verified successfully', payment: updatedPayment });
+    } catch (error) {
+        console.error('Error verifying payment:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.put(`/decline-payment/:email`, async (req, res) => {
+    const patientEmail = req.params.email;
+
+    try {
+        // Find the payment by patient email and update the 'checked' and 'activated' attributes
+        const updatedPayment = await Payment.findOneAndUpdate(
+            { patient: patientEmail },
+            { checked: true, accepted: false },
+            { new: true } // To return the updated document
+        );
+
+        if (!updatedPayment) {
+            return res.status(404).json({ error: 'Payment not found' });
+        }
+
+        res.status(200).json({ message: 'Payment declined successfully', payment: updatedPayment });
+    } catch (error) {
+        console.error('Error declining payment:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
 
 // patient routes
 router.post('/patients', uploadPatient.single('image'), createPatientController)

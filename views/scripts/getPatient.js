@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         linkAsMainButton.style.padding = '4px 8px'; // Decreased padding
         linkAsMainButton.style.cursor = 'pointer';
         linkAsMainButton.style.marginRight = '10px';
+        linkAsMainButton.style.marginLeft = '70px';
         linkAsMainButton.style.marginBottom = '5px'; 
         linkAsMainButton.style.width = '500px'; 
         linkAsMainButton.style.borderRadius='5px'
@@ -116,6 +117,7 @@ linkAsMainButton.addEventListener('mouseout', () => {
         linkAsTempButton.style.padding = '4px 8px'; // Decreased padding
         linkAsTempButton.style.cursor = 'pointer';
         linkAsTempButton.style.marginBottom = '5px'; 
+        linkAsTempButton.style.marginLeft = '70px'; 
         linkAsTempButton.style.width = '500px'; 
         linkAsTempButton.style.borderRadius='5px'
 
@@ -150,15 +152,20 @@ const unlinkButton = document.createElement('button');
        unlinkButton.style.padding = '4px 8px'; // Decreased padding
        unlinkButton.style.cursor = 'pointer';
        unlinkButton.style.marginRight = '10px';
+       unlinkButton.style.marginLeft = '70px';
        unlinkButton.style.width = '500px'; 
        unlinkButton.style.borderRadius='5px'
 
       unlinkButton.addEventListener('mouseover', () => {
-       unlinkButton.style.backgroundColor = '#C03232'; // Light gray on hover
+       unlinkButton.style.backgroundColor = '#C03232'; 
 });
 
 unlinkButton.addEventListener('mouseout', () => {
 unlinkButton.style.backgroundColor = '#B90B0B'; // Restore original color on mouseout
+});
+
+unlinkButton.addEventListener('click', () => {
+    unlinkPatient(email);
 });
 
 
@@ -181,7 +188,27 @@ unlinkButton.style.backgroundColor = '#B90B0B'; // Restore original color on mou
 
 
         
-      
+        async function unlinkPatient(email) {
+            try {
+                const response = await fetch(`http://localhost:3000/receptionist/unlink/${email}`, {
+                    method: 'DELETE',
+                });
+        
+                if (response.ok) {
+                    const data = await response.json();
+                    alert('Patient unlinked successfully:', data);
+                    // Handle success, update UI, etc.
+                } else {
+                    const errorData = await response.json();
+                    alert('Error unlinking patient:', errorData);
+                    // Handle error, show error message, etc.
+                }
+            } catch (error) {
+                console.error('Error unlinking patient:', error);
+                // Handle unexpected errors
+            }
+        }
+       
     
         
 
@@ -309,12 +336,21 @@ unlinkButton.style.backgroundColor = '#B90B0B'; // Restore original color on mou
 
             const patientId= patient.patientId
 
+
+            const authorized=  document.createElement('span');
+            const auth = `Authorized : ${patient.authorized }`;
+            authorized.textContent = auth.trim() || 'information Unavailable ';
+            authorized.style.fontWeight = 'bold';
+           authorized.style.color = '#4E402C';
+            patientInfo.appendChild(authorized);
+
             const linkState=  document.createElement('span');
             const link = `Linkage Status : ${patient.linkState }`;
             linkState.textContent = link.trim() || 'link State Unavailable ';
             linkState.style.fontWeight = 'bold';
            linkState.style.color = '#4E402C';
             patientInfo.appendChild(linkState);
+            
     
             const patientEmail = document.createElement('span');
             const emailIcon = document.createElement('i');
@@ -330,58 +366,99 @@ unlinkButton.style.backgroundColor = '#B90B0B'; // Restore original color on mou
             patientInfo.appendChild(patientEmail);
     
             listItem.appendChild(patientInfo);
+
+            const buttonContainer = document.createElement('div');
+            buttonContainer.style.display = 'flex'; // Use flexbox for the container
+            buttonContainer.style.flexWrap = 'wrap'; // Allow buttons to wrap to the next line if there's not enough space
+            buttonContainer.style.marginLeft = '10px'; // Adjust margin as needed
+
     
-            const icon = document.createElement('i');
-            icon.classList.add('fas');
-            icon.classList.add('fa-link');
-            icon.style.color = '#1C89CF';
-            icon.style.marginLeft = '5px';
-            icon.style.cursor = 'pointer';
-            icon.addEventListener('click', () => {
+            const linkButton = document.createElement('button');
+            linkButton.textContent = 'link';
+            linkButton.style.backgroundColor = '#2487A1';
+            linkButton.style.color = 'white';
+           linkButton.style.border = '1px none'; // Black frame
+           linkButton.style.padding = '4px 4px'; // Decreased padding
+           linkButton.style.cursor = 'pointer';
+           linkButton.style.marginLeft = '10px';
+           linkButton.style.marginBottom = '10px';
+           linkButton.style.maxWidth = '180px'; 
+           linkButton.style.borderRadius='5px'
+           linkButton.style.display='block'
+           linkButton.id = 'linkButton';
+            linkButton.addEventListener('click', () => {
                 showModal(patient.email);
             });
     
-            listItem.appendChild(icon);
-            patientList.appendChild(listItem);
+          
 
-            const reactivateAccount = document.createElement('button');
-            reactivateAccount.textContent = 'reactivate ';
-            reactivateAccount.style.backgroundColor = '#318346'; // Blue color
-            reactivateAccount.style.color = 'white';
-            reactivateAccount.style.border = '1px none'; // Black frame
-            reactivateAccount.style.padding = '4px 8px'; // Decreased padding
-            reactivateAccount.style.cursor = 'pointer';
-            reactivateAccount.style.marginLeft = '10px';
-            reactivateAccount.style.width = '200px'; 
-            reactivateAccount.style.borderRadius='5px'
-            reactivateAccount.style.display='block'
-            reactivateAccount.setAttribute('class', `reactivate`);
-            reactivateAccount.setAttribute('class', `common`);
-            reactivateAccount.dataset.patientId = patientId;
-           
-            listItem.appendChild(reactivateAccount);
-            patientList.appendChild(listItem);
-
-
-            const deactivateButton = document.createElement('button');
-            deactivateButton.textContent = 'deactivate ';
-            deactivateButton.style.backgroundColor = '#B90B0B'; // Blue color
+           const deactivateButton = document.createElement('button');
+            deactivateButton.textContent = 'Deactivate';
+            deactivateButton.style.backgroundColor = '#B90B0B';
             deactivateButton.style.color = 'white';
-            deactivateButton.style.border = '1px none'; // Black frame
-            deactivateButton.style.padding = '4px 8px'; // Decreased padding
+            deactivateButton.style.border = '1px none';
+            deactivateButton.style.padding = '4px 4px';
             deactivateButton.style.cursor = 'pointer';
             deactivateButton.style.marginLeft = '10px';
-            deactivateButton.style.width = '200px'; 
-            deactivateButton.style.borderRadius='5px'
-            deactivateButton.style.display='block'
-            deactivateButton.setAttribute('class', `deactivate`);
-            deactivateButton.setAttribute('class', `common`);
-            listItem.appendChild(deactivateButton);
-            deactivateButton.dataset.patientId =patientId;
+            deactivateButton.style.marginBottom = '10px';
+            deactivateButton.style.maxWidth = '180px';
+            deactivateButton.style.borderRadius = '5px';
+            deactivateButton.style.display = 'inline-block'
+            deactivateButton.setAttribute('class', 'deactivate common');
+            deactivateButton.id = 'deactivateButton';
+         
+            deactivateButton.dataset.patientId = patientId;
+            
+           const reactivateButton = document.createElement('button');
+            reactivateButton.textContent = 'Reactivate';
+            reactivateButton.style.backgroundColor = '#318346';
+            reactivateButton.style.color = 'white';
+            reactivateButton.style.border = '1px none';
+            reactivateButton.style.padding = '4px 4px';
+            reactivateButton.style.cursor = 'pointer';
+            reactivateButton.style.marginLeft = '10px';
+            reactivateButton.style.marginBottom = '10px';
+            reactivateButton.style.maxWidth = '180px';
+            reactivateButton.style.borderRadius = '5px';
+            reactivateButton.id = 'reactivateButton';
+            reactivateButton.setAttribute('class', 'reactivate common');
+         
+            reactivateButton.dataset.patientId = patientId;
+            
+            buttonContainer.appendChild(linkButton);
+            buttonContainer.appendChild(deactivateButton);
+            buttonContainer.appendChild(reactivateButton);
+            
+            listItem.appendChild(buttonContainer);
             patientList.appendChild(listItem);
+           
 
             
-
+            listItem.addEventListener('click', async (event) => {
+                if (event.target === deactivateButton) {
+                    event.preventDefault();
+            
+                    const patientEmail = patient.email;
+            
+                    await deactivatePatient(patientEmail);
+                    console.log('Patient deactivated');
+            
+                    // Toggle button visibility
+                    deactivateButton.style.display = 'none';
+                    reactivateButton.style.display = 'inline-block';
+                } else if (event.target === reactivateButton) {
+                    event.preventDefault();
+            
+                    const patientEmail = patient.email;
+            
+                    await reactivatePatient(patientEmail);
+                    console.log('Patient reactivated');
+            
+                    // Toggle button visibility
+                    reactivateButton.style.display = 'none';
+                    deactivateButton.style.display = 'inline-block';
+                }
+            });
 
             async function deactivatePatient(email) {
                 try {
@@ -391,7 +468,6 @@ unlinkButton.style.backgroundColor = '#B90B0B'; // Restore original color on mou
             
                     if (response.ok) {
                         alert('Patient account deactivated successfully');
-                        // Fetch and display updated patients
                         fetchPatients();
                     } else {
                         const data = await response.json();
@@ -409,6 +485,7 @@ unlinkButton.style.backgroundColor = '#B90B0B'; // Restore original color on mou
                 }
             }
             
+            
             async function reactivatePatient(email) {
                 try {
                     const response = await fetch(`http://localhost:3000/receptionist/reactivate-patient/${email}`, {
@@ -417,7 +494,6 @@ unlinkButton.style.backgroundColor = '#B90B0B'; // Restore original color on mou
             
                     if (response.ok) {
                         alert('Patient account reactivated successfully');
-                        // Fetch and display updated patients
                         fetchPatients();
                     } else {
                         const data = await response.json();
@@ -435,16 +511,9 @@ unlinkButton.style.backgroundColor = '#B90B0B'; // Restore original color on mou
                 }
             }
             
-            ``
-            deactivateButton.addEventListener('click', async (event) => {
-                const patientEmail = patient.email; // Retrieve patient's email here
-                await deactivatePatient(patientEmail);
-            });
+           
             
-            reactivateAccount.addEventListener('click', async (event) => {
-                const patientEmail = patient.email; // Retrieve patient's email here
-                await reactivatePatient(patientEmail);
-            });
+            
         });
   
     };
