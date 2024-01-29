@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient  dashboard</title>
+    <title>Patient dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Roboto:wght@300&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles/output.css">
     <style>
-        body{
+        body {
             font-family: 'Raleway', sans-serif;
         }
     </style>
 </head>
+
 <body class="bg-slate-200">
     <div class="flex items-center justify-between p-4 bg-white">
-      
+
         <div class="flex items-center">
             <img src="image/cclogo.png" alt="Logo" class="h-20 w-20">
             <span class="text-red-600 font-bold text-5xl ml-1">Cardio Care</span>
         </div>
-        
-       
+
+
         <div class="flex items-center">
-            
+
             <img src="image/worke.jpg" alt="Profile Image" class="rounded-full h-12 w-12 mr-2 object-cover">
-    
-           
+
+
             <div>
                 <p class="text-gray-800 font-bold">Royal Hospital</p>
                 <div class="flex items-center">
-                   
+
                     <span class="text-black font-bold"> <i class="fa-solid fa-user"></i> ph647745</span>
                 </div>
             </div>
@@ -51,7 +54,8 @@
                 <h5 class="text-lg">Edit Log</h5>
                 <i class="far fa-edit text-xl" aria-hidden="true"></i>
             </div>
-            <div class="box shadow-md w-52 h-28 flex items-center justify-center flex-col rounded-lg m-3 bg-white cursor-pointer" id="transfer">
+            <div class="box shadow-md w-52 h-28 flex items-center justify-center flex-col rounded-lg m-3 bg-white cursor-pointer"
+                id="transfer">
                 <h5 class="text-lg">Transfer Data</h5>
                 <i class="fas fa-exchange-alt text-xl" aria-hidden="true"></i>
             </div>
@@ -62,225 +66,232 @@
         </div>
 
 
-<!-- modal2 -->
-<section class="bg-slate-300 hidden"  id="export-data">
-    
-    <header class="flex justify-between p-4">
-        <h1 class="text-xl font-bold pt-3">Export Data</h1>
-        <img src="image/cclogo.png" class="w-14 h-14">
-    </header>
-    
-    
-    
-    <main class="p-4">
-        <div class="all mt-14">
-            <div class="choose1 mt-4">
-                <label for="myInput">Select File:</label>
-                <select id="myDropdown" name="myDropdown" class="w-48 h-8">
-                    <option value=""></option>
-                    <option value="patient_records">Patient Records</option>
-                    <option value="ecg_reports">ECG Reports</option>
-                    <option value="lab_results">Lab Results</option>
-                </select>
-            </div>
-            
-            <div class="choose2 mt-4">
-                <label for="myInput">Select Format:</label>
-                <select id="myDropdown" name="myDropdown" class="w-48 h-8">
-                    <option value=""></option>
-                    <option value="pdf">PDF</option>
-                    <option value="csv">CSV</option>
-                    <option value="excel">Excel</option>
-                </select>
-            </div>
-            
-            <div class="choose3 mt-4">
-                <label for="myInput">Select Destination:</label>
-                <select id="myDropdown" name="myDropdown" class="w-48 h-8">
-                    <option value=""></option>
-                    <option value="email">Email</option>
-                    <option value="cloud_storage">Cloud Storage</option>
-                    <option value="ftp">FTP</option>
-                </select>
-            </div>
-        </div>
-        
-        <div class="button mt-6 text-center">
-            <button class="bg-black text-white w-48 h-12 rounded-full">Export</button>
-        </div>
-</section>
+        <!-- modal2 -->
+        <section class="bg-slate-300 hidden" id="export-data">
+
+            <header class="flex justify-between p-4">
+                <h1 class="text-xl font-bold pt-3">Export Data</h1>
+                <img src="image/cclogo.png" class="w-14 h-14">
+            </header>
 
 
-        
 
+            <main class="p-4">
+                <div class="all mt-14">
+                    <div class="choose1 mt-4">
+                        <label for="myInput">Select File:</label>
+                        <select id="myDropdown" name="myDropdown" class="w-48 h-8">
+                            <option value=""></option>
+                            <option value="patient_records">Patient Records</option>
+                            <option value="ecg_reports">ECG Reports</option>
+                            <option value="lab_results">Lab Results</option>
+                        </select>
+                    </div>
 
-        
-<section>
-    <div class="section-three grid grid-cols-1 sm:grid-cols-2 gap-10">
+                    <div class="choose2 mt-4">
+                        <label for="myInput">Select Format:</label>
+                        <select id="myDropdown" name="myDropdown" class="w-48 h-8">
+                            <option value=""></option>
+                            <option value="pdf">PDF</option>
+                            <option value="csv">CSV</option>
+                            <option value="excel">Excel</option>
+                        </select>
+                    </div>
 
-  
-        <div class="box-two h-full">
-            <div class="big-box bg-white shadow-md rounded-lg p-5 mt-16 ml-5 ring-2 ring-slate-600 ring-offset-2 mb-10" >
-                <h1 class="text-center text-2xl sm:text-3xl p-6 font-semibold">My Profile</h1>
-                <div class="img-text">
-                   
-                    <section class="identity lg-flex lg-justify-around text-lg ">
-
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-4">
-                            <div>
-                            <p class="pt-4"><span class="font-semibold">Gender: </span>Male</p>
-                            <p class="pt-4"><span class="font-semibold">Birthdate: </span>21 / 12 / 1912</p>
-                            <p class="pt-4"><span class="font-semibold">Address: </span>Bole Sub-city</p>
-                             </div>
-                             <div>
-                            <p class="lg:pt-4"><span class="font-semibold">Email: </span>martinerry@hotmail.com</p>
-                            <p class="pt-4"><span class="font-semibold">Cell phone: </span>+251944220022</p>
-                            <p class="pt-4"><span class="font-semibold">Primary doctor: </span>Dr. Youwon </p>
-                            </div>
-                        </div>
-
-
-                    </section>
+                    <div class="choose3 mt-4">
+                        <label for="myInput">Select Destination:</label>
+                        <select id="myDropdown" name="myDropdown" class="w-48 h-8">
+                            <option value=""></option>
+                            <option value="email">Email</option>
+                            <option value="cloud_storage">Cloud Storage</option>
+                            <option value="ftp">FTP</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="box-big-two bg-white shadow-md rounded-lg p-6 mt-32 ml-5 ring-2 ring-slate-600 ring-offset-2 text-lg">
-                <h1 class="text-center text-2xl font-bold pb-3">My medical Summary</h1>
-                <h4 class="text-lg font-semibold pb-3">Current Health Condition</h4>
-                <ul class="list-disc pl-10">
-                    <li>Hypertension</li>
-                    <li>Asthma</li>
-                </ul>
-                <h4 class="text-lg font-semibold pb-3">Allergies</h4>
-                <ul class="list-disc pl-10">
-                    <li>Penicillin</li>
-                    <li>Shellfish</li>
-                </ul>
-                <h4 class="text-lg font-semibold pb-3">Medication</h4>
-                <ul class="list-disc pl-10">
-                    <li>Lisinopril (10 mg, once daily)</li>
-                    <li>Metformin (500 mg, twice daily)</li>
-                    <li>Albuterol Inhaler (As needed)</li>
-                </ul>
-                <h4 class="text-lg font-semibold pb-3">Recent Medication</h4>
-                <ul class="list-disc pl-10">
-                    <li>May 2023: Appendectomy</li>
-                    <li>January 2023: Annual Physical Examination</li>
-                </ul>
-            </div>
+
+                <div class="button mt-6 text-center">
+                    <button class="bg-black text-white w-48 h-12 rounded-full">Export</button>
+                </div>
+        </section>
+
+
+
+
+
+
+        <section>
+            <div class="section-three grid grid-cols-1 sm:grid-cols-2 gap-10">
+
+
+                <div class="box-two h-full">
+                    <div
+                        class="big-box bg-white shadow-md rounded-lg p-5 mt-16 ml-5 ring-2 ring-slate-600 ring-offset-2 mb-10">
+                        <h1 class="text-center text-2xl sm:text-3xl p-6 font-semibold">My Profile</h1>
+                        <div class="img-text">
+
+                            <section class="identity lg-flex lg-justify-around text-lg ">
+
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-4">
+                                    <div>
+                                        <p class="pt-4"><span class="font-semibold">Gender: </span>Male</p>
+                                        <p class="pt-4"><span class="font-semibold">Birthdate: </span>21 / 12 / 1912</p>
+                                        <p class="pt-4"><span class="font-semibold">Address: </span>Bole Sub-city</p>
+                                    </div>
+                                    <div>
+                                        <p class="lg:pt-4"><span class="font-semibold">Email:
+                                            </span>martinerry@hotmail.com</p>
+                                        <p class="pt-4"><span class="font-semibold">Cell phone: </span>+251944220022</p>
+                                        <p class="pt-4"><span class="font-semibold">Primary doctor: </span>Dr. Youwon
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                            </section>
+                        </div>
+                    </div>
+                    <div
+                        class="box-big-two bg-white shadow-md rounded-lg p-6 mt-32 ml-5 ring-2 ring-slate-600 ring-offset-2 text-lg">
+                        <h1 class="text-center text-2xl font-bold pb-3">My medical Summary</h1>
+                        <h4 class="text-lg font-semibold pb-3">Current Health Condition</h4>
+                        <ul class="list-disc pl-10">
+                            <li>Hypertension</li>
+                            <li>Asthma</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold pb-3">Allergies</h4>
+                        <ul class="list-disc pl-10">
+                            <li>Penicillin</li>
+                            <li>Shellfish</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold pb-3">Medication</h4>
+                        <ul class="list-disc pl-10">
+                            <li>Lisinopril (10 mg, once daily)</li>
+                            <li>Metformin (500 mg, twice daily)</li>
+                            <li>Albuterol Inhaler (As needed)</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold pb-3">Recent Medication</h4>
+                        <ul class="list-disc pl-10">
+                            <li>May 2023: Appendectomy</li>
+                            <li>January 2023: Annual Physical Examination</li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <div class="mx-auto  rounded-lg py-6 flex flex-col gap-10 ">
+                    <!-- individual stat -->
+                    <div class="w-fit mx-auto px-5 py-2 hover:shadow-lg hover:bg-slate-100 rounded-xl ">
+                        <h3 class="text-2xl text-center mb-3 font-semibold">Heart Rate</h3>
+                        <div
+                            class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-green-600 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
+                            <h4 class="text-4xl mt-2">59</h4>
+                            <p class="font-light">bpm</p>
+                        </div>
+                        <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
+                            Recordings</a>
+                    </div>
+                    <!-- individual stat -->
+                    <div class="w-fit mx-auto px-5  hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                        <h3 class="text-2xl text-center mb-3 font-semibold">Body Temperature</h3>
+                        <div
+                            class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-orange-400 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
+                            <h4 class="text-4xl mt-2">39</h4>
+                            <p class="font-light">°C</p>
+                        </div>
+                        <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
+                            Recordings</a>
+                    </div>
+                    <!-- individual stat -->
+                    <div class="w-fit mx-auto px-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                        <h3 class="text-2xl text-center mb-3 font-semibold">Blood Sugar</h3>
+                        <div
+                            class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-green-600 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
+                            <h4 class="text-4xl mt-2">116</h4>
+                            <p class="font-light">mg/dL</p>
+                        </div>
+                        <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
+                            Recordings</a>
+                    </div>
+                    <!-- individual stat -->
+                    <div class="w-fit mx-auto px-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                        <h3 class="text-2xl text-center mb-3 font-semibold">Blood Pressure</h3>
+                        <div
+                            class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-red-700 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
+                            <h4 class="text-4xl mt-2">149/96</h4>
+                            <p class="font-light">mmHg</p>
+                        </div>
+                        <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
+                            Recordings</a>
+                    </div>
+                    <!-- individual stat -->
+                    <div class="w-fit mx-auto px-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                        <h3 class="text-2xl text-center mb-3 font-semibold">Respiration Rate</h3>
+                        <div
+                            class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-yellow-500 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
+                            <h4 class="text-4xl mt-2">25</h4>
+                            <p class="font-light">breaths/min</p>
+                        </div>
+                        <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
+                            Recordings</a>
+                    </div>
+                </div>
+        </section>
+        <div class="button  flex justify-center" id="P-button">
+            <button
+                class="bg-orange-600 text-white pl-10 pr-10 pt-3 pb-3 font-bold rounded-full mb-4 mt-3">Payment</button>
         </div>
-        
 
 
+        <!-- modals -->
+        <section class="bg-gray-200 hidden text-center" id="payment">
+
+            <header class="flex flex-col justify-center items-center bg-azure ml-auto mr-auto h-full">
+                <img src="image/cclogo2.png" class="w-28 h-28 mt-4">
+                <h1 class="text-2xl font-bold text-center">Payment Section</h1>
+
+            </header>
 
 
+            <form id="paymentForm" enctype="multipart/form-data">
+                <label for="patientEmail">Patient Email:</label>
+                <input type="text" id="patientEmail" name="email" required>
 
+                <label for="receipt">Upload Receipt:</label>
+                <input type="file" id="image" class="border border-gray-300 rounded px-2 py-1" name="image"
+                    accept="image/*" required>
 
-        <div
-        class="mx-auto  rounded-lg py-6 flex flex-col gap-10 ">
-        <!-- individual stat -->
-        <div class="w-fit mx-auto px-5 py-2 hover:shadow-lg hover:bg-slate-100 rounded-xl ">
-            <h3 class="text-2xl text-center mb-3 font-semibold">Heart Rate</h3>
-            <div
-                class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-green-600 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                <h4 class="text-4xl mt-2">59</h4>
-                <p class="font-light">bpm</p>
+                <div class="button mt-4 text-center">
+                    <button type="submit" class="bg-green-500 hover:bg-green-900 text-white w-40 h-8 rounded-full">Send
+                        now</button>
+                </div>
+            </form>
+
+            <ol id="paymentDetails"></ol>
+            <div class="check text-center font-semibold pt-12">
+                <label for="myCheckbox">I agree to the terms and conditions...</label>
+                <input type="checkbox" id="myCheckbox" name="myCheckbox">
             </div>
-            <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                Recordings</a>
-        </div>
-        <!-- individual stat -->
-        <div class="w-fit mx-auto px-5  hover:shadow-lg hover:bg-slate-100 rounded-xl">
-            <h3 class="text-2xl text-center mb-3 font-semibold">Body Temperature</h3>
-            <div
-                class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-orange-400 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                <h4 class="text-4xl mt-2">39</h4>
-                <p class="font-light">°C</p>
-            </div>
-            <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                Recordings</a>
-        </div>
-        <!-- individual stat -->
-        <div class="w-fit mx-auto px-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
-            <h3 class="text-2xl text-center mb-3 font-semibold">Blood Sugar</h3>
-            <div
-                class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-green-600 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                <h4 class="text-4xl mt-2">116</h4>
-                <p class="font-light">mg/dL</p>
-            </div>
-            <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                Recordings</a>
-        </div>
-        <!-- individual stat -->
-        <div class="w-fit mx-auto px-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
-            <h3 class="text-2xl text-center mb-3 font-semibold">Blood Pressure</h3>
-            <div
-                class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-red-700 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                <h4 class="text-4xl mt-2">149/96</h4>
-                <p class="font-light">mmHg</p>
-            </div>
-            <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                Recordings</a>
-        </div>
-        <!-- individual stat -->
-        <div class="w-fit mx-auto px-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
-            <h3 class="text-2xl text-center mb-3 font-semibold">Respiration Rate</h3>
-            <div
-                class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-yellow-500 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                <h4 class="text-4xl mt-2">25</h4>
-                <p class="font-light">breaths/min</p>
-            </div>
-            <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                Recordings</a>
-        </div>
-    </div>
-</section>
-<div class="button  flex justify-center" id="P-button">
-    <button class="bg-orange-600 text-white pl-10 pr-10 pt-3 pb-3 font-bold rounded-full mb-4 mt-3">Payment</button>
-  </div>
-
-
-  <!-- modals -->
-  <section class="bg-gray-200 hidden text-center" id="payment">
-    
-    <header class="flex flex-col justify-center items-center bg-azure ml-auto mr-auto h-full">
-        <img src="image/cclogo2.png" class="w-28 h-28 mt-4">
-        <h1 class="text-2xl font-bold text-center">Payment Section</h1>
-
-    </header>
-    
-
-    <form id="paymentForm" enctype="multipart/form-data">
-        <label for="patientEmail">Patient Email:</label>
-        <input type="text" id="patientEmail" name="email" required>
-        
-        <label for="receipt">Upload Receipt:</label>
-        <input type="file" id="image" class="border border-gray-300 rounded px-2 py-1" name="image" accept="image/*" required>
-        
-        <div class="button mt-4 text-center">
-            <button  type="submit" class="bg-green-500 hover:bg-green-900 text-white w-40 h-8 rounded-full" >Send now</button>
-        </div>
-    </form>
-
-<ol id="paymentDetails"></ol>
-<div class="check text-center font-semibold pt-12">
-    <label for="myCheckbox">I agree to the terms and conditions...</label>
-    <input type="checkbox" id="myCheckbox" name="myCheckbox">
-</div>
-</section>
+        </section>
 
 
 
 
 
-  
+
     </main>
 
-  
-       
-  
-<script src="scripts/modalController.js"></script>
-<script src="scripts/receptionist/payment.js"></script>
 
-    
+
+
+    <script src="scripts/modalController.js"></script>
+    <script src="scripts/receptionist/payment.js"></script>
+
+
 </body>
+
 </html>
