@@ -2,7 +2,7 @@ const express = require('express')
 const app = express();
 const mongoose = require('mongoose')
 const cors = require('cors')
-const path= require('path')
+const path = require('path')
 
 const cookieParser = require('cookie-parser')
 const ejs = require('ejs')
@@ -16,8 +16,7 @@ const patientRouter = require('./routers/patient')
 const doctorRouter = require('./routers/doctor')
 
 // db connection and server startup
-mongoose.connect('mongodb://localhost:27017/cardio-test')
-
+mongoose.connect('mongodb://0.0.0.0:27017/cardio-test')
     .then(() => {
         app.listen(PORT)
         console.log('Server listening on port', PORT)
@@ -31,7 +30,7 @@ app.use(cookieParser())
 app.use(express.static('public'))
 app.set('view engine', "handlebars")
 
- 
+
 // routes
 app.use('/receptionist', receptionistRouter)
 app.use('/admin', adminRouter)
