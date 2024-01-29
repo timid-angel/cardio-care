@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.href = 'adminDashboard.html';
             } else {
                 // Handle login failure (incorrect credentials, server error, etc.)
-               console.log("Unable to log you in")
+                console.log("Unable to log you in");
             }
         } catch (error) {
             console.error('Error:', error);
@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
 
 
 

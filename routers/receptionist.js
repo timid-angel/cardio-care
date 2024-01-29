@@ -8,7 +8,7 @@ const Doctor = require('../model/Doctor');
 const { receptionistLoginController } = require('../controllers/loginController')
 const { linkController, unlinkController } = require('../controllers/linkageController')
 
-const { createPatientController, uploadPatient } = require('../controllers/accountController')
+const { createPatientController, uploadPatient, deletePatient } = require('../controllers/accountController')
 const { getPatients } = require('../controllers/getController')
 const { getPayments } = require('../controllers/getController')
 const { getDoctors } = require('../controllers/getController')
@@ -37,6 +37,7 @@ router.post('/unlink', authReceptionist, unlinkController)
 
 // Express Router setup in your backend
 
+// Route for linking patients with doctors
 // Route for linking patients with doctors
 router.post('/patients/link', async (req, res) => {
     try {
@@ -77,9 +78,9 @@ router.post('/patients/link', async (req, res) => {
     }
 });
 
-
 router.delete('/unlink/:email', async (req, res) => {
     const patientEmail = req.params.email;
+
 
     try {
         const updatedPatient = await Patient.findOneAndUpdate(
@@ -96,8 +97,7 @@ router.delete('/unlink/:email', async (req, res) => {
         const mainDoctorId = updatedPatient.mainDoctor;
         const tempDoctorId = updatedPatient.tempDoctor;
 
-        const patientEmail = updatedPatient.email;
-        const removePatientFromDoctor = async (doctorId, patientEmail) => {
+        const removePatientFromDoctor = async (doctorId) => {
             if (doctorId) {
                 console.log(`Removing ${patientEmail} from doctor ${doctorId}`);
                 await Doctor.updateOne(
@@ -107,15 +107,14 @@ router.delete('/unlink/:email', async (req, res) => {
             }
         };
 
-        await removePatientFromDoctor(mainDoctorId, patientEmail);
-
+        await removePatientFromDoctor(mainDoctorId);
         if (tempDoctorId && tempDoctorId !== mainDoctorId) {
-            await removePatientFromDoctor(tempDoctorId, patientEmail);
+            await removePatientFromDoctor(tempDoctorId);
         }
 
         const allDoctors = await Doctor.find({});
         for (const doctor of allDoctors) {
-            await removePatientFromDoctor(doctor._id, patientEmail);
+            await removePatientFromDoctor(doctor._id);
         }
 
         console.log('Patient unlinked successfully');
@@ -125,7 +124,6 @@ router.delete('/unlink/:email', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-
 
 
 // Route for updating doctor's patients array
@@ -233,15 +231,14 @@ router.put(`/decline-payment/:email`, async (req, res) => {
 });
 
 
-
-
 // patient routes
 router.post('/patients', uploadPatient.single('image'), createPatientController)
+router.delete('/patients/:id', authReceptionist, deletePatient)
 router.get('/patients', getPatients);
 
 // test routes
 router.get('/authTEST', authReceptionist, (req, res) => {
-    res.json({ 'yes': 'YIPPIIEEEE' })
+    res.json({ 'success': 'Authenticated successfully' })
 })
 router.get('/Doctor', getDoctors);
 module.exports = router

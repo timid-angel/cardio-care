@@ -4,6 +4,7 @@ const Calendar = require('../model/Calendar')
 const Patient = require('../model/Patient')
 const MedicalRecord = require('../model/MedicalRecord')
 const Receptionist = require('../model/Receptionist')
+const { isValidObjectId } = require('mongoose')
 const bcrypt = require('bcrypt')
 const path = require('path')
 const multer = require('multer')
@@ -149,6 +150,58 @@ const createReceptionistController = async (req, res) => {
         res.status(500).json({ 'error': err.message })
     }
 }
+const deletePatient = async (req, res) => {
+    if (!req.params?.id) {
+        return res.status(400).json({ 'error': "Route parameter not found." })
+    }
+    const patientId = req.params.id
+    if (!isValidObjectId(patientId)) {
+        return res.status(400).json({ 'error': 'Invalid ID number' })
+    }
+
+    const patient = await Patient.findOne({ _id: patientId })
+    if (!patient) {
+        return res.status(400).json({ 'error': 'Patient ID not found' })
+    }
+    await MedicalRecord.deleteOne({ _id: patient.medicalRecord })
+    await Patient.deleteOne({ _id: patientId })
+    res.status(200).json({ 'success': 'Deleted patient ID: ' + patientId })
+}
+
+const deleteDoctor = async (req, res) => {
+    if (!req.params?.id) {
+        return res.status(400).json({ 'error': "Route parameter not found." })
+    }
+    const doctorId = req.params.id
+    if (!isValidObjectId(doctorId)) {
+        return res.status(400).json({ 'error': 'Invalid ID number' })
+    }
+
+    const doctor = await Doctor.findOne({ _id: doctorId })
+    if (!doctor) {
+        return res.status(400).json({ 'error': 'Doctor ID not found' })
+    }
+    await Calendar.deleteOne({ _id: doctor.calendar })
+    await Doctor.deleteOne({ _id: doctorId })
+    res.status(200).json({ 'success': 'Deleted doctor ID: ' + doctorId })
+}
+
+const deleteReceptionist = async (req, res) => {
+    if (!req.params?.id) {
+        return res.status(400).json({ 'error': "Route parameter not found." })
+    }
+    const receptionistId = req.params.id
+    if (!isValidObjectId(receptionistId)) {
+        return res.status(400).json({ 'error': 'Invalid ID number' })
+    }
+
+    const receptionist = await Receptionist.findOne({ _id: receptionistId })
+    if (!receptionist) {
+        return res.status(400).json({ 'error': 'Receptionist ID not found' })
+    }
+    await Receptionist.deleteOne({ _id: receptionistId })
+    res.status(200).json({ 'success': 'Deleted receptionist ID: ' + receptionistId })
+}
 
 module.exports = {
     createAdminController,
@@ -156,5 +209,8 @@ module.exports = {
     createPatientController,
     createReceptionistController,
     uploadPatient,
-    uploadDoctor
+    uploadDoctor,
+    deletePatient,
+    deleteDoctor,
+    deleteReceptionist
 }

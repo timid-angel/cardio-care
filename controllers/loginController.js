@@ -9,7 +9,7 @@ const Admin = require('../model/Admin')
 const receptionistLoginController = async (req, res) => {
     const { email, password } = req.body
     if (!email || !password) {
-        res.status(400).json({ 'error': 'was good fam, there is nothing here' })
+        res.status(400).json({ 'error': 'No email or password provided.' })
         return
     }
 
@@ -85,7 +85,7 @@ const patientLoginController = async (req, res) => {
 const doctorLoginController = async (req, res) => {
     const { email, password } = req.body
     if (!email || !password) {
-        res.status(400).json({ 'error': 'Both email and password are required' })
+        res.status(400).json({ 'error': 'No email or password provided.' })
         return
     }
 
@@ -120,7 +120,7 @@ const doctorLoginController = async (req, res) => {
 const adminLoginController = async (req, res) => {
     const { email, password } = req.body
     if (!email || !password) {
-        res.status(400).json({ 'error': 'was good fam, there is nothing here' })
+        res.status(400).json({ 'error': 'No email or password provided.' })
         return
     }
 
