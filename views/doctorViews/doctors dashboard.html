@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" ="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/output.css">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+</head>
+<body class="space-y-4">
+  <header>
+    <nav class="w-full shadow-md justify-between items-center inline-flex">
+      <div class=" p-2.5 justify-center items-center gap-2.5 flex">
+        <img class=" w-[35.20px] h-[35.20px] rounded-[128px]" src="image/image 3.png" />
+        <div class="   text-red-700 text-xl font-normal ">Cardio Care </div>
+      </div>
+      <p class=" text-black text-lg font-bold ">Royal Hospital</p>
+      <div class=" justify-end items-center gap-2.5 flex me-10">
+        <img class=" w-3.5 h-3.5 relative" src="image/search.png">
+        <div class="  self-stretch px-3 justify-start items-center flex space-x-2 ">
+          <img class=" w-6 h-6 relative" src="image/input-prefix.png" />
+          <p class=" text-black text-opacity-90 text-sm font-normal  ">Dr. Serati Ma</p>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main class="flex justify-between">      
+    <div class=" left-sidebar bg-white shadow-inner flex-col justify-start items-start gap-2 flex">
+      <a href="doctors dashboard.html" class="self-stretch hover:bg-red-500">
+          <div class="dashboard self-stretch h-10 px-4   items-center gap-2.5 flex justify-between">
+            <div class="flex gap-2.5">
+              <img class=" w-3.5 h-[14px] left-[-0px] top-[0.75px] " src="image/dashboard icon.png" />
+              <p class="Title  text-sm font-normal   hover:text-white">Dashbaord</p>
+            </div>
+            <img class=" w-2 h-[8px] left-[1px] top-[2.20px]  rotate-0" src="image/dropdown arrow.png" />  
+          </div>          
+      </a>
+      <div class="dropdownmenu  self-stretch h-auto bg-neutral-50  flex-col justify-start items-start gap-2 flex">
+        <div class=" self-stretch pl-10 h-10 bg-sky-100 border-r-2 border-sky-500 justify-start items-center gap-6 inline-flex">
+          <!-- h10 -->
+            <p class=" text-neutral-800 text-sm font-normal  ">overall</p>
+        </div>
+        <div class=" self-stretch pl-10 h-10 pr-6 bg-white bg-opacity-0 justify-start items-start gap-2.5 inline-flex">
+            <p class=" text-black text-opacity-90 text-sm font-normal  ">Upcoming appointment</p>        
+        </div>
+        <div class=" self-stretch pl-10 h-10 pr-6 bg-white bg-opacity-0 justify-start items-start gap-2.5 inline-flex">              
+            <p class=" text-black text-opacity-90 text-sm font-normal  ">Export/import</p>
+        </div>
+      </div>
+      <a href="patList.html" class="self-stretch hover:bg-red-500">
+        <div class="patlist self-stretch h-10 px-4 gap-2.5 flex items-center hover:bg-red-500">
+          <img class=" w-3.5 h-[14px]  " src="image/list icon.png" />
+          <p class="Title text-black text-opacity-90 text-sm font-normal  hover:text-white">Patients List</p>
+        </div>
+      </a>
+      <a href="" class=" hover:bg-red-500 w-full">
+        <div class="appointment self-stretch h-10 px-4 bg-white bg-opacity-0 justify-start items-center gap-2.5 flex">
+            <img class=" w-[12.50px] h-[14px] left-[0.75px] top-[0.75px] " src="image/appointment icon.png" />
+            <p class="Title text-black text-opacity-90 text-sm font-normal   hover:text-white">Appointment</p>
+        </div>
+      </a>
+      <a href="" class=" hover:bg-red-500 w-full">
+        <div class="askleave self-stretch h-10 px-4 bg-white bg-opacity-0 justify-start items-center gap-2.5 flex">
+          <img class=" w-3.5 h-auto left-[-0px] top-[0.88px] " src="image/ask leave icon.png" />
+          <p class="Title text-black text-opacity-90 text-sm font-normal   hover:text-white">Ask leave</p>
+        </div>
+      </a>
+    </div>
+    
+
+    <div class="maincontent mt-6 ml-0 space-y-6">
+      <div class="DocDetails p-2.5  bg-neutral-50 rounded-[10px] shadow-md justify-start items-center gap-[37px] inline-flex">
+        <div class=" flex-col justify-start items-start gap-4 inline-flex">
+          <p class=" text-black text-xl font-normal ">Dr. serati Ma</p>
+          <p class=""><span class="text-black text-sm font-bold  ">ID</span><span class="text-black text-sm font-normal  ">:  DOC-1234</span></p>
+          <p class=""><span class="text-black text-sm font-bold  ">Expertise</span><span class="text-black text-sm font-normal  ">: Senior cardiologist, Msc</span></p>
+          <p class=""><span class="text-black text-sm font-bold  ">phone</span><span class="text-black text-sm font-normal  ">: +25112345678</span></p>
+          <p class=""><span class="text-black text-sm font-bold  ">Email</span><span class="text-black text-sm font-normal  ">: name@example.com</span></p>
+        </div>
+        <img class=" w-[172.01px] h-[215.04px]" src="https://via.placeholder.com/172x215" />
+      </div>
+      <div class="flex justify-center space-x-4">
+        <a href="export modal.html" >
+          <p class="Button btn cursor-pointer w-44  h-14 px-[15px] py-[6.40px] bg-red-500 rounded-[13px] shadow border border-red-500 justify-center items-center gap-2.5 inline-flex text-white hover:bg-red-600">Export </p>
+        </a>
+        <a href="import modal.html">
+          <p class="Button btn cursor-pointer w-44 h-14 px-[15px] py-[6.40px] bg-red-500 rounded-[13px] shadow border border-red-500 justify-center items-center gap-2.5 inline-flex text-white hover:bg-red-600">Import </p>
+        </a>
+      </div>
+    </div>
+
+    <div class="flex flex-col mr-4">
+      <div class="RightSideBar  justify-center items-center gap-2.5 flex-col">
+        <div class="  px-3 py-4 bg-red-500 rounded-tl-2xl rounded-tr-2xl justify-center items-center gap-2.5 flex">
+          <p class=" text-white text-[22px] font-bold  leading-relaxed">Upcoming appointments</p>
+        </div>
+        <div class="UpcomingAppointments flex-col justify-start items-center inline-flex mb-4">
+        
+          <div class="  pl-5 pr-[18px] py-3.5 bg-stone-100 shadow justify-start items-center gap-[9px] inline-flex">
+            <div class="">Jan 1, 2024  <span class="text-black text-opacity-75 text-[13px] font-normal">at</span>  9:00 A.M    </span><span class="text-black text-opacity-70 text-[13px] font-normal ">With</span> </span></div>
+            <div class=" w-[109px] h-[38px] text-black text-[13px] font-normal ">Martin Erno Vinny<br/>ID: PAT-1234</div>
+          </div>
+          <div class="  px-[18px] py-3.5 bg-stone-100 shadow justify-start items-center gap-3 inline-flex">
+            <div class="">Jan 1, 2024  <span class="text-black text-opacity-75 text-[13px] font-normal ">at</span>  9:00 A.M    </span><span class="text-black text-opacity-70 text-[13px] font-normal ">With</span> </span></div>
+            <div class=" w-[109px] h-[38px] text-black text-[13px] font-normal ">Martin Erno Vinny<br/>ID: PAT-1234</div>
+          </div>
+          <div class="  px-[18px] py-3.5 bg-stone-100 shadow justify-start items-center gap-3 inline-flex">
+            <p class="">Jan 1, 2024  <span class="text-black text-opacity-75 text-[13px] font-normal ">at</span>  9:00 A.M   </span><span class="text-black text-opacity-70 text-[13px] font-normal ">With</span> </span></p>
+            <p class=" w-[109px] h-[38px] text-black text-[13px] font-normal ">Martin Erno Vinny<br/>ID: PAT-1234</p>
+          </div>
+          <div class="  px-[18px] py-3.5 bg-stone-100 shadow justify-start items-center gap-3 inline-flex">
+            <p class="">Jan 1, 2024  <span class="text-black text-opacity-75 text-[13px] font-normal ">at</span>  9:00 A.M    </span><span class="text-black text-opacity-70 text-[13px] font-normal ">With</span> </span></p>
+            <p class=" w-[109px] h-[38px] text-black text-[13px] font-normal ">Martin Erno Vinny<br/>ID: PAT-1234</p>
+          </div>
+          <div class="Button btn cursor-pointer h-10 px-[15px] py-[6.40px] bg-red-500 rounded-[13px] shadow border border-red-500 justify-center items-center gap-2.5 inline-flex hover:bg-red-600">
+            <p class="Text  h-[25.20px] text-center text-white text-base font-normal  leading-normal">Load more</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </main>
+  <footer class="footer flex flex-col w-full container justify-end items-center">
+      <div class=" self-stretch justify-center  items-center gap-[23px] inline-flex">
+        <div class=" justify-start items-center gap-[5px] flex">
+          <img class=" w-[15.12px] h-[15.12px] relative" src="image/mail.png">
+          <p class=" text-black text-opacity-40 text-sm font-normal  leading-snug">CardioCare.example.com</p>
+        </div>
+        <img class=" w-[29.16px] h-[29.16px] rounded-[72px]" src="image/image 3.png" />
+          <div class=" justify-center items-center gap-[5px] flex">
+            <p class=" text-black text-opacity-40 text-sm font-normal  leading-snug">+251912345678</p>
+            <img class=" w-[16.63px] h-[16.63px] relative bg-white" src="image/phone.svg">
+          </div>
+      </div>
+      <div class=" text-black text-opacity-40 text-sm font-normal  leading-snug">Copyright ©2024 Cardio Care patient health management system. All rights resserved</div>
+  </footer> 
+    
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/output.css">
+    <link rel="icon" href="image/cardio-care logo-modified.png ">
+    <title>Martin Erno Vinny</title>
+</head>
+
+<body class="bg-slate-50 overflow-x-hidden flex flex-col items-center">
+
+    <header class="bg-red-900 w-full h-16 flex items-center">
+        <div
+            class="text-md h-14 rounded-md w-fit pr-3 pl-2 ml-4 flex items-center text-white hover:bg-red-950 cursor-pointer">
+            <img src="image/arrow-left.svg" alt="" class="w-8 h-8">
+            <p class="text-2xl pl-2 flex items-center h-full">Back to Dashboard</p>
+        </div>
+    </header>
+
+    <main class="min-h-screen flex flex-col lg:flex-row w-full max-w-screen-2xl my-2">
+
+        <!-- info -->
+        <div class="w-full lg:w-9/12 py-8 px-2 md:pl-12 md:pr-10 mx-auto">
+            <!-- patient card -->
+            <div class="bg-red-200 md:h-96 rounded-xl">
+                <!-- card header -->
+                <div class="h-16 flex justify-between rounded-t-xl border-b-2 border-red-900">
+                    <div class="flex items-center ml-2">
+                        <img src="./image/cardio-care logo.jpg" alt=""
+                            class="w-12 h-12 mr-4 rounded-full shadow-inner">
+                        <h3 class="text-2xl text-slate-600">Martin Erno Vinny</h3>
+                    </div>
+                    <div class="flex items-center mr-8">
+                        <p class="text-slate-600 text-xl font-semibold hidden md:block">Patient Card</p>
+                    </div>
+                </div>
+                <!-- card content -->
+                <div class="w-full md:h-80 mt-8 md:mt-0 rounded-b-xl flex flex-col md:flex-row relative">
+                    <div class="w-full md:w-3/12 h-full lg:mx-9 flex flex-col justify-center items-center">
+                        <img src="./image/ce9.jpg" alt=""
+                            class="w-56 h-56 md:w-44 md:h-44 xl:w-56 xl:h-56 rounded-full mb-4 outline outline-4 outline-red-800">
+                        <p class="text-lg text-slate-700">ID: 6F52-54587-5SDFLM-75</p>
+                    </div>
+                    <div
+                        class="w-10/12 mx-auto  md:w-7/12 flex flex-col mt-10 ml-8 mb-4 justify-between text-xl text-slate-800">
+                        <div>
+                            <p><span class="font-semibold">Gender: </span>
+                                <span class="editable" id="gender" contenteditable="false">Male</span></p>
+                            <p><span class="font-semibold">Birthdate: </span>
+                                <span class="editable" id="birthdate" contenteditable="false">21 / 12 / 1912</span></p>
+                            <p><span class="font-semibold">Address: </span>
+                                <span class="editable" id="address" contenteditable="false">Bole Sub-city, Woreda 11, 1029</span></p>
+                            <p><span class="font-semibold">Email: </span>
+                                <span class="editable" id="email" contenteditable="false">martinerry@hotmail.com</span></p>
+                            <p><span class="font-semibold">Cell phone: </span>
+                                <span class="editable" id="cellPhone" contenteditable="false">+251944220022</span></p>
+                            <p><span class="font-semibold">Primary doctor: </span>
+                                <span class="editable" id="primaryDoctor" contenteditable="false">Dr. Youwon Live Morrow</span></p>
+                        </div>
+
+                        <div class="ml-auto mt-5 md:mt-0">
+                            <p>Issue Date: 1 / 9 / 1939</p>
+                            <p>Expiry Date: 9 / 8 / 1945</p>
+                        </div>
+                    </div>
+                    <img src="./image/cardio-care logo.jpg" alt=""
+                        class="absolute w-40 h-40 rounded-full opacity-25 right-20 hidden sm:block bottom-20 md:top-10">
+                </div>
+            </div>
+            <hr class="my-14 border-slate-800 border-t-2">
+
+            <div class="bg-slate-200 rounded-xl mt-10 px-3 shadow-md">
+                <div class="h-14 sm:h-16 flex justify-between rounded-t-xl border-b-2 border-red-900">
+                    <div class="flex items-center ml-2">
+                        <h3 class="text-2xl sm:text-3xl text-slate-600">Symptoms log</h3>
+                    </div>
+                    <div class="flex items-center mr-2" id="doctor-order-modal-button">
+                        <img src="image/add-icon.svg" alt="" class="w-10">
+                    </div>
+                </div>
+                <div class="w-full rounded-b-xl flex flex-col relative">
+                    <div
+                        class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900">
+                        <div class="flex gap-4 overflow-hidden w-full">
+                            <p class=" flex items-center justify-center">fresh air started smelling funny</p>
+                        </div>
+                        <div class="flex gap-3 w-20">
+                            <div class="">
+                                <img src="image/clipboard.svg" alt="" class="w-7">
+                            </div>
+                            <div class="">
+                                <img src="image/delete.svg" alt="" class="w-7">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full rounded-b-xl flex flex-col relative">
+                    <div
+                        class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900">
+                        <div class="flex gap-4 overflow-hidden w-full">
+                            <p class=" flex items-center justify-center">can't sit upright no more</p>
+                        </div>
+                        <div class="flex gap-3 w-20">
+                            <div class="">
+                                <img src="image/clipboard.svg" alt="" class="w-7">
+                            </div>
+                            <div class="">
+                                <img src="image/delete.svg" alt="" class="w-7">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full rounded-b-xl flex flex-col relative">
+                    <div
+                        class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900">
+                        <div class="flex gap-4 overflow-hidden w-full">
+                            <p class=" flex items-center justify-center">food makes me want to puke</p>
+                        </div>
+                        <div class="flex gap-3 w-20">
+                            <div class="">
+                                <img src="image/clipboard.svg" alt="" class="w-7">
+                            </div>
+                            <div class="">
+                                <img src="image/delete.svg" alt="" class="w-7">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full rounded-b-xl flex flex-col relative">
+                    <div
+                        class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900">
+                        <div class="flex gap-4 overflow-hidden w-full">
+                            <p class=" flex items-center justify-center">trying to touch my knees makes me lose breath
+                            </p>
+                        </div>
+                        <div class="flex gap-3 w-20">
+                            <div class="">
+                                <img src="image/clipboard.svg" alt="" class="w-7">
+                            </div>
+                            <div class="">
+                                <img src="image/delete.svg" alt="" class="w-7">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-200 rounded-xl mt-10 px-3 shadow-md">
+               
+                <div class="h-14 sm:h-16 flex justify-between rounded-t-xl border-b-2 border-red-900">
+                    <div class="flex items-center ml-2">
+                        <h3 class="text-2xl sm:text-3xl text-slate-600">Daily activity Tracker</h3>
+                    </div>
+                    <div class="flex items-center mr-2" id="doctor-notes-modal-button">
+                        <img src="image/add-icon.svg" alt="" class="w-10">
+                    </div>
+                </div>
+             
+                <form id="activityForm">
+                    <ul class="activity-list">
+                <div class="w-full rounded-b-xl flex flex-col relative">
+                    <div
+                        class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900">
+                        <div class="flex gap-4 items-center w-full overflow-hidden">
+                            <li>
+                                <label>
+                                    <input type="checkbox" name="exercise"> Exercise
+                                </label>
+                            </li>
+                        </div>
+                    
+                    </div>
+                    <div
+                        class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900">
+                        <div class="flex gap-4 items-center w-full overflow-hidden">
+                            <li>
+                                <label>
+                                    <input type="checkbox" name="medication"> Take Medication
+                                </label>
+                            </li>
+                        </div>
+                    </div>
+                    <div
+                        class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900">
+                        <div class="flex gap-4 items-center w-full overflow-hidden">
+                            <li>
+                                <label>
+                                    <input type="checkbox" name="healthyEating"> Eating Healthy
+                                </label>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+                </ul>
+            </form>
+            </div>
+            <hr class="my-14 border-slate-800 border-t-2">
+
+            <div class="flex flex-col sm:flex-row justify-around">
+                <div class="bg-slate-200 rounded-xl px-3 shadow-md w-7/12 mx-auto sm:mx-0 sm:w-6/12 h-96">
+                    <div class="h-16 flex justify-between rounded-t-xl border-b-2 border-red-900">
+                        <div class="flex items-center ml-2">
+                            <h3 class="text-3xl text-slate-600">Add Reading</h3>
+                        </div>
+                    </div>
+                    <form class="h-80 flex flex-col justify-around items-center text-xl">
+
+                        <div class="flex justify-between w-full">
+                            <label class="w-20 ml-4 text-center py-2" for="type">Type</label>
+                            <select name="type" id="typeDropdown"
+                                class="mx-auto w-8/12 text-center bg-rose-200 rounded-md">
+                                <option value="hr">Heart Rate</option>
+                                <option value="bt">Body Temperature</option>
+                                <option value="bs">Blood Sugar</option>
+                                <option value="bp">Blood Pressure</option>
+                                <option value="rr">Respiration Rate</option>
+                            </select>
+                        </div>
+
+                        <div class="flex justify-between w-full">
+                            <label class="w-20 ml-4 text-center py-1" for="value">Value</label>
+                            <input type="text" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm">
+                        </div>
+
+                        <div class="flex justify-between w-full">
+                            <label class="w-20 ml-4 text-center py-1" for="date">Date</label>
+                            <input type="date" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm">
+                        </div>
+                        <button type="submit"
+                            class="bg-red-800 text-slate-100 text-lg py-1 px-3 flex items-center justify-center rounded-3xl hover:bg-red-900 active:bg-red-800 hover:transition-colors shadow-md">
+                            Confirm
+                        </button>
+                    </form>
+                </div>
+
+                <div class="bg-slate-200 rounded-xl px-3 shadow-md w-7/12 mx-auto sm:mx-0 sm:w-4/12 mt-8 sm:mt-0 h-96">
+                    <div class="h-96 flex justify-between rounded-t-xl border-b-2 border-red-900">
+                        <canvas id="summaryChart" width="80" height="96"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4 border-slate-800 border-t-2 lg:hidden w-11/12 mx-auto">
+
+        <div class="w-full lg:w-3/12 px-5 py-8">
+            <div
+                class="mx-auto h-full bg-gray-100 rounded-lg py-6 flex flex-row flex-wrap lg:flex-nowrap lg:flex-col gap-10 shadow-lg">
+                <div class="w-fit mx-auto px-5 py-2 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                    <h3 class="text-2xl text-center mb-3 font-semibold">Heart Rate</h3>
+                    <div
+                        class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-green-600 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
+                        <h4 class="text-4xl mt-2">59</h4>
+                        <p class="font-light">bpm</p>
+                    </div>
+                    <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
+                        Recordings</a>
+                </div>
+                <div class="w-fit mx-auto px-5 py-2 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                    <h3 class="text-2xl text-center mb-3 font-semibold">Body Temperature</h3>
+                    <div
+                        class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-orange-400 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
+                        <h4 class="text-4xl mt-2">39</h4>
+                        <p class="font-light">°C</p>
+                    </div>
+                    <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
+                        Recordings</a>
+                </div>
+                <div class="w-fit mx-auto px-5 py-2 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                    <h3 class="text-2xl text-center mb-3 font-semibold">Blood Sugar</h3>
+                    <div
+                        class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-green-600 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
+                        <h4 class="text-4xl mt-2">116</h4>
+                        <p class="font-light">mg/dL</p>
+                    </div>
+                    <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
+                        Recordings</a>
+                    </div>
+                <div class="w-fit mx-auto px-5 py-2 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                    <h3 class="text-2xl text-center mb-3 font-semibold">Blood Pressure</h3>
+                    <div
+                        class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-red-700 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
+                        <h4 class="text-4xl mt-2">149/96</h4>
+                        <p class="font-light">mmHg</p>
+                    </div>
+                    <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
+                        Recordings</a>
+                </div>
+                <div class="w-fit mx-auto px-5 py-2 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                    <h3 class="text-2xl text-center mb-3 font-semibold">Respiration Rate</h3>
+                    <div
+                        class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-yellow-500 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
+                        <h4 class="text-4xl mt-2">25</h4>
+                        <p class="font-light">breaths/min</p>
+                    </div>
+                    <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
+                        Recordings</a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    
+
+   
+    <div  class="w-full h-full fixed bg-gray-950 bg-opacity-35 hidden">
+        <div class="w-full h-full"></div>
+        <div
+            class="bg-slate-50 w-11/12 sm:w-3/4 md:w-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl z-10">
+            <form class="gap-4 my-6 flex flex-col justify-around items-center text-xl">
+                <div class="flex justify-between w-full">
+                    <label class="w-20 ml-4 text-center py-2" for="type">Type</label>
+                    <select name="type" id="orderTypeDropdown"
+                        class="mx-auto w-8/12 text-center bg-rose-200 rounded-md">
+                        <option value="hr">Heart Rate</option>
+                        <option value="bt">Body Temperature</option>
+                        <option value="bs">Blood Sugar</option>
+                        <option value="bp">Blood Pressure</option>
+                        <option value="rr">Respiration Rate</option>
+                    </select>
+                </div>
+
+                <div class="flex justify-between w-full">
+                    <label class="w-20 ml-4 text-center py-1" for="value">Description</label>
+                    <input type="text" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm shadow-sm border">
+                </div>
+
+                <div class="flex justify-between w-full">
+                    <label class="w-20 ml-4 text-center py-1" for="date">Start Date</label>
+                    <input type="date" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm shadow-sm border">
+                </div>
+
+                <div class="flex justify-between w-full">
+                    <label class="w-20 ml-4 text-center py-1" for="date">End Date</label>
+                    <input type="date" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm shadow-sm border">
+                </div>
+
+                <button type="submit"
+                    class="bg-red-800 text-slate-100 text-lg py-1 px-3 flex items-center justify-center rounded-3xl hover:bg-red-900 active:bg-red-800 hover:transition-colors shadow-md">
+                    Confirm
+                </button>
+            </form>
+        </div>
+    </div>
+    <div  class="w-full h-full fixed bg-gray-950 bg-opacity-35 hidden">
+        <div  class="w-full h-full"></div>
+        <div
+            class="bg-slate-50 w-11/12 sm:w-3/4 md:w-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl z-10">
+            <form class="gap-4 my-6 flex flex-col justify-around items-center text-xl">
+                <div class="flex justify-between w-full">
+                    <label class="w-20 ml-4 text-center py-2" for="type">Type</label>
+                    <select name="type" id="noteTypeDropdown" class="mx-auto w-8/12 text-center bg-rose-200 rounded-md">
+                        <option value="hr">Heart Rate</option>
+                        <option value="bt">Body Temperature</option>
+                        <option value="bs">Blood Sugar</option>
+                        <option value="bp">Blood Pressure</option>
+                        <option value="rr">Respiration Rate</option>
+                    </select>
+                </div>
+
+                <div class="flex justify-between w-full">
+                    <label class="w-20 ml-4 text-center py-1" for="description">Description</label>
+                    <textarea name="description" cols="30" rows="7" class="mx-auto w-8/12 text-left px-2
+                        text-slate-600 rounded-sm shadow-sm border py-1"></textarea>
+                </div>
+
+                <div class="flex justify-between w-full">
+                    <label class="w-20 ml-4 text-center py-1" for="date">Date</label>
+                    <input type="date" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm shadow-sm border">
+                </div>
+                <button type="submit"
+                    class="bg-red-800 text-slate-100 text-lg py-1 px-3 flex items-center justify-center rounded-3xl hover:bg-red-900 active:bg-red-800 hover:transition-colors shadow-md">
+                    Confirm
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <footer class="bg-red-900 w-full h-10 flex justify-center items-center">
+        <p class="text-sm md:text-lg text-center text-white">Copyright &copy; Cardio Care</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="scripts/patient/patient's_log.js"></script>
+
+</body>
+
+</html>
