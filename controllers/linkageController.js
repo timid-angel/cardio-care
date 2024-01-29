@@ -3,36 +3,33 @@ const Doctor = require('../model/Doctor')
 
 const linkController = async (req, res) => {
     try {
-        // the type attribute determines whether the requests links/unlinks the main OR temporary doctor
-        const { doctorEmail, patientEmail, type } = req.body
-        const patient = await Patient.findOne({ email: patientEmail })
-        const doctor = await Doctor.findOne({ email: doctorEmail })
+        const { doctorEmail, patientEmail } = req.body;
 
-        const key = type === "main" ? "mainDoctor" : type === "temp" ? "tempDoctor" : 0
-        if (!key) {
-            res.status(400).json({ 'error': "Invalid 'type' input" })
-            return
+        const patient = await Patient.findOne({ email: patientEmail });
+        const doctor = await Doctor.findOne({ email: doctorEmail });
+
+        if (!patient || !doctor) {
+            return res.status(400).json({ error: 'Patient or Doctor not found' });
         }
 
-        if (doctor.patients.indexOf(patient._id) !== -1) {
-            res.status(400).json({ "error": "Patient and doctor are already linked" })
-            return
-        }
-        if (patient[key]) {
-            res.status(400).json({ "error": `Patient already has a ${key} doctor` })
-            return
-        }
-        patient[key] = doctor._id
-        doctor.patients.push(patient._id)
+        const doctorUpdated = await Doctor.findOneAndUpdate(
+            { email: doctorEmail },
+            { $addToSet: { patients: patientEmail } },
+            { new: true }
+        );
 
-        patient.save()
-        doctor.save()
-        res.status(200).json({ 'success': `Patient: ${patientEmail} has been linked with Doctor: ${doctorEmail} with type: ${type}.` })
+        if (!doctorUpdated) {
+            return res.status(400).json({ error: 'Failed to update doctor' });
+        }
+
+        return res.status(200).json({
+            success: `Patient: ${patientEmail} has been linked with Doctor: ${doctorEmail}.`
+        });
     } catch (err) {
-        res.status(400).json({ "error": err.message })
+        return res.status(400).json({ error: err.message });
     }
+};
 
-}
 
 const unlinkController = async (req, res) => {
     try {

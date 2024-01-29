@@ -15,8 +15,14 @@ router.post('/login', adminLoginController)
 
 // account creation
 router.post('/', authAdmin, createAdminController)
-router.post('/receptionists', authAdmin, createReceptionistController)
+router.post('/receptionist', authAdmin, createReceptionistController)
 router.post('/doctors', authAdmin, uploadDoctor.single('image'), createDoctorController)
+
+
+// Account creation temp
+router.post('/', createAdminController)
+router.post('/receptionists', createReceptionistController)
+router.post('/Doctor', uploadDoctor.single('image'), createDoctorController)
 
 // account deletion
 router.delete('/doctors/:id', authAdmin, deleteDoctor)

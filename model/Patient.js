@@ -34,6 +34,13 @@ const schema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
+    
+    linkState: {
+        type: String,
+        enum: ['inactive', 'active'],
+        default: 'inactive' // Default value for 'linkState'
+    },
+
     lastPaymentDate: Date,
     currentAppointment: Date,
     medicalRecord: {
