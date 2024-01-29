@@ -20,8 +20,7 @@ const router = express.Router()
 
 // login
 router.get('/login', (req, res) => {
-    // render the login page here
-    res.send('THIS IS THE PATIENT LOGIN PAGE')
+    res.render('./patientViews/login')
 })
 router.post('/login', patientLoginController)
 

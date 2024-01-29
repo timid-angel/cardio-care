@@ -1,20 +1,36 @@
 // scripts/adminLogin.js
 
 document.addEventListener('DOMContentLoaded', () => {
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
     const loginForm = document.getElementById('loginForm');
+    const errorDiv = document.getElementById('errorDiv');
+    const entryField = document.getElementById('entryField');
 
     loginForm.addEventListener('submit', async (event) => {
         event.preventDefault();
-
         const formData = new FormData(loginForm);
-        const payload = {};
+        const email = formData.get('email')
+        const password = formData.get('password')
+        if (!emailRegex.test(email)) {
+            errorDiv.classList.remove('hidden');
+            errorDiv.classList.add('block');
+            errorDiv.textContent = 'Please enter a valid email';
+            return
+        }
+        if (password.length < 6) {
+            errorDiv.classList.remove('hidden');
+            errorDiv.classList.add('block');
+            errorDiv.textContent = 'Password length must be atleast 6 characters';
+            return
+        }
 
+        const payload = {};
         for (const [key, value] of formData.entries()) {
             payload[key] = value;
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:3000/patient/login', {
+            const response = await fetch('/patient/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -22,15 +38,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(payload),
             });
 
+            if (response.status === 404 || response.status === 409) {
+                errorDiv.classList.remove('hidden');
+                errorDiv.classList.add('block');
+                errorDiv.textContent = 'Invalid email or password';
+                return
+            }
+
             if (response.ok) {
-                alert('Login Successful');
-                window.location.href = 'patientDashboard.html';
+                window.location.href = '/patient/dashboard';
             } else {
                 console.log("unable to login")
             }
         } catch (error) {
             console.error('Error:', error);
-            // Handle error (network issue, server down, etc.)
         }
     });
+
+    entryField.addEventListener('click', () => {
+        if (errorDiv.classList.contains('block')) {
+            errorDiv.classList.remove('block')
+            errorDiv.classList.add('hidden')
+        }
+    })
 });
