@@ -170,38 +170,46 @@ const deletePatient = async (req, res) => {
 }
 
 const deleteDoctor = async (req, res) => {
-    if (!req.params?.id) {
-        return res.status(400).json({ 'error': "Route parameter not found." })
-    }
-    const doctorId = req.params.id
-    if (!isValidObjectId(doctorId)) {
-        return res.status(400).json({ 'error': 'Invalid ID number' })
+    const email = req.params.email;
+
+    if (!email) {
+        return res.status(400).json({ 'error': "Email parameter not found." });
     }
 
-    const doctor = await Doctor.findOne({ _id: doctorId })
-    if (!doctor) {
-        return res.status(400).json({ 'error': 'Doctor ID not found' })
+    try {
+        const doctor = await Doctor.findOne({ 'email': email });
+
+        if (!doctor) {
+            return res.status(404).json({ 'error': 'Doctor with the specified email not found.' });
+        }
+
+        // Assuming `calendar` is a reference to a Calendar model
+        await Calendar.deleteOne({ _id: doctor.calendar });
+
+        // Delete the doctor using the email
+        await Doctor.deleteOne({ 'email': email });
+
+        return res.status(200).json({ 'success': 'Deleted doctor with email: ' + email });
+    } catch (error) {
+        return res.status(500).json({ 'error': 'Internal server error.' });
     }
-    await Calendar.deleteOne({ _id: doctor.calendar })
-    await Doctor.deleteOne({ _id: doctorId })
-    res.status(200).json({ 'success': 'Deleted doctor ID: ' + doctorId })
-}
+};
+
 
 const deleteReceptionist = async (req, res) => {
-    if (!req.params?.id) {
+    if (!req.params?.email) {
         return res.status(400).json({ 'error': "Route parameter not found." })
     }
-    const receptionistId = req.params.id
-    if (!isValidObjectId(receptionistId)) {
-        return res.status(400).json({ 'error': 'Invalid ID number' })
-    }
+    
+    const receptionistEmail = req.params.email;
 
-    const receptionist = await Receptionist.findOne({ _id: receptionistId })
+    const receptionist = await Receptionist.findOne({ email: receptionistEmail })
     if (!receptionist) {
-        return res.status(400).json({ 'error': 'Receptionist ID not found' })
+        return res.status(400).json({ 'error': 'Receptionist email not found' })
     }
-    await Receptionist.deleteOne({ _id: receptionistId })
-    res.status(200).json({ 'success': 'Deleted receptionist ID: ' + receptionistId })
+    
+    await Receptionist.deleteOne({ email: receptionistEmail })
+    res.status(200).json({ 'success': 'Deleted receptionist email: ' + receptionistEmail })
 }
 
 module.exports = {

@@ -2,6 +2,7 @@ const Patient = require('../model/Patient')
 const Payment = require('../model/Payment')
 const Doctor = require('../model/Doctor')
 const { getDoctorJWTID } = require('./jwtIDs')
+const Receptionist = require('../model/Receptionist')
 
 const getPatients = async (req, res) => {
     try {
@@ -23,7 +24,7 @@ const getPayments = async (req, res) => {
 
 const getDoctors = async (req, res) => {
     try {
-        const doctors = await Doctor.find({}, 'name.first name.middle name.last email patients -_id');
+        const doctors = await Doctor.find({}, 'name.first name.middle name.last email  state expertise patients -_id');
         res.status(200).json({ doctors });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -57,10 +58,19 @@ const getPatientList = async (req, res) => {
     }
 }
 
+const getReceptionists = async (req, res) => {
+    try {
+        const receptionists = await Receptionist.find({}, 'name.first name.middle name.last email  state  -_id');
+        res.status(200).json({ receptionists });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 module.exports = {
     getPatients,
     getPayments,
     getDoctors,
-    getPatientList
+    getPatientList,
+    getReceptionists
 }

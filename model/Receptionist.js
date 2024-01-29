@@ -22,6 +22,10 @@ const schema = new mongoose.Schema({
         subCity: String,
         woreda: Number,
         houseNumber: Number
+    },
+    state: {
+        type: String,
+        default: "active"
     }
 })
 
