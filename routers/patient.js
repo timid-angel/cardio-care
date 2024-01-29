@@ -3,6 +3,7 @@ const express = require('express')
 const { getPage, postPayment, upload } = require('../controllers/paymentVerification')
 const { patientLoginController } = require('../controllers/loginController')
 const appointmentController = require('../controllers/appointmentController')
+const { patientDashboard } = require('../controllers/dashboardController')
 const {
     addSymptom,
     getSymptomsPatient,
@@ -23,6 +24,9 @@ router.get('/login', (req, res) => {
     res.send('THIS IS THE PATIENT LOGIN PAGE')
 })
 router.post('/login', patientLoginController)
+
+// dashboard
+router.get('/dashboard', authPatient, patientDashboard)
 
 // appointment routes
 router.post('/appointments', authPatient, appointmentController.addAppointment)

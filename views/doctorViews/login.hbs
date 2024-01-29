@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor | Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Roboto:wght@300&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/styles/output.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha512-..." crossorigin="anonymous" />
+  <style>
+    body {
+      font-family: 'Raleway', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="flex items-center justify-center h-screen bg-gray-200">
+  <div class="bg-white p-8 rounded-lg shadow-lg flex flex-col items-center space-y-6 max-w-md w-full" id="entryField">
+    <img src="/image/cclogo.png" alt="Logo" class="h-32 w-32">
+    <h1 class="text-2xl">Welcome Back, Doctor</h1>
+    <form class="flex flex-col space-y-4 w-full" id="loginForm">
+      <div>
+        <input type="text" placeholder="Email" name="email"
+          class="w-full border border-black rounded-md px-2 py-2 focus:outline-none focus:border-blue-500">
+      </div>
+      <div>
+        <input type="password" placeholder="Password" name="password"
+          class="w-full border border-red-500 rounded-md px-2 py-2 focus:outline-none focus:border-blue-500">
+      </div>
+      <span id="errorDiv" class="hidden w-full h-8 text-red-500 font-semibold text-center">Sample error message</span>
+      <button type="submit" class="bg-black text-white rounded-md px-4 py-2 hover:bg-slate-700">Login</button>
+    </form>
+
+  </div>
+
+  <script src="/scripts/doctor/doctorLogin.js"></script>
+</body>
+
+</html>

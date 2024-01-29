@@ -2,6 +2,7 @@ const express = require('express')
 // controllers
 const { doctorLoginController } = require('../controllers/loginController')
 const { getUnresolvedAppointments, changeAppointmentStatus } = require('../controllers/appointmentController')
+const { doctorDashboard } = require('../controllers/dashboardController')
 const {
     getSymptomsDoctor,
     getReadingsDoctor,
@@ -19,10 +20,12 @@ const router = express.Router()
 
 // login
 router.get('/login', (req, res) => {
-    // render the login page here
-    res.send('THIS IS THE DOCTOR LOGIN PAGE')
+    res.render('./doctorViews/login')
 })
 router.post('/login', doctorLoginController)
+
+// dashboard
+router.get('/dashboard', authDoctor, doctorDashboard)
 
 // appointment routes
 router.get('/unresolved-appointments', authDoctor, getUnresolvedAppointments)

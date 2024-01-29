@@ -5,7 +5,7 @@ const cors = require('cors')
 const path = require('path')
 
 const cookieParser = require('cookie-parser')
-const ejs = require('ejs')
+const hbs = require('hbs')
 require('dotenv').config()
 const PORT = process.env.PORT || 3000
 
@@ -29,7 +29,7 @@ app.use(cookieParser())
 
 app.use(express.static('./public'))
 app.use(express.static('./images'))
-app.set('view engine', "handlebars")
+app.set('view engine', "hbs")
 
 
 // routes

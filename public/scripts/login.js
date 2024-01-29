@@ -1,5 +1,4 @@
 // scripts/adminLogin.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
 
@@ -27,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.href = 'adminDashboard.html';
             } else {
                 // Handle login failure (incorrect credentials, server error, etc.)
-               console.log("Unable to log you in")
+                console.log("Unable to log you in")
             }
         } catch (error) {
             console.error('Error:', error);
@@ -35,8 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -75,18 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-
-
-
 // scripts/adminLogin.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
-
     loginForm.addEventListener('submit', async (event) => {
         event.preventDefault();
-
         const formData = new FormData(loginForm);
         const payload = {};
 
@@ -117,10 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-
 // scripts/adminLogin.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
 

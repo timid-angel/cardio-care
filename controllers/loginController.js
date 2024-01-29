@@ -52,7 +52,7 @@ const patientLoginController = async (req, res) => {
     try {
         const patient = await Patient.findOne({ email });
         if (!patient) {
-            res.status(409).json({ error: 'Incorrect email or password' });
+            res.status(404).json({ error: 'Incorrect email or password' });
             return;
         }
 
@@ -75,9 +75,9 @@ const patientLoginController = async (req, res) => {
         );
 
         res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 3600000 });
-        res.status(200).json({ success: 'Correct credentials' });
+        res.status(200).redirect('/patient/dashboard');
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ 'error': err.message })
     }
 };
 
@@ -92,9 +92,10 @@ const doctorLoginController = async (req, res) => {
     try {
         const doctor = await Doctor.findOne({ email: email })
         if (!doctor) {
-            res.status(409).json({ 'error': 'Incorrect email or password' })
+            res.status(404).json({ 'error': 'Incorrect email or password' })
             return
         }
+
         const correct = await bcrypt.compare(password, doctor.password) // Fixed variable name to 'doctor'
         if (!correct) {
             res.cookie('jwt', '', { httpOnly: true, maxAge: 1 })
@@ -110,10 +111,10 @@ const doctorLoginController = async (req, res) => {
         )
 
         res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 3600000 })
-        res.status(200).json({ 'success': 'Correct credentials' })
+        res.status(200).redirect('/doctor/dashboard')
 
     } catch (err) {
-        res.status(409).json({ 'error': err.message })
+        res.status(500).json({ 'error': err.message })
     }
 }
 
