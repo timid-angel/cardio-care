@@ -1,0 +1,73 @@
+/* Styling for doctor container */
+.doctor-container {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.receptionist-container {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Styling for ordered list number */
+.number {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Styling for data container */
+.data-container {
+  background-color: #ffffff;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-grow: 1;
+}
+
+/* Styling for buttons */
+button {
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 5px;
+}
+.buttons-container{
+    margin-left: 50%;
+}
+.reactivate-btn {
+  background-color: rgb(17, 146, 17);
+}
+
+.reactivate-btn:hover {
+    background-color: rgb(14, 97, 14);
+  }
+.deactivate-btn {
+  background-color: rgb(177, 24, 24);
+}
+
+.deactivate-btn:hover {
+    background-color: rgb(118, 16, 16);
+  }
+
+.delete-btn {
+  background-color: black;
+}
+
+.delete-btn:hover {
+    background-color: rgb(57, 56, 56);
+  }
+
+/* Responsive styling for buttons */
+@media (max-width: 600px) {
+  button {
+    width: 100%; /* Full width on small screens */
+    display: block; /* Arrange buttons vertically on small screens */
+  }
+}

@@ -1,8 +1,12 @@
 const express = require('express')
 const router = express.Router()
+
+
 // controllers
 const { createAdminController, createReceptionistController, createDoctorController, uploadDoctor, deleteDoctor, deleteReceptionist } = require('../controllers/accountController')
 const { adminLoginController } = require('../controllers/loginController')
+const { getDoctors } = require('../controllers/getController')
+const { getReceptionists } = require('../controllers/getController')
 // middleware
 const authAdmin = require('../middleware/authAdmin')
 
@@ -28,6 +32,16 @@ router.post('/Doctor', uploadDoctor.single('image'), createDoctorController)
 router.delete('/doctors/:id', authAdmin, deleteDoctor)
 router.delete('/receptionists/:id', authAdmin, deleteReceptionist)
 
+router.get('/doctors', getDoctors);
+router.get('/receptionists', getReceptionists);
+
+router.delete('/doctor/:email', deleteDoctor);
+router.delete('/receptionist/:email', deleteReceptionist);
+
+
+
+
+router.delete('/receptionist/:id', deleteReceptionist);
 // test route
 router.get('/authTEST', authAdmin, (req, res) => {
     res.json({ 'success': 'Authenticated successfully' })
