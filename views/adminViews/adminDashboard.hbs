@@ -5,12 +5,12 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receptionist Registration form</title>
+    <title>Admin Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Roboto:wght@300&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles/output.css">
+    <link rel="stylesheet" href="/styles/output.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         integrity="sha512-..." crossorigin="anonymous" />
     <style>
@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Roboto:wght@300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../public/styles/output.css">
+  <link rel="stylesheet" href="/styles/output.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
   <style>
     body {
@@ -35,40 +35,34 @@
 
 </head>
 
-<body class="p-4 bg-slate-200">
-    <div class="flex items-center justify-between p-4 bg-white">
+<body class=" bg-slate-200">
+          <div class="fixed top-0 w-full bg-white z-50 " >
+  <div class="flex items-center justify-between p-4">
+      
+      <div class="flex items-center">
+          <img src="/image/cclogo2.png" alt="Logo" class="h-20 w-20">
+          <span class="text-black font-bold text-5xl ml-1">Cardio Care</span>
+      </div>
+      
+     
+      <div class="flex items-center" >
+          
+          <img src="/image/royal.png" alt="Profile Image" class="rounded-full h-12 w-12 mr-2 object-cover">
 
-        <div class="flex items-center">
-            <img src="../../public/image/cclogo2.png" alt="Logo" class="h-20 w-20">
-            <span class="text-black font-bold text-5xl ml-1">Cardio Care</span>
-        </div>
-
-
-        <div class="flex items-center">
-
-
-           
-
-
-
-            
-            <img src="../../public/image/royal.png" alt="Profile ../../public/Image" class="rounded-full h-12 w-12 mr-2 object-cover">
-    
-           
-
-            <div>
-                <p class="text-gray-800 font-bold">Royal Hospital</p>
-                <div class="flex items-center">
-
-                    <span class="text-black font-bold"> <i class="fa-solid fa-hospital"></i> RH647745</span>
-                </div>
-            </div>
-        </div>
-    </div>
+         
+          <div>
+              <p class="text-gray-800 font-bold">Royal Hospital</p>
+              <div class="flex items-center">
+                 
+                  <span class="text-black font-bold"> <i class="fa-solid fa-hospital"></i> RH647745</span>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
 
 
-    <section>
-        <div class="flex flex-col justify-center items-center md:flex md:flex-row">
+    <div class="flex flex-col justify-center items-center md:flex md:flex-row" style="padding-top: 100px;">
 
 
 
@@ -78,8 +72,8 @@
 
        
 <div style="width: 350px;" class="mr-5 rounded-lg p-8 font-bold text-1xl py-11 mt-5 bg-white text-center justify-center items-center text-gray-800 mb-5 hover:shadow-2xl cursor-pointer">
-    <img src="../../public/image/cclogo2.png" alt="Logo" class="h-12 w-12">
-    <a id="openModalBtn" href="adminDashboard.html">Add Receptionist</a>
+    <img src="/image/cclogo2.png" alt="Logo" class="h-12 w-12">
+    <a id="openModalBtn" href="http://localhost:3000/admin/dashboard">Add Receptionist</a>
     <i class="fa-solid fa-user"></i>
    
 </div>
@@ -87,9 +81,9 @@
 
 
             <div style="width:350px;" class="mt-5 mr-5 ml-3 rounded-lg p-8 py-11 font-bold text-1xl bg-white text-center justify-center items-center  mb-5 hover:shadow-2xl cursor-pointer">
-                <img src="../../public/image/cclogo3.png" alt="Logo" class="h-12 w-12">
+                <img src="/image/cclogo3.png" alt="Logo" class="h-12 w-12">
 
-                <a href="addDoctor.html" class="text-gray-800">Register Doctor</a>
+                <a href="http://localhost:3000/admin/doctorRegistration" class="text-gray-800">Register Doctor</a>
                 <i class="fa-solid fa-user-doctor"></i>
             </div>
 
@@ -97,15 +91,15 @@
 
 
             <div style="width: 350px;" class="mr-5 rounded-lg p-8 font-bold text-1xl py-11 mt-5 bg-white text-center justify-center items-center text-gray-800 mb-5 hover:shadow-2xl cursor-pointer">
-                <img src="../../public/image/cclogo2.png" alt="Logo" class="h-12 w-12">
-                <a id="openModalBtn" href="manage-Recep.html">Manage Receptionists</a>
+                <img src="/image/cclogo2.png" alt="Logo" class="h-12 w-12">
+                <a id="openModalBtn" href="http://localhost:3000/admin/receptionistManagement">Manage Receptionists</a>
                 <i class="fa-solid fa-user"></i>
                
             </div>
 
             <div style="width: 350px;" class="mr-5 rounded-lg p-8 font-bold text-1xl py-11 mt-5 bg-white text-center justify-center items-center text-gray-800 mb-5 hover:shadow-2xl cursor-pointer">
-                <img src="../../public/image/cclogo3.png" alt="Logo" class="h-12 w-12">
-                <a href="manage-Doctor.html" class="text-gray-800">Manage Doctors</a>
+                <img src="/image/cclogo3.png" alt="Logo" class="h-12 w-12">
+                <a href="http://localhost:3000/admin/doctorManagement" class="text-gray-800">Manage Doctors</a>
                 <i class="fa-solid fa-user-doctor"></i>
                
             </div>
@@ -113,11 +107,11 @@
 
         </div>
 
+  <h1 class="text-3xl font-bold mb-4 text-center">Receptionist Registration form</h1>
 
+<div class="flex items-center justify-center min-h-screen">
 
-
-
-        <h1 class="text-3xl font-bold mb-4">Create Receptionist</h1>
+      
         <form id="receptionistForm" class="max-w-md font-bold">
             <label for="firstName" class="block mb-2">First Name:</label>
             <input type="text" id="firstName" name="name.first" required
@@ -172,11 +166,11 @@
                 class="bg-black hover:bg-red-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create
                 Receptionist</button>
         </form>
-       
+       </div>
 
       
-    </form>
-    <script src="../../public/scripts/admin/receptionistCreation.js"> </script>
+ 
+    <script src="/scripts/admin/receptionistCreation.js"> </script>
 
 </body>
 

@@ -1,6 +1,11 @@
 const Patient = require('../model/Patient')
 const Doctor = require('../model/Doctor')
+const PatientRecord = require('../model/MedicalRecord')
+const MedicalRecord = require('../model/MedicalRecord');
 const { getDoctorJWTID, getPatientJWTID } = require('./jwtIDs')
+const path = require('path');
+const fs = require('fs');
+const multer = require('multer')
 
 // check if the doctor is linked to the patient
 function isLinked(patient, doctor) {
@@ -65,6 +70,28 @@ const addDailyReading = async (req, res) => {
     res.status(201).json(patient.dailyReading)
 }
 
+const addReadingsDoctor = async (req, res) => {
+    if (!req.params?.id) return res.sendStatus(400)
+    const patient = await Patient.findById(req.params.id)
+    // check if doctor is linked to patient
+    const doctorId = getDoctorJWTID(req.cookies.jwt)
+    if (!doctorId) return res.sendStatus(400)
+    const doctor = await Doctor.findById(doctorId)
+    if (!isLinked(patient, doctor)) return res.sendStatus(401) // unauthorized
+
+
+    const medicalRecord = await MedicalRecord.findById(patient.medicalRecord._id.toString())
+    const dailyReading = req.body
+    dailyReading.date = dailyReading.date || new Date()
+    const arr = medicalRecord[req.body.noteType]
+    arr.push(dailyReading)
+    dailyReading.noteType = req.body.noteType
+    patient.dailyReading.push(dailyReading)
+    await patient.save()
+    await medicalRecord.save()
+    res.sendStatus(201)
+}
+
 const getReadingsPatient = async (req, res) => {
     const patientId = getPatientJWTID(req.cookies.jwt)
     if (!patientId) return res.sendStatus(500)
@@ -81,7 +108,14 @@ const getReadingsDoctor = async (req, res) => {
     const doctor = await Doctor.findById(doctorId)
     if (!isLinked(patient, doctor)) return res.sendStatus(401) // unauthorized
     if (!patient) return res.sendStatus(400)
-    res.status(200).json(patient.dailyReading)
+    const medicalRecord = await MedicalRecord.findById(patient.medicalRecord._id)
+    res.status(200).json({
+        bloodPressure: medicalRecord.bloodPressure.slice(-5),
+        bloodSugar: medicalRecord.bloodSugar.slice(-5),
+        bodyTemperature: medicalRecord.bodyTemperature.slice(-5),
+        pulseRate: medicalRecord.pulseRate.slice(-5),
+        respirationRate: medicalRecord.respirationRate.slice(-5)
+    })
 }
 
 const deleteReading = async (req, res) => {
@@ -199,6 +233,83 @@ const deleteNote = async (req, res) => {
     res.status(200).json(doctor.notes)
 }
 
+const handleImport = async (req, res) => {
+    try {
+        const patientId = getPatientJWTID(req.cookies.jwt);
+        if (!patientId) return res.sendStatus(500);
+
+        const patient = await Patient.findById(patientId);
+
+        if (!patient) {
+            return res.status(404).json({ error: 'Patient not found' });
+        }
+        // console.log(req.file)
+        console.log(req.file)
+        if (!req.file) {
+            return res.status(400).json({ error: 'No file uploaded' });
+        }
+        if (req.file.originalname.indexOf("json") == -1 || req.file.filename.indexOf("json") == -1) {
+            console.log("Substring found!");
+        }
+        const fileContent = fs.readFileSync(req.file.path, 'utf-8');
+
+        const importedMedicalRecordData = JSON.parse(fileContent);
+
+        const importedMedicalRecord = new MedicalRecord(importedMedicalRecordData);
+
+        await importedMedicalRecord.save();
+
+        patient.medicalRecord = importedMedicalRecord;
+        await patient.save();
+        // console.log("patient", patient)
+        // console.log("modified: ", importedMedicalRecord)
+        res.status(201).json({ message: 'Medical record imported successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+const handleExport = async (req, res) => {
+    try {
+        const patientId = getPatientJWTID(req.cookies.jwt);
+        if (!patientId) return res.sendStatus(500);
+
+        const patient = await Patient.findById(patientId);
+
+        if (!patient) {
+            return res.status(404).json({ error: 'Patient not found' });
+        }
+
+        const recordId = patient.medicalRecord;
+        const medicalRecordData = await PatientRecord.findById(recordId);
+
+        if (!medicalRecordData) {
+            return res.status(404).json({ error: 'Medical record not found for the patient' });
+        }
+
+        // const filename = `medical_records_${patientId}.json`;
+        const filename = `jsonFile-${patientId}`;
+
+        const filePath = path.join(__dirname, '..', 'exports', filename);
+
+        const jsonData = JSON.stringify(medicalRecordData, null, 2);
+        console.log(medicalRecordData)
+        fs.mkdirSync(path.join(__dirname, '..', 'exports'), { recursive: true });
+        fs.writeFileSync(filePath, jsonData);
+        console.log(filePath)
+
+        res.download(filePath, filename, () => {
+
+            // fs.unlinkSync(filePath);
+
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
 module.exports = {
     addSymptom,
     addDailyReading,
@@ -214,5 +325,9 @@ module.exports = {
     deleteSymtpom,
     deleteReading,
     deleteOrder,
-    deleteNote
+    deleteNote,
+    handleImport,
+    handleExport,
+    addReadingsDoctor
+
 }

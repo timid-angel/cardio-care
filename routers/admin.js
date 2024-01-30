@@ -9,12 +9,18 @@ const { getDoctors } = require('../controllers/getController')
 const { getReceptionists } = require('../controllers/getController')
 // middleware
 const authAdmin = require('../middleware/authAdmin')
+const { adminDashboard, addDoctor, manageDoctors, manageReceptionits } = require('../controllers/dashboardController')
 
 // login
 router.get('/login', (req, res) => {
     // render the login page here
     res.send('THIS IS THE ADMIN LOGIN PAGE')
 })
+// admin pages
+router.get('/dashboard', adminDashboard);
+router.get('/doctorRegistration', addDoctor);
+router.get('/doctorManagement', manageDoctors);
+router.get('/receptionistManagement', manageReceptionits);
 router.post('/login', adminLoginController)
 
 // account creation

@@ -3,6 +3,8 @@ const express = require('express')
 const { getPage, postPayment, upload } = require('../controllers/paymentVerification')
 const { patientLoginController } = require('../controllers/loginController')
 const appointmentController = require('../controllers/appointmentController')
+const multer = require('multer')
+const path = require('path')
 const { patientDashboard } = require('../controllers/dashboardController')
 const {
     addSymptom,
@@ -11,7 +13,9 @@ const {
     addDailyReading,
     getReadingsPatient,
     deleteReading,
-    getOrdersPatient
+    getOrdersPatient,
+    handleExport,
+    handleImport
 } = require('../controllers/logController')
 // middleware
 const authPatient = require('../middleware/authPatient')
@@ -50,6 +54,37 @@ router.get('/orders', authPatient, getOrdersPatient)
 // test route
 router.get('/authTEST', authPatient, (req, res) => {
     res.json({ 'success': 'Authenticated successfully' })
+})
+
+const storage = multer.diskStorage({
+    destination: 'importUploads/',
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, `${file.fieldname}-${uniqueSuffix}`);
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+
+    const isJsonFile = file.originalname.startsWith('jsonFile-') || file.originalname.endsWith('.json');
+
+    if (isJsonFile) {
+        console.log('vallid type')
+        cb(null, true);
+    } else {
+        cb(new Error('Invalid file type. Only files with names starting with "jsonFile-" or with a .json extension are allowed.'), false); // Reject the file
+    }
+};
+
+const u = multer({ storage: storage, fileFilter: fileFilter });
+
+
+router.post('/importRecord', u.single('jsonFile'), authPatient, handleImport, (req, res) => {
+    res.json({ "message": "successfully imported" })
+})
+
+router.get('/exportRecord', authPatient, handleExport, (req, res) => {
+    res.json({ "message": "successfully exported" })
 })
 
 module.exports = router

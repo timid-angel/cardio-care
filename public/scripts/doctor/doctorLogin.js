@@ -43,6 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return
             }
 
+            if (response.status === 403) {
+                errorDiv.classList.remove('hidden');
+                errorDiv.classList.add('block');
+                errorDiv.textContent = 'Your account has been deactivated. Contact your admins for support';
+                return
+            }
+
             if (response.ok) {
                 window.location.href = '/doctor/dashboard';
             } else {

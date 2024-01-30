@@ -13,7 +13,8 @@ const { getPatients } = require('../controllers/getController')
 const { getPayments } = require('../controllers/getController')
 const { getDoctors } = require('../controllers/getController')
 // middleware
-const authReceptionist = require('../middleware/authReceptionist')
+const authReceptionist = require('../middleware/authReceptionist');
+const { receptionistDashboard, paymentsPage, addPatient } = require('../controllers/dashboardController');
 
 // login routes
 router.get('/login', (req, res) => {
@@ -22,7 +23,13 @@ router.get('/login', (req, res) => {
 })
 router.post('/login', receptionistLoginController)
 
-// payment routes
+
+
+//receptionist Pages
+// page render
+router.get('/dashboard', receptionistDashboard);
+router.get('/payments', paymentsPage);
+router.get('/patientRegistration', addPatient);
 
 
 

@@ -19,6 +19,13 @@ const receptionistLoginController = async (req, res) => {
             res.status(409).json({ 'error': 'Incorrect email or password' })
             return
         }
+
+        if (doctor.status === "inactive") {
+            res.status(403).json({ error: 'Account not authorized' });
+            alert('Your account has been deactivated. Contact your admins for support')
+            return;
+        }
+
         const correct = await bcrypt.compare(password, receptionist.password) // returns a promise apparently
         if (!correct) {
             res.cookie('jwt', '', { httpOnly: true, maxAge: 1 })
@@ -56,15 +63,15 @@ const patientLoginController = async (req, res) => {
             return;
         }
 
-        const correctPassword = await bcrypt.compare(password, patient.password);
-        if (!correctPassword) {
-            res.status(409).json({ error: 'Incorrect email or password' });
+        if (!patient.authorized) {
+            res.status(403).json({ error: 'Account not authorized' });
+            // alert('Your account has been deactivated. Contact your hospital for support')
             return;
         }
 
-        if (!patient.authorized) {
-            res.status(403).json({ error: 'Account not authorized' });
-            alert('Your account has been deactivated contact your hospital for support')
+        const correctPassword = await bcrypt.compare(password, patient.password);
+        if (!correctPassword) {
+            res.status(409).json({ error: 'Incorrect email or password' });
             return;
         }
 
@@ -94,6 +101,12 @@ const doctorLoginController = async (req, res) => {
         if (!doctor) {
             res.status(404).json({ 'error': 'Incorrect email or password' })
             return
+        }
+
+        if (doctor.status === "inactive") {
+            res.status(403).json({ error: 'Account not authorized' });
+            // alert('Your account has been deactivated. Contact your admins for support')
+            return;
         }
 
         const correct = await bcrypt.compare(password, doctor.password) // Fixed variable name to 'doctor'

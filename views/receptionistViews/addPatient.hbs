@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Roboto:wght@300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/output.css">
+  <link rel="stylesheet" href="/styles/output.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
   <style>
     body {
@@ -16,29 +16,36 @@
   </style>
 </head>
 <body class="bg-slate-200">
-    <div class="flex items-center justify-between p-4 bg-white">
+             <div class="fixed top-0 w-full bg-white z-50 " >
+  <div class="flex items-center justify-between p-4">
       
-        <div class="flex items-center">
-            <img src="image/cclogo2.png" alt="Logo" class="h-20 w-20">
-            <span class="text-black font-bold text-5xl ml-1">Cardio Care</span>
-        </div>
-        
-       
-        <div class="flex items-center">
-            
-            <img src="image/royal.png" alt="Profile Image" class="rounded-full h-12 w-12 mr-2 object-cover">
+      <div class="flex items-center">
+          <img src="/image/cclogo2.png" alt="Logo" class="h-20 w-20">
+          <span class="text-black font-bold text-5xl ml-1">Cardio Care</span>
+      </div>
+      
+     
+      <div class="flex items-center" >
+          
+          <img src="/image/royal.png" alt="Profile Image" class="rounded-full h-12 w-12 mr-2 object-cover">
+
+         
+          <div>
+              <p class="text-gray-800 font-bold">Royal Hospital</p>
+              <div class="flex items-center">
+                 
+                  <span class="text-black font-bold"> <i class="fa-solid fa-hospital"></i> RH647745</span>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
     
-           
-            <div>
-                <p class="text-gray-800 font-bold">Royal Hospital</p>
-                <div class="flex items-center">
-                   
-                    <span class="text-black font-bold"> <i class="fa-solid fa-hospital"></i> RH647745</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <h2 class="text-3xl font-bold mb-4 pt-2 text-center">Patient Registration Form</h2>
+    <h2 class="text-3xl font-bold mb-4 pt-2 text-center" style="padding-top: 120px;">Patient Registration Form</h2>
+
     <form id="patientForm" class="max-w-xs mx-auto mt-8" enctype="multipart/form-data">
         <div class="flex flex-col space-y-2">
             <label for="firstName" class="font-bold">First Name:</label>
@@ -72,10 +79,10 @@
             <input type="file" id="imageUpload" name="image" accept="image/*" required class="border border-gray-300 rounded px-2 py-1">
         </div>
         <button type="submit" class="mt-4 bg-red-500 hover:bg-black text-white px-4 py-2 rounded transition duration-300 ease-in-out">Add Patient</button>
-        <button class="mt-4 hover:bg-red-500 bg-black text-white px-4 py-2 rounded transition duration-300 ease-in-out"><a href="receptionDashboard.html">Back to Dashboard</a></button>
+        <button class="mt-4 hover:bg-red-500 bg-black text-white px-4 py-2 rounded transition duration-300 ease-in-out"><a href="http://localhost:3000/receptionist/dashboard">Back to Dashboard</a></button>
     </form>
             
             
-<script src="scripts/receptionist/addPatient.js"> </script>
+<script src="/scripts/receptionist/addPatient.js"> </script>
 </body>
 </html>

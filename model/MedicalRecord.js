@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 
 const vitalReading = {
-    unit: String,
-    value: Number,
+    value: String,
     date: Date
 }
 
