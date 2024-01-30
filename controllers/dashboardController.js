@@ -1,6 +1,7 @@
 const { getDoctorJWTID } = require('./jwtIDs')
 const Doctor = require('../model/Doctor')
 const Patient = require('../model/Patient')
+const MedicalRecord = require('../model/MedicalRecord')
 
 const doctorDashboard = async (req, res) => {
     const doctorID = getDoctorJWTID(req.cookies.jwt)
@@ -22,8 +23,26 @@ const getDoctorPatients = async (req, res) => {
 }
 
 
-const patientDashboard = (req, res) => {
-    res.render('./patientViews/patient-dashboard')
+const patientDashboard = async(req, res) => {
+    const patientID = getPatientJWTID(req.cookies.jwt)
+    const patient = await Patient.findById(patientID)
+    res.render('./patientViews/patient-dashboard', {
+        name: patient.name.first + " " + patient.name.middle[0] + ". " + patient.name.last,
+        gender: patient.gender,
+        image: '/patient/' + patient.img,
+        email: patient.email,
+        birthdate: patient.Date.toString(),
+        phone: patient.phoneNumber,
+        address: patient.address.city+ "" + patient.address.subCity+ "" + patient.address.woreda+ "" + patient.address.houseNumber+ "",
+        primaryDoctor: patient.mainDoctor,
+    })
+
+    const medicalRecord = {
+    currentHealthCondition: ['Condition 1', 'Condition 2', 'Condition 3'],
+    allergies: ['Allergy 1', 'Allergy 2'],
+    medications: ['Medication 1', 'Medication 2', 'Medication 3'],
+    recentMedication: ['Medication 1', 'Medication 2', 'Medication 3'],
+};
 }
 
 // middleware to check if the doctor and the specified patient are linked
