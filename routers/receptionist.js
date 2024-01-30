@@ -17,10 +17,14 @@ const authReceptionist = require('../middleware/authReceptionist');
 const { receptionistDashboard, paymentsPage, addPatient } = require('../controllers/dashboardController');
 
 // login routes
+router.get('/', (req, res) => res.redirect('/receptionist/dashboard'))
 router.get('/login', (req, res) => {
     res.render('./receptionistViews/login')
 })
 router.post('/login', receptionistLoginController)
+router.get('/logout', (req, res) => {
+    res.cookie('jwt', 1, { maxAge: 1 }).redirect('/receptionist/login')
+})
 
 
 //receptionist Pages

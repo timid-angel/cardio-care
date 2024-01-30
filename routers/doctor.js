@@ -21,10 +21,14 @@ const authDoctor = require('../middleware/authDoctor')
 const router = express.Router()
 
 // login
+router.get('/', (req, res) => res.redirect('/doctor/dashboard'))
 router.get('/login', (req, res) => {
     res.render('./doctorViews/login')
 })
 router.post('/login', doctorLoginController)
+router.get('/logout', (req, res) => {
+    res.cookie('jwt', 1, { maxAge: 1 }).redirect('/doctor/login')
+})
 
 // dashboard
 router.get('/dashboard', authDoctor, doctorDashboard)

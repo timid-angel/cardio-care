@@ -12,10 +12,14 @@ const authAdmin = require('../middleware/authAdmin')
 const { adminDashboard, addDoctor, manageDoctors, manageReceptionits } = require('../controllers/dashboardController')
 
 // login
+router.get('/', (req, res) => res.redirect('/admin/dashboard'))
 router.get('/login', (req, res) => {
     res.render('./adminViews/login')
 })
 router.post('/login', adminLoginController)
+router.get('/logout', (req, res) => {
+    res.cookie('jwt', 1, { maxAge: 1 }).redirect('/admin/login')
+})
 
 // admin pages
 router.get('/dashboard', authAdmin, adminDashboard);
