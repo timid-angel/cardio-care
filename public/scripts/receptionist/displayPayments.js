@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const fetchPayments = async () => {
         try {
-            const response = await fetch('http://localhost:3000/receptionist/payment');
+            const response = await fetch('/receptionist/payment');
             if (response.ok) {
                 const payments = await response.json();
                 renderPayments(payments.payments);
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const verifyPayment = async (patientEmail, isAccepted) => {
         try {
-            const response = await fetch(`http://localhost:3000/receptionist/verify-payment/${patientEmail}`, {
+            const response = await fetch(`/receptionist/verify-payment/${patientEmail}`, {
                 method: 'PUT',
                 body: JSON.stringify({ isAccepted }),
                 headers: {
@@ -45,14 +45,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const declinePayment = async (patientEmail, isAccepted = false) => {
         try {
-            const response = await fetch(`http://localhost:3000/receptionist/decline-payment/${patientEmail}`, {
+            const response = await fetch(`/receptionist/decline-payment/${patientEmail}`, {
                 method: 'PUT',
                 body: JSON.stringify({ isAccepted }),
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-    
+
             if (response.ok) {
                 alert(`Payment ${isAccepted ? 'accepted' : 'declined'} successfully`);
                 fetchPayments();
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert(`Error ${isAccepted ? 'accepting' : 'declining'} Payment: Something went wrong`);
         }
     };
-    
+
     const renderPayments = (payments) => {
         const orderedList = document.createElement('ol');
         orderedList.classList.add('payment-list');
@@ -98,11 +98,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             checkStatus.style.display = 'block';
 
             const acceptStatus = document.createElement('span');
-             acceptStatus.textContent = `Payment Accepted: ${payment.accepted}`;
-             acceptStatus.style.fontWeight = 'bold';
-             acceptStatus.style.paddingTop = '40px';
-             acceptStatus.style.padding = '5px';
-             acceptStatus.style.display = 'block';
+            acceptStatus.textContent = `Payment Accepted: ${payment.accepted}`;
+            acceptStatus.style.fontWeight = 'bold';
+            acceptStatus.style.paddingTop = '40px';
+            acceptStatus.style.padding = '5px';
+            acceptStatus.style.display = 'block';
 
             const imageElement = document.createElement('img');
             imageElement.src = `/cardio-care/images/payments/${payment.img}`;

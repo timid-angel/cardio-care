@@ -36,7 +36,7 @@ app.set('view engine', "hbs")
 
 
 // routes
-app.get('/', (req, res) => res.redirect('/patient/login'))
+app.get('/', (req, res) => res.redirect('/patient/dashboard'))
 app.get('/logout', logout)
 app.use('/receptionist', receptionistRouter)
 app.use('/admin', adminRouter)

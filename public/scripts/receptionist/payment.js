@@ -1,18 +1,18 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const form = document.getElementById('paymentForm');
 
-    
+
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
-        
+
         const formData = new FormData(form);
-      
+
         try {
-            const response = await fetch('http://localhost:3000/patient/payment', {
+            const response = await fetch('/patient/payment', {
                 method: 'POST',
                 body: formData
             });
-            
+
             if (response.ok) {
                 alert('Payment proof sent successfully');
 

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:3000/admin', {
+            const response = await fetch('/admin', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const data = await response.json();
-            console.log(data); 
+            console.log(data);
             alert('Admin Creation Successful');
         } catch (error) {
             console.error('Error:', error);

@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const formData = new FormData(patientForm);
 
         try {
-            const response = await fetch('http://localhost:3000/receptionist/patients', {
+            const response = await fetch('/receptionist/patients', {
                 method: 'POST',
                 body: formData,
             });

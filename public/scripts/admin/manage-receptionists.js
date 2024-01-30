@@ -9,49 +9,49 @@ document.addEventListener('DOMContentLoaded', () => {
         return button;
     }
 
-   
 
-    
-  // Function to handle deactivation
-function deactivateReceptionist(receptionistId, receptionist, receptionistContainer) {
-    // Display confirmation message
-    const confirmation = confirm("Are you sure you want to deactivate this receptionist?");
-    if (confirmation) {
-        // Make a PUT request to deactivate the receptionist
-        fetch(`http://127.0.0.1:3000/admin/receptionist/deactivate/${encodeURIComponent(receptionist.email)}`, {
-            method: 'PUT',
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to deactivate receptionist');
-            }
-            // Update the UI or perform additional actions as needed
-          alert(`Successfully deactivated receptionist with email: ${receptionist.email}`);
-        })
-        .catch(error => console.error('Error deactivating receptionist:', error));
+
+
+    // Function to handle deactivation
+    function deactivateReceptionist(receptionistId, receptionist, receptionistContainer) {
+        // Display confirmation message
+        const confirmation = confirm("Are you sure you want to deactivate this receptionist?");
+        if (confirmation) {
+            // Make a PUT request to deactivate the receptionist
+            fetch(`/admin/receptionist/deactivate/${encodeURIComponent(receptionist.email)}`, {
+                method: 'PUT',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to deactivate receptionist');
+                    }
+                    // Update the UI or perform additional actions as needed
+                    alert(`Successfully deactivated receptionist with email: ${receptionist.email}`);
+                })
+                .catch(error => console.error('Error deactivating receptionist:', error));
+        }
     }
-}
 
 
-// Function to handle reactivation
-function reactivateReceptionist(receptionistId, receptionist, receptionistContainer) {
-    // Display confirmation message
-    const confirmation = confirm("Are you sure you want to reactivate this receptionist?");
-    if (confirmation) {
-        // Make a PUT request to reactivate the receptionist
-        fetch(`http://127.0.0.1:3000/admin/receptionist/reactivate/${encodeURIComponent(receptionist.email)}`, {
-            method: 'PUT',
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to reactivate receptionist');
-            }
-            // Update the UI or perform additional actions as needed
-            alert(`Successfully reactivated receptionist with email: ${receptionist.email}`);
-        })
-        .catch(error => console.error('Error reactivating receptionist:', error));
+    // Function to handle reactivation
+    function reactivateReceptionist(receptionistId, receptionist, receptionistContainer) {
+        // Display confirmation message
+        const confirmation = confirm("Are you sure you want to reactivate this receptionist?");
+        if (confirmation) {
+            // Make a PUT request to reactivate the receptionist
+            fetch(`/admin/receptionist/reactivate/${encodeURIComponent(receptionist.email)}`, {
+                method: 'PUT',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to reactivate receptionist');
+                    }
+                    // Update the UI or perform additional actions as needed
+                    alert(`Successfully reactivated receptionist with email: ${receptionist.email}`);
+                })
+                .catch(error => console.error('Error reactivating receptionist:', error));
+        }
     }
-}
 
 
 
@@ -61,7 +61,7 @@ function reactivateReceptionist(receptionistId, receptionist, receptionistContai
         const confirmation = confirm("Are you sure you want to delete this receptionist?");
         if (confirmation) {
             // Fetch receptionist data from the backend
-            fetch('http://127.0.0.1:3000/admin/receptionists')
+            fetch('/admin/receptionists')
                 .then(response => response.json())
                 .then(data => {
                     const receptionists = data.receptionists;
@@ -70,27 +70,27 @@ function reactivateReceptionist(receptionistId, receptionist, receptionistContai
                     const receptionist = receptionists.find(receptionist => receptionist._id === receptionistId);
 
                     // Make a DELETE request to delete the receptionist
-                    fetch(`http://127.0.0.1:3000/admin/receptionist/${encodeURIComponent(receptionist.email)}`, {
+                    fetch(`/admin/receptionist/${encodeURIComponent(receptionist.email)}`, {
                         method: 'DELETE',
                     })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Failed to delete receptionist');
-                        }
-                        // Remove the deleted receptionist from the UI
-                        receptionistContainer.remove();
-                        console.log(`Successfully deleted receptionist with ID: ${receptionistId}`);
-                        // Display success alert
-                        alert("Receptionist deleted successfully!");
-                    })
-                    .catch(error => console.error('Error deleting receptionist:', error));
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to delete receptionist');
+                            }
+                            // Remove the deleted receptionist from the UI
+                            receptionistContainer.remove();
+                            console.log(`Successfully deleted receptionist with ID: ${receptionistId}`);
+                            // Display success alert
+                            alert("Receptionist deleted successfully!");
+                        })
+                        .catch(error => console.error('Error deleting receptionist:', error));
                 })
                 .catch(error => console.error('Error fetching receptionists:', error));
         }
     }
 
     // Fetch receptionists data from the backend
-    fetch('http://127.0.0.1:3000/admin/receptionists')
+    fetch('/admin/receptionists')
         .then(response => response.json())
         .then(data => {
             const receptionists = data.receptionists;
@@ -134,18 +134,18 @@ function reactivateReceptionist(receptionistId, receptionist, receptionistContai
                 const buttonsContainer = document.createElement('div');
                 buttonsContainer.classList.add('buttons-container');
 
- // Create buttons for reactivation, deactivation, and deletion
-const reactivateBtn = createButton('Reactivate', () => {
-    if (receptionist) {
-        reactivateReceptionist(receptionist._id, receptionist, receptionistContainer);
-    } else {
-        console.error('Receptionist object is undefined');
-    }
-});
+                // Create buttons for reactivation, deactivation, and deletion
+                const reactivateBtn = createButton('Reactivate', () => {
+                    if (receptionist) {
+                        reactivateReceptionist(receptionist._id, receptionist, receptionistContainer);
+                    } else {
+                        console.error('Receptionist object is undefined');
+                    }
+                });
 
 
-const deactivateBtn = createButton('Deactivate', () => deactivateReceptionist(receptionist._id, receptionist, receptionistContainer));
-const deleteBtn = createButton('Delete', () => deleteReceptionist(receptionist._id, receptionistContainer));
+                const deactivateBtn = createButton('Deactivate', () => deactivateReceptionist(receptionist._id, receptionist, receptionistContainer));
+                const deleteBtn = createButton('Delete', () => deleteReceptionist(receptionist._id, receptionistContainer));
 
 
                 // Add specific styling to buttons

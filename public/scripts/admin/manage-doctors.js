@@ -11,51 +11,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to handle reactivation
     function reactivateDoctor(doctorId) {
-       // Not implemented yet
+        // Not implemented yet
         console.log(`Reactivate doctor with ID: ${doctorId}`);
     }
 
     // Function to handle deactivation
-   
 
 
-      // Function to handle deactivation
-function deactivateDoctor(doctorId, doctor, doctorContainer) {
-    // Display confirmation message
-    const confirmation = confirm("Are you sure you want to deactivate this Doctor?");
-    if (confirmation) {
-        // Make a PUT request to deactivate the receptionist
-        fetch(`http://127.0.0.1:3000/admin/doctor/deactivate/${encodeURIComponent(doctor.email)}`, {
+
+    // Function to handle deactivation
+    function deactivateDoctor(doctorId, doctor, doctorContainer) {
+        // Display confirmation message
+        const confirmation = confirm("Are you sure you want to deactivate this Doctor?");
+        if (confirmation) {
+            // Make a PUT request to deactivate the receptionist
+            fetch(`/admin/doctor/deactivate/${encodeURIComponent(doctor.email)}`, {
+                method: 'PUT',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to deactivate receptionist');
+                    }
+                    // Update the UI or perform additional actions as needed
+                    alert(`Successfully deactivated doctor with email: ${doctor.email}`);
+                })
+                .catch(error => console.error('Error deactivating Doctor:', error));
+        }
+    }
+
+
+
+    // Function to handle reactivation
+    function reactivateDoctor(doctorId, doctor, doctorContainer) {
+        // Make a PUT request to reactivate the doctor
+        fetch(`/admin/doctor/reactivate/${encodeURIComponent(doctor.email)}`, {
             method: 'PUT',
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to deactivate receptionist');
-            }
-            // Update the UI or perform additional actions as needed
-            alert(`Successfully deactivated doctor with email: ${doctor.email}`);
-        })
-        .catch(error => console.error('Error deactivating Doctor:', error));
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to reactivate doctor');
+                }
+                // Update the UI or perform additional actions as needed
+                alert(`Successfully reactivated doctor with email: ${doctor.email}`);
+            })
+            .catch(error => console.error('Error reactivating Doctor:', error));
     }
-}
-
-
-
-// Function to handle reactivation
-function reactivateDoctor(doctorId, doctor, doctorContainer) {
-    // Make a PUT request to reactivate the doctor
-    fetch(`http://127.0.0.1:3000/admin/doctor/reactivate/${encodeURIComponent(doctor.email)}`, {
-        method: 'PUT',
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to reactivate doctor');
-        }
-        // Update the UI or perform additional actions as needed
-        alert(`Successfully reactivated doctor with email: ${doctor.email}`);
-    })
-    .catch(error => console.error('Error reactivating Doctor:', error));
-}
 
 
 
@@ -63,28 +63,28 @@ function reactivateDoctor(doctorId, doctor, doctorContainer) {
     function deleteDoctor(doctorEmail, doctorContainer) {
         // Show a confirmation dialog
         const isConfirmed = window.confirm('Are you sure you want to delete the doctor?');
-    
+
         // Check if the user confirmed
         if (isConfirmed) {
             // Make a DELETE request to delete the doctor
-            fetch(`http://127.0.0.1:3000/admin/doctor/${encodeURIComponent(doctorEmail)}`, {
+            fetch(`/admin/doctor/${encodeURIComponent(doctorEmail)}`, {
                 method: 'DELETE',
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to delete doctor');
-                }
-                // Remove the deleted doctor from the UI
-                doctorContainer.remove();
-                console.log(`Successfully deleted doctor with email: ${doctorEmail}`);
-            })
-            .catch(error => console.error('Error deleting doctor:', error));
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to delete doctor');
+                    }
+                    // Remove the deleted doctor from the UI
+                    doctorContainer.remove();
+                    console.log(`Successfully deleted doctor with email: ${doctorEmail}`);
+                })
+                .catch(error => console.error('Error deleting doctor:', error));
         }
     }
-    
+
 
     // Fetch doctors data from the backend
-    fetch('http://127.0.0.1:3000/admin/doctors')
+    fetch('/admin/doctors')
         .then(response => response.json())
         .then(data => {
             const doctors = data.doctors;
