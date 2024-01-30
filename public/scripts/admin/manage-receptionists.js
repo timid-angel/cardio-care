@@ -9,17 +9,51 @@ document.addEventListener('DOMContentLoaded', () => {
         return button;
     }
 
-    // Function to handle reactivation
-    function reactivateReceptionist(receptionistId) {
-        // Implement reactivation logic here
-        console.log(`Reactivate receptionist with ID: ${receptionistId}`);
-    }
+   
 
-    // Function to handle deactivation
-    function deactivateReceptionist(receptionistId, receptionistContainer) {
-        // Implement deactivation logic here
-        console.log(`Deactivate receptionist with ID: ${receptionistId}`);
+    
+  // Function to handle deactivation
+function deactivateReceptionist(receptionistId, receptionist, receptionistContainer) {
+    // Display confirmation message
+    const confirmation = confirm("Are you sure you want to deactivate this receptionist?");
+    if (confirmation) {
+        // Make a PUT request to deactivate the receptionist
+        fetch(`http://127.0.0.1:3000/admin/receptionist/deactivate/${encodeURIComponent(receptionist.email)}`, {
+            method: 'PUT',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to deactivate receptionist');
+            }
+            // Update the UI or perform additional actions as needed
+          alert(`Successfully deactivated receptionist with email: ${receptionist.email}`);
+        })
+        .catch(error => console.error('Error deactivating receptionist:', error));
     }
+}
+
+
+// Function to handle reactivation
+function reactivateReceptionist(receptionistId, receptionist, receptionistContainer) {
+    // Display confirmation message
+    const confirmation = confirm("Are you sure you want to reactivate this receptionist?");
+    if (confirmation) {
+        // Make a PUT request to reactivate the receptionist
+        fetch(`http://127.0.0.1:3000/admin/receptionist/reactivate/${encodeURIComponent(receptionist.email)}`, {
+            method: 'PUT',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to reactivate receptionist');
+            }
+            // Update the UI or perform additional actions as needed
+            alert(`Successfully reactivated receptionist with email: ${receptionist.email}`);
+        })
+        .catch(error => console.error('Error reactivating receptionist:', error));
+    }
+}
+
+
 
     // Function to handle deletion
     function deleteReceptionist(receptionistId, receptionistContainer) {
@@ -100,10 +134,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 const buttonsContainer = document.createElement('div');
                 buttonsContainer.classList.add('buttons-container');
 
-                // Create buttons for reactivation, deactivation, and deletion
-                const reactivateBtn = createButton('Reactivate', () => reactivateReceptionist(receptionist._id));
-                const deactivateBtn = createButton('Deactivate', () => deactivateReceptionist(receptionist._id, receptionistContainer));
-                const deleteBtn = createButton('Delete', () => deleteReceptionist(receptionist._id, receptionistContainer));
+ // Create buttons for reactivation, deactivation, and deletion
+const reactivateBtn = createButton('Reactivate', () => {
+    if (receptionist) {
+        reactivateReceptionist(receptionist._id, receptionist, receptionistContainer);
+    } else {
+        console.error('Receptionist object is undefined');
+    }
+});
+
+
+const deactivateBtn = createButton('Deactivate', () => deactivateReceptionist(receptionist._id, receptionist, receptionistContainer));
+const deleteBtn = createButton('Delete', () => deleteReceptionist(receptionist._id, receptionistContainer));
+
 
                 // Add specific styling to buttons
                 reactivateBtn.classList.add('reactivate-btn');

@@ -16,10 +16,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to handle deactivation
-    function deactivateDoctor(doctorId) {
-        // Not implemented yet
-        console.log(`Deactivate doctor with ID: ${doctorId}`);
+   
+
+
+      // Function to handle deactivation
+function deactivateDoctor(doctorId, doctor, doctorContainer) {
+    // Display confirmation message
+    const confirmation = confirm("Are you sure you want to deactivate this Doctor?");
+    if (confirmation) {
+        // Make a PUT request to deactivate the receptionist
+        fetch(`http://127.0.0.1:3000/admin/doctor/deactivate/${encodeURIComponent(doctor.email)}`, {
+            method: 'PUT',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to deactivate receptionist');
+            }
+            // Update the UI or perform additional actions as needed
+            alert(`Successfully deactivated doctor with email: ${doctor.email}`);
+        })
+        .catch(error => console.error('Error deactivating Doctor:', error));
     }
+}
+
+
+
+// Function to handle reactivation
+function reactivateDoctor(doctorId, doctor, doctorContainer) {
+    // Make a PUT request to reactivate the doctor
+    fetch(`http://127.0.0.1:3000/admin/doctor/reactivate/${encodeURIComponent(doctor.email)}`, {
+        method: 'PUT',
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to reactivate doctor');
+        }
+        // Update the UI or perform additional actions as needed
+        alert(`Successfully reactivated doctor with email: ${doctor.email}`);
+    })
+    .catch(error => console.error('Error reactivating Doctor:', error));
+}
+
+
 
     // Function to handle deletion
     function deleteDoctor(doctorEmail, doctorContainer) {
@@ -91,8 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 buttonsContainer.classList.add('buttons-container');
 
                 // Create buttons for reactivation, deactivation, and deletion
-                const reactivateBtn = createButton('Reactivate', () => reactivateDoctor(doctor._id));
-                const deactivateBtn = createButton('Deactivate', () => deactivateDoctor(doctor._id));
+                const reactivateBtn = createButton('Reactivate', () => reactivateDoctor(doctor._id, doctor, doctorContainer));
+                const deactivateBtn = createButton('Deactivate', () => deactivateDoctor(doctor._id, doctor, doctorContainer));
                 const deleteBtn = createButton('Delete', () => deleteDoctor(doctor.email, doctorContainer));
 
                 // Add specific styling to buttons
