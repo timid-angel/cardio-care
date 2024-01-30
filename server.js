@@ -15,6 +15,9 @@ const adminRouter = require('./routers/admin')
 const patientRouter = require('./routers/patient')
 const doctorRouter = require('./routers/doctor')
 
+// controllers
+const logout = require('./controllers/logout')
+
 // db connection and server startup
 mongoose.connect('mongodb://0.0.0.0:27017/cardio-test')
     .then(() => {
@@ -33,6 +36,8 @@ app.set('view engine', "hbs")
 
 
 // routes
+app.get('/', (req, res) => res.redirect('/patient/login'))
+app.get('/logout', logout)
 app.use('/receptionist', receptionistRouter)
 app.use('/admin', adminRouter)
 app.use('/patient', patientRouter)

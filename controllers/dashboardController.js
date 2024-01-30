@@ -39,10 +39,12 @@ const patientDashboard = async (req, res) => {
     }
 
     let doctorName
-    if (doctor.name.middle) {
-        doctorName = doctor.name.first + " " + doctor.name.middle[0] + ". " + doctor.name.last
-    } else {
-        doctorName = doctor.name.first + " " + doctor.name.last
+    if (doctor?.name) {
+        if (doctor.name.middle) {
+            doctorName = doctor.name.first + " " + doctor.name.middle[0] + ". " + doctor.name.last
+        } else {
+            doctorName = doctor.name.first + " " + doctor.name.last
+        }
     }
 
     res.render('./patientViews/patient-dashboard', {
@@ -52,16 +54,16 @@ const patientDashboard = async (req, res) => {
         image: patient.img,
         email: patient.email,
         id: patient._id.toString(),
-        birthdate: patient.dateOfBirth.toLocaleDateString(),
+        birthdate: patient.dateOfBirth ? patient.dateOfBirth.toLocaleDateString() : null,
         phone: patient.phoneNumber,
-        address: patient.address.subCity + " Woreda " + patient.address.woreda + ", " + patient.address.houseNumber,
+        address: patient.address ? patient.address.subCity + " Woreda " + patient.address.woreda + ", " + patient.address.houseNumber : null,
         doctorName,
-        doctorEmail: doctor.email || "Not Available",
-        doctorPhone: doctor.phoneNumber || "Not Available",
-        expertise: doctor.expertise[0] || 'General Medicine',
-        doctorId: doctor._id.toString(),
-        doctorImage: doctor.img,
-        paymentDate: patient.lastPaymentDate.toLocaleDateString(),
+        doctorEmail: doctor ? doctor.email || "Not Available" : null,
+        doctorPhone: doctor ? doctor.phoneNumber || "Not Available" : null,
+        expertise: doctor ? doctor.expertise[0] || 'General Medicine' : null,
+        doctorId: doctor ? doctor._id.toString() : null,
+        doctorImage: doctor ? doctor.img : null,
+        paymentDate: patient.lastPaymentDate ? patient.lastPaymentDate.toLocaleDateString() : null,
         geneticVulnerabilities: medicalRecord.geneticVulnerabilities.length === 0 ? ["-"] : medicalRecord.geneticVulnerabilities,
         allergies: medicalRecord.allergies.length === 0 ? ["-"] : medicalRecord.allergies,
         vaccinations: medicalRecord.vaccination.length === 0 ? ["-"] : medicalRecord.vaccination,
