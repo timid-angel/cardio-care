@@ -97,23 +97,7 @@
                     </div>
                 </div>
                 <!-- card content -->
-                <div class="w-full rounded-b-xl flex flex-col relative" id="ordersContainer">
-                    <div
-                        class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900">
-                        <div class="flex gap-4 overflow-hidden w-full">
-                            <p class="border-r-2 border-slate-500 pr-3 w-32 items-center justify-center hidden lg:flex">
-                                Medication
-                            </p>
-                            <p class=" flex items-center justify-center">Ibuprofen: for when things get
-                                unbearable</p>
-                        </div>
-                        <div class="flex justify-end gap-3 w-20">
-                            <div class="">
-                                <img src="/image/delete.svg" alt="" class="w-7">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="w-full rounded-b-xl flex flex-col relative" id="ordersContainer"></div>
             </div>
 
             <!-- doctor's notes -->
@@ -135,42 +119,7 @@
                             <p>Patient seems to be losing the will to live.
                             </p>
                         </div>
-                        <div class="flex gap-3 w-20">
-                            <div class="">
-                                <img src="/image/clipboard.svg" alt="" class="w-7">
-                            </div>
-                            <div class="">
-                                <img src="/image/delete.svg" alt="" class="w-7">
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900">
-                        <div class="flex gap-4 items-center w-full overflow-hidden">
-                            <p>Patient has several lacerations around his
-                                neck.
-                            </p>
-                        </div>
-                        <div class="flex gap-3 w-20">
-                            <div class="">
-                                <img src="/image/clipboard.svg" alt="" class="w-7">
-                            </div>
-                            <div class="">
-                                <img src="/image/delete.svg" alt="" class="w-7">
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900">
-                        <div class="flex gap-4 items-center w-full overflow-hidden">
-                            <p>Patient has bone fragments in his shoulder and
-                                thigh region. Permanent damage is but assured.
-                            </p>
-                        </div>
-                        <div class="flex gap-3 w-20">
-                            <div class="">
-                                <img src="/image/clipboard.svg" alt="" class="w-7">
-                            </div>
+                        <div class="flex gap-3 justify-end w-20">
                             <div class="">
                                 <img src="/image/delete.svg" alt="" class="w-7">
                             </div>
@@ -367,15 +316,13 @@
             <div class="shadow-md h-14 flex items-center justify-center text-2xl text-gray-600">
                 <p>Add a Personal Note</p>
             </div>
-            <form class="gap-4 my-6 flex flex-col justify-around items-center text-xl">
+            <form class="gap-4 my-6 flex flex-col justify-around items-center text-xl" id="doctor-note-form">
                 <div class="flex justify-between w-full">
                     <label class="w-20 ml-4 text-center py-2" for="type">Type</label>
                     <select name="type" id="noteTypeDropdown" class="mx-auto w-8/12 text-center bg-rose-200 rounded-md">
-                        <option value="hr">Heart Rate</option>
-                        <option value="bt">Body Temperature</option>
-                        <option value="bs">Blood Sugar</option>
-                        <option value="bp">Blood Pressure</option>
-                        <option value="rr">Respiration Rate</option>
+                        <option value="high">High Significance</option>
+                        <option value="medium">Medium Significance</option>
+                        <option value="low">Low Significance</option>
                     </select>
                 </div>
 
@@ -385,10 +332,6 @@
                         text-slate-600 rounded-sm shadow-sm border py-1"></textarea>
                 </div>
 
-                <div class="flex justify-between w-full">
-                    <label class="w-20 ml-4 text-center py-1" for="date">Date</label>
-                    <input type="date" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm shadow-sm border">
-                </div>
                 <button type="submit"
                     class="bg-red-800 text-slate-100 text-lg py-1 px-3 flex items-center justify-center rounded-3xl hover:bg-red-900 active:bg-red-800 hover:transition-colors shadow-md">
                     Confirm
@@ -398,6 +341,7 @@
     </div>
     <script src="/scripts/doctor/doctorsPatientModal.js"></script>
     <script src="/scripts/doctor/doctorOrder.js"></script>
+    <script src="/scripts/doctor/doctorNotes.js"></script>
 </body>
 
 </html>

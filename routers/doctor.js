@@ -42,17 +42,18 @@ router.patch('/appointments', authDoctor, changeAppointmentStatus)
 router.get('/symptoms', authDoctor, getSymptomsDoctor)
 
 // readings
-router.get('/readings', authDoctor, getReadingsDoctor)
+router.get('/readings/:id', authDoctor, getReadingsDoctor)
+router.post('/readings/:id', authDoctor)
 
 // doctor orders
 router.get('/orders/:id', authDoctor, getOrdersDoctor)
 router.post('/orders/:id', authDoctor, addDoctorOrder)
-router.delete('/orders/:orderId', authDoctor, deleteOrder)
+router.delete('/orders/:patientId/:orderId', authDoctor, deleteOrder)
 
 // doctor notes
-router.get('/notes', authDoctor, getNotes)
-router.post('/notes', authDoctor, addDoctorNote)
-router.delete('/notes', authDoctor, deleteNote)
+router.get('/notes/:id', authDoctor, getNotes)
+router.post('/notes/:id', authDoctor, addDoctorNote)
+router.delete('/notes/:noteId', authDoctor, deleteNote)
 
 // test route
 router.get('/authTEST', authDoctor, (req, res) => {

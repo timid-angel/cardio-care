@@ -73,7 +73,8 @@ const getReadingsPatient = async (req, res) => {
 }
 
 const getReadingsDoctor = async (req, res) => {
-    const patient = await Patient.findOne({ email: req.body.patientEmail })
+    if (!req.params?.id) return res.sendStatus(400)
+    const patient = await Patient.findById(req.params.id)
     // check if doctor is linked to patient
     const doctorId = getDoctorJWTID(req.cookies.jwt)
     if (!doctorId) return res.sendStatus(500)
@@ -102,7 +103,7 @@ const deleteReading = async (req, res) => {
 // the request must also contain the patient email to which the order will be added
 const addDoctorOrder = async (req, res) => {
     const doctorId = getDoctorJWTID(req.cookies.jwt)
-    if (!doctorId) return res.sendStatus(500)
+    if (!doctorId) return res.sendStatus(400)
     const patient = await Patient.findById(req.params.id)
     const doctor = await Doctor.findById(doctorId)
     if (!patient || !doctor) return res.sendStatus(400)
@@ -142,29 +143,27 @@ const getOrdersDoctor = async (req, res) => {
 
 // request to be sent by a doctor
 const deleteOrder = async (req, res) => {
-    const patient = await Patient.findById({ email: req.body.patientEmail })
-    if (!patient) return res.sendStatus(400)
-    const dateReq = new Date(req.body.date).valueOf()
-    if (!dateReq) {
-        res.status(400).json({ 'error': 'Invalid date value' })
-    }
+    if (!req.params?.orderId || !req.params?.patientId) return res.status(400).json('Order or Patient ID not found')
+    const patient = await Patient.findById(req.params.patientId)
+    if (!patient) return res.status(400).json('Patient not found')
     // check if doctor is linked to patient
     const doctorId = getDoctorJWTID(req.cookies.jwt)
-    if (!doctorId) return res.sendStatus(500)
+    if (!doctorId) return res.sendStatus(400).json('Patient not found')
     const doctor = await Doctor.findById(doctorId)
     if (!isLinked(patient, doctor)) return res.sendStatus(401) // unauthorized
-    patient.orderLog = patient.orderLog.filter(item => item.date.valueOf() !== dateReq.valueOf())
+    patient.orderLog = patient.orderLog.filter(item => item._id.toString() !== req.params.orderId)
     await patient.save()
-    res.status(200).json(patient.orderLog)
+    res.sendStatus(204)
 }
 
 
 // DOCTOR NOTES
 // the request must also contain the patient email whose value will be added to the note
 const addDoctorNote = async (req, res) => {
+    if (!req.params?.id) return res.sendStatus(400)
     const doctorId = getDoctorJWTID(req.cookies.jwt)
-    if (!doctorId) return res.sendStatus(500)
-    const patient = await Patient.findOne({ email: req.body.patientEmail })
+    if (!doctorId) return res.sendStatus(400)
+    const patient = await Patient.findById(req.params.id)
     const doctor = await Doctor.findById(doctorId)
     if (!patient || !doctor) return res.sendStatus(400)
     if (!isLinked(patient, doctor)) return res.sendStatus(401) // unauthorized
@@ -181,22 +180,21 @@ const addDoctorNote = async (req, res) => {
 }
 
 const getNotes = async (req, res) => {
+    if (!req.params?.id) return res.sendStatus(400)
+    const patient = await Patient.findById(req.params.id)
     const doctorId = getDoctorJWTID(req.cookies.jwt)
-    if (!doctorId) return res.sendStatus(500)
+    if (!doctorId) return res.sendStatus(400)
     const doctor = await Doctor.findById(doctorId)
-    res.status(200).json(doctor.notes)
+    const patientNotes = doctor.notes.filter(note => note.patient === patient._id.toString())
+    res.status(200).json(patientNotes)
 }
 
 const deleteNote = async (req, res) => {
+    if (!req.params?.noteId) return res.sendStatus(400)
     const doctorId = getDoctorJWTID(req.cookies.jwt)
-    if (!doctorId) return res.sendStatus(500)
+    if (!doctorId) return res.sendStatus(400)
     const doctor = await Doctor.findById(doctorId)
-    const dateReq = new Date(req.body.date).valueOf()
-    if (!dateReq) {
-        res.status(400).json({ 'error': 'Invalid date value' })
-    }
-
-    doctor.notes = doctor.notes.filter(item => item.date.valueOf() !== dateReq.valueOf())
+    doctor.notes = doctor.notes.filter(item => item._id.toString() !== req.params.noteId)
     await doctor.save()
     res.status(200).json(doctor.notes)
 }
