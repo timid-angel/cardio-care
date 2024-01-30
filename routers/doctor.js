@@ -2,7 +2,7 @@ const express = require('express')
 // controllers
 const { doctorLoginController } = require('../controllers/loginController')
 const { getUnresolvedAppointments, changeAppointmentStatus, getUpcomingAppointments } = require('../controllers/appointmentController')
-const { doctorDashboard, getDoctorPatients } = require('../controllers/dashboardController')
+const { doctorDashboard, getDoctorPatients, getPatientDetails } = require('../controllers/dashboardController')
 const { getPatientList } = require('../controllers/getController')
 const {
     getSymptomsDoctor,
@@ -28,7 +28,10 @@ router.post('/login', doctorLoginController)
 // dashboard
 router.get('/dashboard', authDoctor, doctorDashboard)
 router.get('/patients', authDoctor, getDoctorPatients)
+
+// patients
 router.get('/patient-list', authDoctor, getPatientList)
+router.get('/patients/:id', authDoctor, getPatientDetails)
 
 // appointment routes
 router.get('/unresolved-appointments', authDoctor, getUnresolvedAppointments)

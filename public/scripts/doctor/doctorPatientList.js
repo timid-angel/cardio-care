@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     container.childNodes.forEach(patientCard => {
         patientCard.addEventListener('click', () => {
-            window.location.href = "/doctor/patient/" + patientCard.dataset.id
+            window.location.href = "/doctor/patients/" + patientCard.dataset.id
         })
     })
 
