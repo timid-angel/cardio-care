@@ -3,7 +3,7 @@ const router = express.Router()
 
 
 // controllers
-const { createAdminController, createReceptionistController, createDoctorController, uploadDoctor, deleteDoctor, deleteReceptionist } = require('../controllers/accountController')
+const { createAdminController, createReceptionistController, createDoctorController, uploadDoctor, deleteDoctor, deleteReceptionist, deactivateReceptionist, deactivateDoctor, reactivateDoctor,  reactivateReceptionist} = require('../controllers/accountController')
 const { adminLoginController } = require('../controllers/loginController')
 const { getDoctors } = require('../controllers/getController')
 const { getReceptionists } = require('../controllers/getController')
@@ -38,6 +38,11 @@ router.get('/receptionists', getReceptionists);
 router.delete('/doctor/:email', deleteDoctor);
 router.delete('/receptionist/:email', deleteReceptionist);
 
+router.put('/receptionist/deactivate/:email', deactivateReceptionist);
+router.put('/doctor/deactivate/:email', deactivateDoctor);
+
+router.put('/doctor/reactivate/:email', reactivateDoctor);
+router.put('/receptionist/reactivate/:email', reactivateReceptionist);
 
 
 

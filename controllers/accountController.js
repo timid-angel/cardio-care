@@ -212,6 +212,115 @@ const deleteReceptionist = async (req, res) => {
     res.status(200).json({ 'success': 'Deleted receptionist email: ' + receptionistEmail })
 }
 
+const deactivateReceptionist = async (req, res) => {
+    try {
+        // Check if email parameter exists
+        if (!req.params?.email) {
+            return res.status(400).json({ 'error': "Route parameter not found." });
+        }
+
+        const receptionistEmail = req.params.email;
+
+        // Find the receptionist by email
+        const receptionist = await Receptionist.findOne({ email: receptionistEmail });
+        
+        if (!receptionist) {
+            return res.status(400).json({ 'error': 'Receptionist email not found' });
+        }
+
+        // Update the state attribute to 'inactive' (or your desired state)
+        receptionist.state = 'inactive';
+        await receptionist.save();
+
+        res.status(200).json({ 'success': 'Deactivated receptionist email: ' + receptionistEmail });
+    } catch (error) {
+        console.error('Error deactivating receptionist:', error);
+        res.status(500).json({ 'error': 'Internal server error' });
+    }
+};
+
+const deactivateDoctor = async (req, res) => {
+    try {
+        // Check if email parameter exists
+        if (!req.params?.email) {
+            return res.status(400).json({ 'error': "Route parameter not found." });
+        }
+
+        const doctorEmail = req.params.email;
+
+     
+        const doctor= await Doctor.findOne({ email: doctorEmail });
+        
+        if (!doctor) {
+            return res.status(400).json({ 'error': 'doctor email not found' });
+        }
+
+        // Update the state attribute to 'inactive' (or your desired state)
+        doctor.state = 'inactive';
+        await doctor.save();
+
+        res.status(200).json({ 'success': 'Deactivated doctor email: ' + doctorEmail });
+    } catch (error) {
+        console.error('Error deactivating doctor:', error);
+        res.status(500).json({ 'error': 'Internal server error' });
+    }
+};
+
+const reactivateDoctor = async (req, res) => {
+    try {
+        // Check if email parameter exists
+        if (!req.params?.email) {
+            return res.status(400).json({ 'error': "Route parameter not found." });
+        }
+
+        const doctorEmail = req.params.email;
+
+     
+        const doctor= await Doctor.findOne({ email: doctorEmail });
+        
+        if (!doctor) {
+            return res.status(400).json({ 'error': 'doctor email not found' });
+        }
+
+ 
+        doctor.state = 'active';
+        await doctor.save();
+
+        res.status(200).json({ 'success': 'reactivated doctor email: ' + doctorEmail });
+    } catch (error) {
+        console.error('Error reactivating doctor:', error);
+        res.status(500).json({ 'error': 'Internal server error' });
+    }
+};
+
+const reactivateReceptionist = async (req, res) => {
+    try {
+        // Check if email parameter exists
+        if (!req.params?.email) {
+            return res.status(400).json({ 'error': "Route parameter not found." });
+        }
+
+        const receptionistEmail = req.params.email;
+
+
+     
+        const receptionist= await Receptionist.findOne({ email: receptionistEmail });
+        
+        if (!receptionist) {
+            return res.status(400).json({ 'error': 'receptionist email not found' });
+        }
+
+ 
+        receptionist.state = 'active';
+        await receptionist.save();
+
+        res.status(200).json({ 'success': 'reactivated receptionist email: ' + receptionistEmail });
+    } catch (error) {
+        console.error('Error reactivating receptionist:', error);
+        res.status(500).json({ 'error': 'Internal server error' });
+    }
+};
+
 module.exports = {
     createAdminController,
     createDoctorController,
@@ -221,5 +330,10 @@ module.exports = {
     uploadDoctor,
     deletePatient,
     deleteDoctor,
-    deleteReceptionist
+    deleteReceptionist,
+
+    deactivateReceptionist,
+    deactivateDoctor,
+    reactivateDoctor,
+    reactivateReceptionist
 }
