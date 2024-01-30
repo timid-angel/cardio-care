@@ -1,5 +1,3 @@
-// scripts/adminLogin.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
     const loginForm = document.getElementById('loginForm');

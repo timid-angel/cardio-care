@@ -20,7 +20,7 @@ const receptionistLoginController = async (req, res) => {
             return
         }
 
-        if (doctor.status === "inactive") {
+        if (receptionist.state === "inactive") {
             res.status(403).json({ error: 'Account not authorized' });
             alert('Your account has been deactivated. Contact your admins for support')
             return;
@@ -103,7 +103,7 @@ const doctorLoginController = async (req, res) => {
             return
         }
 
-        if (doctor.status === "inactive") {
+        if (doctor.state === "inactive") {
             res.status(403).json({ error: 'Account not authorized' });
             // alert('Your account has been deactivated. Contact your admins for support')
             return;

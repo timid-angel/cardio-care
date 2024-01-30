@@ -18,24 +18,19 @@ const { receptionistDashboard, paymentsPage, addPatient } = require('../controll
 
 // login routes
 router.get('/login', (req, res) => {
-    // RENDER LOGIN PAGE HERE
-    res.send("THIS IS THE RECEPTIONIST LOGIN PAGE")
+    res.render('./receptionistViews/login')
 })
 router.post('/login', receptionistLoginController)
 
 
-
 //receptionist Pages
 // page render
-router.get('/dashboard', receptionistDashboard);
-router.get('/payments', paymentsPage);
-router.get('/patientRegistration', addPatient);
-
-
-
+router.get('/dashboard', authReceptionist, receptionistDashboard);
+router.get('/payments', authReceptionist, paymentsPage);
+router.get('/patientRegistration', authReceptionist, addPatient);
 
 // Handle GET request to /patient/payment
-router.get('/payment', getPayments);
+router.get('/payment', authReceptionist, getPayments);
 
 
 // link routes
@@ -46,7 +41,7 @@ router.post('/unlink', authReceptionist, unlinkController)
 
 // Route for linking patients with doctors
 // Route for linking patients with doctors
-router.post('/patients/link', async (req, res) => {
+router.post('/patients/link', authReceptionist, async (req, res) => {
     try {
         const { patientEmail, doctorEmail, linkType } = req.body; // Assuming this data is sent from the frontend
 
@@ -85,7 +80,7 @@ router.post('/patients/link', async (req, res) => {
     }
 });
 
-router.delete('/unlink/:email', async (req, res) => {
+router.delete('/unlink/:email', authReceptionist, async (req, res) => {
     const patientEmail = req.params.email;
 
 
@@ -134,7 +129,7 @@ router.delete('/unlink/:email', async (req, res) => {
 
 
 // Route for updating doctor's patients array
-router.post('/doctors/patients', async (req, res) => {
+router.post('/doctors/patients', authReceptionist, async (req, res) => {
     try {
         const { doctorEmail, patientEmail } = req.body; // Data sent from the frontend
 
@@ -156,10 +151,7 @@ router.post('/doctors/patients', async (req, res) => {
     }
 });
 
-
-
-
-router.put('/deactivate-patient/:email', async (req, res) => {
+router.put('/deactivate-patient/:email', authReceptionist, async (req, res) => {
     const patientEmail = req.params.email;
 
     try {
@@ -176,7 +168,7 @@ router.put('/deactivate-patient/:email', async (req, res) => {
     }
 });
 
-router.put('/reactivate-patient/:email', async (req, res) => {
+router.put('/reactivate-patient/:email', authReceptionist, async (req, res) => {
     const patientEmail = req.params.email;
 
     try {
@@ -193,7 +185,7 @@ router.put('/reactivate-patient/:email', async (req, res) => {
     }
 });
 
-router.put(`/verify-payment/:email`, async (req, res) => {
+router.put(`/verify-payment/:email`, authReceptionist, async (req, res) => {
     const patientEmail = req.params.email;
 
     try {
@@ -215,7 +207,7 @@ router.put(`/verify-payment/:email`, async (req, res) => {
     }
 });
 
-router.put(`/decline-payment/:email`, async (req, res) => {
+router.put(`/decline-payment/:email`, authReceptionist, async (req, res) => {
     const patientEmail = req.params.email;
 
     try {
@@ -239,14 +231,13 @@ router.put(`/decline-payment/:email`, async (req, res) => {
 
 
 // patient routes
-router.get('/patients', getPatients);
-router.post('/patients', uploadPatient.single('image'), createPatientController)
+router.get('/patients', authReceptionist, getPatients);
+router.post('/patients', authReceptionist, uploadPatient.single('image'), createPatientController)
 router.delete('/patients/:id', authReceptionist, deletePatient)
-router.get('/patients', getPatients);
 
 // test routes
 router.get('/authTEST', authReceptionist, (req, res) => {
     res.json({ 'success': 'Authenticated successfully' })
 })
-router.get('/Doctor', getDoctors);
+router.get('/Doctor', authReceptionist, getDoctors);
 module.exports = router

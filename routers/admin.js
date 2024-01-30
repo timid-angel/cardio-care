@@ -3,7 +3,7 @@ const router = express.Router()
 
 
 // controllers
-const { createAdminController, createReceptionistController, createDoctorController, uploadDoctor, deleteDoctor, deleteReceptionist, deactivateReceptionist, deactivateDoctor, reactivateDoctor,  reactivateReceptionist} = require('../controllers/accountController')
+const { createAdminController, createReceptionistController, createDoctorController, uploadDoctor, deleteDoctor, deleteReceptionist, deactivateReceptionist, deactivateDoctor, reactivateDoctor, reactivateReceptionist } = require('../controllers/accountController')
 const { adminLoginController } = require('../controllers/loginController')
 const { getDoctors } = require('../controllers/getController')
 const { getReceptionists } = require('../controllers/getController')
@@ -13,15 +13,15 @@ const { adminDashboard, addDoctor, manageDoctors, manageReceptionits } = require
 
 // login
 router.get('/login', (req, res) => {
-    // render the login page here
-    res.send('THIS IS THE ADMIN LOGIN PAGE')
+    res.render('./adminViews/login')
 })
-// admin pages
-router.get('/dashboard', adminDashboard);
-router.get('/doctorRegistration', addDoctor);
-router.get('/doctorManagement', manageDoctors);
-router.get('/receptionistManagement', manageReceptionits);
 router.post('/login', adminLoginController)
+
+// admin pages
+router.get('/dashboard', authAdmin, adminDashboard);
+router.get('/doctorRegistration', authAdmin, addDoctor);
+router.get('/doctorManagement', authAdmin, manageDoctors);
+router.get('/receptionistManagement', authAdmin, manageReceptionits);
 
 // account creation
 router.post('/', authAdmin, createAdminController)
@@ -30,32 +30,31 @@ router.post('/doctors', authAdmin, uploadDoctor.single('image'), createDoctorCon
 
 
 // Account creation temp
-router.post('/', createAdminController)
-router.post('/receptionists', createReceptionistController)
-router.post('/Doctor', uploadDoctor.single('image'), createDoctorController)
+router.post('/', authAdmin, createAdminController)
+router.post('/receptionists', authAdmin, createReceptionistController)
+router.post('/Doctor', authAdmin, uploadDoctor.single('image'), createDoctorController)
 
 // account deletion
 router.delete('/doctors/:id', authAdmin, deleteDoctor)
 router.delete('/receptionists/:id', authAdmin, deleteReceptionist)
 
-router.get('/doctors', getDoctors);
-router.get('/receptionists', getReceptionists);
+router.get('/doctors', authAdmin, getDoctors);
+router.get('/receptionists', authAdmin, getReceptionists);
 
-router.delete('/doctor/:email', deleteDoctor);
-router.delete('/receptionist/:email', deleteReceptionist);
+router.delete('/doctor/:email', authAdmin, deleteDoctor);
+router.delete('/receptionist/:email', authAdmin, deleteReceptionist);
 
-router.put('/receptionist/deactivate/:email', deactivateReceptionist);
-router.put('/doctor/deactivate/:email', deactivateDoctor);
+router.put('/receptionist/deactivate/:email', authAdmin, deactivateReceptionist);
+router.put('/doctor/deactivate/:email', authAdmin, deactivateDoctor);
 
-router.put('/doctor/reactivate/:email', reactivateDoctor);
-router.put('/receptionist/reactivate/:email', reactivateReceptionist);
+router.put('/doctor/reactivate/:email', authAdmin, reactivateDoctor);
+router.put('/receptionist/reactivate/:email', authAdmin, reactivateReceptionist);
 
 
 
-router.delete('/receptionist/:id', deleteReceptionist);
+router.delete('/receptionist/:id', authAdmin, deleteReceptionist);
 // test route
 router.get('/authTEST', authAdmin, (req, res) => {
     res.json({ 'success': 'Authenticated successfully' })
 })
-
 module.exports = router
