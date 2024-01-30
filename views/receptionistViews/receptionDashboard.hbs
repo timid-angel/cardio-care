@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="../styles/output.css">
-    <link rel="stylesheet" href="../styles/buttons.css">
+    <link rel="stylesheet" href="/styles/output.css">
+    <link rel="stylesheet" href="/styles/buttons.css">
 
     <style>
         body{
@@ -19,42 +19,46 @@
     </style>
 </head>
 <body class="bg-slate-200">
-    <div class="flex items-center justify-between p-4 bg-white">
+        <div class="fixed top-0 w-full bg-white z-50 " >
+  <div class="flex items-center justify-between p-4">
       
-        <div class="flex items-center">
-            <img src="../image/cclogo2.png" alt="Logo" class="h-20 w-20">
-            <span class="text-black font-bold text-5xl ml-1">Cardio Care</span>
-        </div>
-        
-       
-        <div class="flex items-center">
-            
-            <img src="../image/royal.png" alt="Profile Image" class="rounded-full h-12 w-12 mr-2 object-cover">
-    
-           
-            <div>
-                <p class="text-gray-800 font-bold">Royal Hospital</p>
-                <div class="flex items-center">
-                   
-                    <span class="text-black font-bold"> <i class="fa-solid fa-hospital"></i> RH647745</span>
-                </div>
-            </div>
-        </div>
-    </div>
+      <div class="flex items-center">
+          <img src="/image/cclogo2.png" alt="Logo" class="h-20 w-20">
+          <span class="text-black font-bold text-5xl ml-1">Cardio Care</span>
+      </div>
+      
+     
+      <div class="flex items-center" >
+          
+          <img src="/image/royal.png" alt="Profile Image" class="rounded-full h-12 w-12 mr-2 object-cover">
 
+         
+          <div>
+              <p class="text-gray-800 font-bold">Royal Hospital</p>
+              <div class="flex items-center">
+                 
+                  <span class="text-black font-bold"> <i class="fa-solid fa-hospital"></i> RH647745</span>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+   
         
     <section>
-        <div class="flex flex-col justify-center items-center md:flex md:flex-row">
+        <div class="flex flex-col justify-center items-center md:flex md:flex-row" style="padding-top: 120px; ">
        
 <div style="width: 450px;" class="mr-5 rounded-lg p-8 font-bold text-2xl py-11 mt-5 bg-white text-center justify-center items-center text-gray-800 mb-5 hover:shadow-2xl cursor-pointer">
-    <a id="openModalBtn" href="addPatient.html">Add Patient</a>
+    <a id="openModalBtn" href="http://localhost:3000/receptionist/patientRegistration">Add Patient</a>
     <i class="fa-regular fa-plus font-bold text-3xl"></i>
 </div>
 
 
 
             <div style="width:450px;" class="mt-5 mr-5 ml-3 rounded-lg p-8 py-11 font-bold text-2xl bg-gray-600 text-center justify-center items-center text-white mb-5 hover:shadow-2xl cursor-pointer">
-                <a href="paymentpage.html" class="text-white">pending payment</a>
+                <a href="http://localhost:3000/receptionist/payments" class="text-white">pending payment</a>
                 <i class="fa-solid fa-coins text-yellow-400"></i>
             </div>
             
@@ -93,7 +97,7 @@
     
   
 
-    <script src="../scripts/receptionist/getPatient.js"></script>
+    <script src="/scripts/receptionist/getPatient.js"></script>
 
     
 </body>

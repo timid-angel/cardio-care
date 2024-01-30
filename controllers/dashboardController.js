@@ -1,6 +1,7 @@
 const { getDoctorJWTID, getPatientJWTID } = require('./jwtIDs')
 const Doctor = require('../model/Doctor')
 const Patient = require('../model/Patient')
+const MedicalRecord = require('../model/MedicalRecord')
 
 const doctorDashboard = async (req, res) => {
     const doctorID = getDoctorJWTID(req.cookies.jwt)
@@ -23,20 +24,25 @@ const getDoctorPatients = async (req, res) => {
 
 
 const patientDashboard = async (req, res) => {
-
     const patientID = getPatientJWTID(req.cookies.jwt)
     const patient = await Patient.findById(patientID)
-    const doctorId = patient.mainDoctor
-    const doctor = await Doctor.findById(doctorId)
-
     res.render('./patientViews/patient-dashboard', {
-        name: doctor.name.first + " " + doctor.name.middle[0] + ". " + doctor.name.last,
-        image: '/doctors/' + doctor.img,
-        email: doctor.email,
-        id: doctor._id.toString(),
-        phone: doctor.phoneNumber,
-        expertise: doctor.expertise[0]
+        name: patient.name.first + " " + patient.name.middle[0] + ". " + patient.name.last,
+        gender: patient.gender,
+        image: '/patient/' + patient.img,
+        email: patient.email,
+        birthdate: patient.Date.toString(),
+        phone: patient.phoneNumber,
+        address: patient.address.city + "" + patient.address.subCity + "" + patient.address.woreda + "" + patient.address.houseNumber + "",
+        primaryDoctor: patient.mainDoctor,
     })
+
+    const medicalRecord = {
+        currentHealthCondition: ['Condition 1', 'Condition 2', 'Condition 3'],
+        allergies: ['Allergy 1', 'Allergy 2'],
+        medications: ['Medication 1', 'Medication 2', 'Medication 3'],
+        recentMedication: ['Medication 1', 'Medication 2', 'Medication 3'],
+    };
 }
 
 const patientLogs = async (req, res) => {
@@ -89,4 +95,39 @@ const getPatientDetails = async (req, res) => {
     })
 }
 
-module.exports = { patientDashboard, doctorDashboard, getDoctorPatients, getPatientDetails, patientLogs }
+
+const receptionistDashboard = (req, res) => {
+
+    res.render('./receptionistViews/receptionDashboard');
+}
+
+const paymentsPage = (req, res) => {
+
+    res.render('./receptionistViews/paymentpage');
+}
+
+const addPatient = (req, res) => {
+
+    res.render('./receptionistViews/addPatient');
+}
+
+const adminDashboard = (req, res) => {
+
+    res.render('./adminViews/adminDashboard');
+}
+const addDoctor = (req, res) => {
+
+    res.render('./adminViews/addDoctor');
+}
+
+const manageDoctors = (req, res) => {
+
+    res.render('./adminViews/manage-Doctor');
+}
+
+const manageReceptionits = (req, res) => {
+
+    res.render('./adminViews/manage-Recep');
+}
+
+module.exports = { patientDashboard, doctorDashboard, getDoctorPatients, getPatientDetails, patientLogs, receptionistDashboard, paymentsPage, addPatient, adminDashboard, addDoctor, manageDoctors, manageReceptionits }
