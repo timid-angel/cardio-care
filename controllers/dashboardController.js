@@ -87,6 +87,16 @@ const getPatientDetails = async (req, res) => {
         return res.redirect('/doctor/patients')
     }
 
+    let name
+    let fName
+    if (patient.name.middle) {
+        name = patient.name.first + " " + patient.name.middle[0] + ". " + patient.name.last
+        fName = patient.name.first + " " + patient.name.middle[0] + "." + patient.name.last[0]
+    } else {
+        name = patient.name.first + " " + patient.name.last
+        fName = patient.name.first + " " + patient.name.last[0]
+    }
+
     let doctor_name
     if (patient.mainDoctor.toString() === doctor._id.toString()) {
         doctor_name = doctor.name.first + " " + doctor.name.middle + " " + doctor.name.last
@@ -105,6 +115,7 @@ const getPatientDetails = async (req, res) => {
 
     res.status(200).render('./doctorViews/doctor-patient', {
         full_name: patient.name.first + " " + patient.name.middle + " " + patient.name.last,
+        fName,
         id: patient._id.toString(),
         gender: patient.gender,
         dateOfBirth: new Date(patient.dateOfBirth).toLocaleString(),
