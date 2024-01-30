@@ -85,4 +85,39 @@ const getPatientDetails = async (req, res) => {
     })
 }
 
-module.exports = { patientDashboard, doctorDashboard, getDoctorPatients, getPatientDetails }
+
+const receptionistDashboard = (req, res) => {
+  
+    res.render('./receptionistViews/receptionDashboard');
+}
+
+const paymentsPage= (req, res) => {
+  
+    res.render('./receptionistViews/paymentpage');
+}
+
+const addPatient= (req, res) => {
+  
+    res.render('./receptionistViews/addPatient');
+}
+
+const adminDashboard= (req, res) => {
+  
+    res.render('./adminViews/adminDashboard');
+}
+const addDoctor= (req, res) => {
+  
+    res.render('./adminViews/addDoctor');
+}
+
+const manageDoctors= (req, res) => {
+  
+    res.render('./adminViews/manage-Doctor');
+}
+
+const manageReceptionits= (req, res) => {
+  
+    res.render('./adminViews/manage-Recep');
+}
+
+module.exports = { patientDashboard, doctorDashboard, getDoctorPatients, getPatientDetails, receptionistDashboard , paymentsPage , addPatient, adminDashboard , addDoctor , manageDoctors , manageReceptionits }
