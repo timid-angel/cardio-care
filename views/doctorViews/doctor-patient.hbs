@@ -112,20 +112,7 @@
                     </div>
                 </div>
                 <!-- card content -->
-                <div class="w-full rounded-b-xl flex flex-col relative" id="noteContainer">
-                    <div
-                        class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900">
-                        <div class="flex gap-4 items-center w-full overflow-hidden">
-                            <p>Patient seems to be losing the will to live.
-                            </p>
-                        </div>
-                        <div class="flex gap-3 justify-end w-20">
-                            <div class="">
-                                <img src="/image/delete.svg" alt="" class="w-7">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="w-full rounded-b-xl flex flex-col relative" id="noteContainer"></div>
             </div>
             <hr class="my-14 border-slate-800 border-t-2">
 
@@ -139,28 +126,30 @@
                         </div>
                     </div>
                     <!-- form -->
-                    <form class="h-80 flex flex-col justify-around items-center text-xl">
+                    <form class="h-80 flex flex-col justify-around items-center text-xl" id="doctor-reading-form">
 
                         <div class="flex justify-between w-full">
                             <label class="w-20 ml-4 text-center py-2" for="type">Type</label>
                             <select name="type" id="typeDropdown"
                                 class="mx-auto w-8/12 text-center bg-rose-200 rounded-md">
-                                <option value="hr">Heart Rate</option>
-                                <option value="bt">Body Temperature</option>
-                                <option value="bs">Blood Sugar</option>
-                                <option value="bp">Blood Pressure</option>
-                                <option value="rr">Respiration Rate</option>
+                                <option value="pulseRate">Heart Rate</option>
+                                <option value="bodyTemperature">Body Temperature</option>
+                                <option value="bloodSugar">Blood Sugar</option>
+                                <option value="bloodPressure">Blood Pressure</option>
+                                <option value="respirationRate">Respiration Rate</option>
                             </select>
                         </div>
 
                         <div class="flex justify-between w-full">
                             <label class="w-20 ml-4 text-center py-1" for="value">Value</label>
-                            <input type="text" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm">
+                            <input type="text" name="value"
+                                class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm">
                         </div>
 
                         <div class="flex justify-between w-full">
                             <label class="w-20 ml-4 text-center py-1" for="date">Date</label>
-                            <input type="date" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm">
+                            <input type="date" name="date"
+                                class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm">
                         </div>
                         <button type="submit"
                             class="bg-red-800 text-slate-100 text-lg py-1 px-3 flex items-center justify-center rounded-3xl hover:bg-red-900 active:bg-red-800 hover:transition-colors shadow-md">
@@ -199,61 +188,50 @@
             <div
                 class="mx-auto h-full bg-gray-100 rounded-lg py-6 flex flex-row flex-wrap lg:flex-nowrap lg:flex-col gap-10 shadow-lg">
                 <!-- individual stat -->
-                <div class="w-fit mx-auto px-5 py-2 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                <div class="w-fit mx-auto px-5 pt-3 pb-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
                     <h3 class="text-2xl text-center mb-3 font-semibold">Heart Rate</h3>
-                    <div
-                        class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-green-600 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                        <h4 class="text-4xl mt-2">59</h4>
+                    <div class="w-40 h-40 bg-white mx-auto rounded-full border-8 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center"
+                        style="border-color: lightgray">
+                        <h4 class="text-4xl mt-2" id="heartRateField"></h4>
                         <p class="font-light">bpm</p>
                     </div>
-                    <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                        Recordings</a>
                 </div>
                 <!-- individual stat -->
-                <div class="w-fit mx-auto px-5 py-2 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                <div class="w-fit mx-auto px-5 pt-3 pb-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
                     <h3 class="text-2xl text-center mb-3 font-semibold">Body Temperature</h3>
-                    <div
-                        class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-orange-400 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                        <h4 class="text-4xl mt-2">39</h4>
+                    <div class="w-40 h-40 bg-white mx-auto rounded-full border-8 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center"
+                        style="border-color: lightgray">
+                        <h4 class="text-4xl mt-2" id="bodyTemperatureField"></h4>
                         <p class="font-light">°C</p>
                     </div>
-                    <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                        Recordings</a>
                 </div>
                 <!-- individual stat -->
-                <div class="w-fit mx-auto px-5 py-2 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                <div class="w-fit mx-auto px-5 pt-3 pb-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
                     <h3 class="text-2xl text-center mb-3 font-semibold">Blood Sugar</h3>
-                    <div
-                        class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-green-600 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                        <h4 class="text-4xl mt-2">116</h4>
+                    <div class="w-40 h-40 bg-white mx-auto rounded-full border-8 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center"
+                        style="border-color: lightgray">
+                        <h4 class="text-4xl mt-2" id="bloodSugarField"></h4>
                         <p class="font-light">mg/dL</p>
                     </div>
-                    <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                        Recordings</a>
                 </div>
                 <!-- individual stat -->
-                <div class="w-fit mx-auto px-5 py-2 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                <div class="w-fit mx-auto px-5 pt-3 pb-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
                     <h3 class="text-2xl text-center mb-3 font-semibold">Blood Pressure</h3>
-                    <div
-                        class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-red-700 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                        <h4 class="text-4xl mt-2">149/96</h4>
+                    <div class="w-40 h-40 bg-white mx-auto rounded-full border-8 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center"
+                        style="border-color: lightgray">
+                        <h4 class="text-4xl mt-2" id="bloodPressureField"></h4>
                         <p class="font-light">mmHg</p>
                     </div>
-                    <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                        Recordings</a>
                 </div>
                 <!-- individual stat -->
-                <div class="w-fit mx-auto px-5 py-2 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                <div class="w-fit mx-auto px-5 pt-3 pb-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
                     <h3 class="text-2xl text-center mb-3 font-semibold">Respiration Rate</h3>
-                    <div
-                        class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-yellow-500 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                        <h4 class="text-4xl mt-2">25</h4>
+                    <div class="w-40 h-40 bg-white mx-auto rounded-full border-8 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center"
+                        style="border-color: lightgray">
+                        <h4 class="text-4xl mt-2" id="respirationRateField"></h4>
                         <p class="font-light">breaths/min</p>
                     </div>
-                    <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                        Recordings</a>
                 </div>
-
             </div>
         </div>
     </main>
@@ -342,6 +320,7 @@
     <script src="/scripts/doctor/doctorsPatientModal.js"></script>
     <script src="/scripts/doctor/doctorOrder.js"></script>
     <script src="/scripts/doctor/doctorNotes.js"></script>
+    <script src="/scripts/doctor/doctorReadings.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 const Patient = require('../model/Patient')
 const Doctor = require('../model/Doctor')
+const MedicalRecord = require('../model/MedicalRecord')
 const { getDoctorJWTID, getPatientJWTID } = require('./jwtIDs')
 
 // check if the doctor is linked to the patient
@@ -65,6 +66,28 @@ const addDailyReading = async (req, res) => {
     res.status(201).json(patient.dailyReading)
 }
 
+const addReadingsDoctor = async (req, res) => {
+    if (!req.params?.id) return res.sendStatus(400)
+    const patient = await Patient.findById(req.params.id)
+    // check if doctor is linked to patient
+    const doctorId = getDoctorJWTID(req.cookies.jwt)
+    if (!doctorId) return res.sendStatus(400)
+    const doctor = await Doctor.findById(doctorId)
+    if (!isLinked(patient, doctor)) return res.sendStatus(401) // unauthorized
+
+
+    const medicalRecord = await MedicalRecord.findById(patient.medicalRecord._id.toString())
+    const dailyReading = req.body
+    dailyReading.date = dailyReading.date || new Date()
+    const arr = medicalRecord[req.body.noteType]
+    arr.push(dailyReading)
+    dailyReading.noteType = req.body.noteType
+    patient.dailyReading.push(dailyReading)
+    await patient.save()
+    await medicalRecord.save()
+    res.sendStatus(201)
+}
+
 const getReadingsPatient = async (req, res) => {
     const patientId = getPatientJWTID(req.cookies.jwt)
     if (!patientId) return res.sendStatus(500)
@@ -81,7 +104,14 @@ const getReadingsDoctor = async (req, res) => {
     const doctor = await Doctor.findById(doctorId)
     if (!isLinked(patient, doctor)) return res.sendStatus(401) // unauthorized
     if (!patient) return res.sendStatus(400)
-    res.status(200).json(patient.dailyReading)
+    const medicalRecord = await MedicalRecord.findById(patient.medicalRecord._id)
+    res.status(200).json({
+        bloodPressure: medicalRecord.bloodPressure.slice(-5),
+        bloodSugar: medicalRecord.bloodSugar.slice(-5),
+        bodyTemperature: medicalRecord.bodyTemperature.slice(-5),
+        pulseRate: medicalRecord.pulseRate.slice(-5),
+        respirationRate: medicalRecord.respirationRate.slice(-5)
+    })
 }
 
 const deleteReading = async (req, res) => {
@@ -214,5 +244,6 @@ module.exports = {
     deleteSymtpom,
     deleteReading,
     deleteOrder,
-    deleteNote
+    deleteNote,
+    addReadingsDoctor
 }

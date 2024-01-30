@@ -12,7 +12,8 @@ const {
     deleteOrder,
     addDoctorNote,
     getNotes,
-    deleteNote
+    deleteNote,
+    addReadingsDoctor
 } = require('../controllers/logController')
 // middleware
 const authDoctor = require('../middleware/authDoctor')
@@ -43,7 +44,7 @@ router.get('/symptoms', authDoctor, getSymptomsDoctor)
 
 // readings
 router.get('/readings/:id', authDoctor, getReadingsDoctor)
-router.post('/readings/:id', authDoctor)
+router.post('/readings/:id', authDoctor, addReadingsDoctor)
 
 // doctor orders
 router.get('/orders/:id', authDoctor, getOrdersDoctor)

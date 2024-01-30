@@ -8,7 +8,6 @@ const doctorNote = {
 const dailyReadingLog = {
     noteType: String,
     date: Date,
-    description: String,
     value: Number
 }
 
