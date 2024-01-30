@@ -39,6 +39,10 @@ const patientDashboard = async (req, res) => {
     })
 }
 
+const patientLogs = async (req, res) => {
+    res.render('./patientViews/patient-log')
+}
+
 // middleware to check if the doctor and the specified patient are linked
 const isLinked = (doctor, patient) => {
     return doctor.patients.indexOf(patient._id.toString()) !== -1
@@ -85,4 +89,4 @@ const getPatientDetails = async (req, res) => {
     })
 }
 
-module.exports = { patientDashboard, doctorDashboard, getDoctorPatients, getPatientDetails }
+module.exports = { patientDashboard, doctorDashboard, getDoctorPatients, getPatientDetails, patientLogs }

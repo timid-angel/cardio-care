@@ -5,7 +5,7 @@ const { patientLoginController } = require('../controllers/loginController')
 const appointmentController = require('../controllers/appointmentController')
 const multer = require('multer')
 const path = require('path')
-const { patientDashboard } = require('../controllers/dashboardController')
+const { patientDashboard, patientLogs } = require('../controllers/dashboardController')
 const {
     addSymptom,
     getSymptomsPatient,
@@ -38,10 +38,13 @@ router.post('/appointments', authPatient, appointmentController.addAppointment)
 router.get('/payment', getPage)
 router.post('/payment', upload.single('image'), postPayment)
 
+// log page
+router.get('/logs', authPatient, patientLogs)
+
 // symptom logs
 router.get('/symptoms', authPatient, getSymptomsPatient)
 router.post('/symptoms', authPatient, addSymptom)
-router.delete('/symptoms', authPatient, deleteSymtpom)
+router.delete('/symptoms/:id', authPatient, deleteSymtpom)
 
 // daily readings
 router.get('/readings', authPatient, getReadingsPatient)

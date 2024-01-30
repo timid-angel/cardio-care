@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/output.css">
+    <link rel="icon" href="/image/cardio-care logo-modified.png ">
+    <title>Martin Erno Vinny</title>
+    <style>
+        :root {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 overflow-x-hidden flex flex-col items-center">
+
+    <header class="bg-red-900 w-full h-16 flex items-center">
+        <a class="text-md h-14 rounded-md w-fit pr-3 pl-2 ml-4 flex items-center text-white hover:bg-red-950 cursor-pointer"
+            href="/patient/dashboard">
+            <img src="/image/arrow-left.svg" alt="" class="w-8 h-8">
+            <p class="text-2xl pl-2 flex items-center h-full">Back to Dashboard</p>
+        </a>
+    </header>
+
+    <main class="min-h-screen flex flex-col lg:flex-row w-full max-w-screen-2xl my-2">
+
+        <!-- info -->
+        <div class="w-full lg:w-9/12 py-8 px-2 md:pl-12 md:pr-10 mx-auto">
+
+            {{!-- DOCTOR ORDERS --}}
+            <div class="bg-slate-200 rounded-xl px-3 shadow-md">
+                <div class="h-14 sm:h-16 flex justify-between rounded-t-xl border-b-2 border-red-900">
+                    <div class="flex items-center ml-2">
+                        <h3 class="text-2xl sm:text-3xl text-slate-600">Doctor's Orders</h3>
+                    </div>
+                </div>
+                <div class="w-full rounded-b-xl flex flex-col relative" id="ordersContainer">
+                    <div
+                        class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900">
+                        <div class="flex gap-4 overflow-hidden w-full">
+                            <p class=" flex items-center justify-center">No orders from your doctor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- SYMPTOMS LOG --}}
+            <div class="bg-slate-200 rounded-xl mt-10 px-3 shadow-md">
+                <div class="h-14 sm:h-16 flex justify-between rounded-t-xl border-b-2 border-red-900">
+                    <div class="flex items-center ml-2">
+                        <h3 class="text-2xl sm:text-3xl text-slate-600">Symptoms Log</h3>
+                    </div>
+                    <div class="flex items-center mr-2" id="doctor-symptom-modal-button">
+                        <img src="/image/add-icon.svg" alt="" class="w-10">
+                    </div>
+                </div>
+                <div class="w-full rounded-b-xl flex flex-col relative" id="symptomContainer">
+                    <div
+                        class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900">
+                        <div class="flex gap-4 overflow-hidden w-full">
+                            <p class=" flex items-center justify-center">You don't have any logged symptoms.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- RECENT READINGS --}}
+            <div class="bg-slate-200 rounded-xl mt-10 px-3 shadow-md">
+                <div class="h-14 sm:h-16 flex justify-between rounded-t-xl border-b-2 border-red-900">
+                    <div class="flex items-center ml-2">
+                        <h3 class="text-2xl sm:text-3xl text-slate-600">Recent Readings</h3>
+                    </div>
+                    <a class="flex items-center mr-2" href="#reading">
+                        <img src="/image/add-icon.svg" alt="" class="w-10">
+                    </a>
+                </div>
+                <div class="w-full rounded-b-xl flex flex-col relative" id="readingsContainer">
+                    <div
+                        class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900">
+                        <div class="flex gap-4 overflow-hidden w-full">
+                            <p class=" flex items-center justify-center">You don't have any recent vital recordings.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-14 border-slate-800 border-t-2">
+
+            {{!-- DAILY READING FORM --}}
+            <div class="flex flex-col sm:flex-row justify-around" id="reading">
+                <div class="bg-slate-200 rounded-xl px-3 shadow-md w-7/12 mx-auto sm:mx-0 sm:w-6/12 h-96">
+                    <div class="h-16 flex justify-between rounded-t-xl border-b-2 border-red-900">
+                        <div class="flex items-center ml-2">
+                            <h3 class="text-3xl text-slate-600">Add Reading</h3>
+                        </div>
+                    </div>
+                    <form class="h-80 flex flex-col justify-around items-center text-xl" id="patient-reading-form">
+
+                        <div class="flex justify-between w-full">
+                            <label class="w-20 ml-4 text-center py-2" for="type">Type</label>
+                            <select name="type" id="typeDropdown"
+                                class="mx-auto w-8/12 text-center bg-rose-200 rounded-md">
+                                <option value="pulseRate">Heart Rate</option>
+                                <option value="bodyTemperature">Body Temperature</option>
+                                <option value="bloodSugar">Blood Sugar</option>
+                                <option value="bloodPressure">Blood Pressure</option>
+                                <option value="respirationRate">Respiration Rate</option>
+                            </select>
+                        </div>
+
+                        <div class="flex justify-between w-full">
+                            <label class="w-20 ml-4 text-center py-1" for="value">Value</label>
+                            <input type="text" name="value"
+                                class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm">
+                        </div>
+
+                        <div class="flex justify-between w-full">
+                            <label class="w-20 ml-4 text-center py-1" for="date">Date</label>
+                            <input type="date" name="date"
+                                class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm">
+                        </div>
+                        <button type="submit"
+                            class="bg-red-800 text-slate-100 text-lg py-1 px-3 flex items-center justify-center rounded-3xl hover:bg-red-900 active:bg-red-800 hover:transition-colors shadow-md">
+                            Confirm
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {{!-- ADD SYMTPOM MODAL --}}
+    <div id="doctor-symptom-modal" class="w-full h-full fixed bg-gray-950 bg-opacity-35 hidden">
+        <div id="doctor-symptom-background" class="w-full h-full"></div>
+        <div
+            class="bg-slate-50 w-11/12 sm:w-3/4 md:w-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl z-10">
+            <div class="shadow-md h-14 flex items-center justify-center text-2xl text-gray-600">
+                <p>Add a Symptom/Discomfort</p>
+            </div>
+            <form class="gap-4 my-6 flex flex-col justify-around items-center text-xl" id="doctor-symptom-form">
+                <div class="flex justify-between w-full">
+                    <label class="w-20 ml-4 text-center py-1" for="trigger">Trigger</label>
+                    <input type="text" name="trigger" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm">
+                </div>
+
+                <div class="flex justify-between w-full">
+                    <label class="w-20 ml-4 text-center py-1" for="description">Description</label>
+                    <textarea name="description" cols="30" rows="7" class="mx-auto w-8/12 text-left px-2
+                        text-slate-600 rounded-sm shadow-sm border py-1"></textarea>
+                </div>
+
+                <div class="flex justify-between w-full">
+                    <label class="w-20 ml-4 text-center py-1" for="startTime">Start Date</label>
+                    <input type="date" name="startTime" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm">
+                </div>
+
+                <div class="flex justify-between w-full">
+                    <label class="w-20 ml-4 text-center py-1" for="endTime">End Date</label>
+                    <input type="date" name="endTime" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm">
+                </div>
+
+                <button type="submit"
+                    class="bg-red-800 text-slate-100 text-lg py-1 px-3 flex items-center justify-center rounded-3xl hover:bg-red-900 active:bg-red-800 hover:transition-colors shadow-md">
+                    Confirm
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="bg-red-900 w-full h-10 flex justify-center items-center">
+        <p class="text-sm md:text-lg text-center text-white">Copyright &copy; Cardio Care</p>
+    </footer>
+
+    <script src="/scripts/patient/doctorOrders.js"></script>
+    <script src="/scripts/patient/patientReadings.js"></script>
+    <script src="/scripts/patient/patientSymptoms.js"></script>
+    <script src="/scripts/patient/addSymptomModal.js"></script>
+
+</body>
+
+</html>

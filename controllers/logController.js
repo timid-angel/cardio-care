@@ -16,18 +16,18 @@ function isLinked(patient, doctor) {
 // SYMPTOM LOGS
 const addSymptom = async (req, res) => {
     const patientId = getPatientJWTID(req.cookies.jwt)
-    if (!patientId) return res.sendStatus(500)
+    if (!patientId) return res.sendStatus(400)
     const patient = await Patient.findById(patientId)
     const symptom = req.body
     symptom.date = new Date()
     patient.symptomLog.push(symptom)
     await patient.save()
-    res.status(201).json(patient.symptomLog)
+    res.sendStatus(201)
 }
 
 const getSymptomsPatient = async (req, res) => {
     const patientId = getPatientJWTID(req.cookies.jwt)
-    if (!patientId) return res.sendStatus(500)
+    if (!patientId) return res.sendStatus(400)
     const patient = await Patient.findById(patientId)
     res.status(200).json(patient.symptomLog)
 }
@@ -37,7 +37,7 @@ const getSymptomsDoctor = async (req, res) => {
     // check if doctor is linked to patient
     if (!patient) return res.sendStatus(400)
     const doctorId = getDoctorJWTID(req.cookies.jwt)
-    if (!doctorId) return res.sendStatus(500)
+    if (!doctorId) return res.sendStatus(400)
     const doctor = await Doctor.findById(doctorId)
     if (!isLinked(patient, doctor)) return res.sendStatus(401) // unauthorized
     res.status(200).json(patient.symptomLog)
@@ -45,29 +45,33 @@ const getSymptomsDoctor = async (req, res) => {
 
 const deleteSymtpom = async (req, res) => {
     const patientId = getPatientJWTID(req.cookies.jwt)
-    if (!patientId) return res.sendStatus(500)
+    if (!patientId) return res.sendStatus(400)
     const patient = await Patient.findById(patientId)
-    const dateReq = new Date(req.body.date).valueOf()
-    if (!dateReq) {
-        res.status(400).json({ 'error': 'Invalid date value' })
-    }
+    if (!req.params.id) return res.sendStatus(400)
+    const symptomId = req.params.id
 
-    patient.symptomLog = patient.symptomLog.filter(item => item.date.valueOf() !== dateReq.valueOf())
+    patient.symptomLog = patient.symptomLog.filter(item => item._id.toString() !== symptomId)
     await patient.save()
-    res.status(200).json(patient.symptomLog)
+    res.sendStatus(204)
 }
 
 
 // DAILY READING LOGS
 const addDailyReading = async (req, res) => {
     const patientId = getPatientJWTID(req.cookies.jwt)
-    if (!patientId) return res.sendStatus(500)
+    if (!patientId) return res.sendStatus(400)
     const patient = await Patient.findById(patientId)
+
+    const medicalRecord = await MedicalRecord.findById(patient.medicalRecord._id.toString())
     const dailyReading = req.body
-    dailyReading.date = new Date()
+    dailyReading.date = dailyReading.date || new Date()
+    const arr = medicalRecord[req.body.noteType]
+    arr.push(dailyReading)
+    dailyReading.noteType = req.body.noteType
     patient.dailyReading.push(dailyReading)
     await patient.save()
-    res.status(201).json(patient.dailyReading)
+    await medicalRecord.save()
+    res.sendStatus(201)
 }
 
 const addReadingsDoctor = async (req, res) => {
@@ -94,9 +98,9 @@ const addReadingsDoctor = async (req, res) => {
 
 const getReadingsPatient = async (req, res) => {
     const patientId = getPatientJWTID(req.cookies.jwt)
-    if (!patientId) return res.sendStatus(500)
+    if (!patientId) return res.sendStatus(400)
     const patient = await Patient.findById(patientId)
-    res.status(200).json(patient.dailyReading)
+    res.status(200).json(patient.dailyReading.slice(-5))
 }
 
 const getReadingsDoctor = async (req, res) => {
@@ -104,7 +108,7 @@ const getReadingsDoctor = async (req, res) => {
     const patient = await Patient.findById(req.params.id)
     // check if doctor is linked to patient
     const doctorId = getDoctorJWTID(req.cookies.jwt)
-    if (!doctorId) return res.sendStatus(500)
+    if (!doctorId) return res.sendStatus(400)
     const doctor = await Doctor.findById(doctorId)
     if (!isLinked(patient, doctor)) return res.sendStatus(401) // unauthorized
     if (!patient) return res.sendStatus(400)
@@ -120,7 +124,7 @@ const getReadingsDoctor = async (req, res) => {
 
 const deleteReading = async (req, res) => {
     const patientId = getPatientJWTID(req.cookies.jwt)
-    if (!patientId) return res.sendStatus(500)
+    if (!patientId) return res.sendStatus(400)
     const patient = await Patient.findById(patientId)
     const dateReq = new Date(req.body.date).valueOf()
     if (!dateReq) {
@@ -157,7 +161,7 @@ const addDoctorOrder = async (req, res) => {
 
 const getOrdersPatient = async (req, res) => {
     const patientId = getPatientJWTID(req.cookies.jwt)
-    if (!patientId) return res.sendStatus(500)
+    if (!patientId) return res.sendStatus(400)
     const patient = await Patient.findById(patientId)
     res.status(200).json(patient.orderLog)
 }
@@ -236,7 +240,7 @@ const deleteNote = async (req, res) => {
 const handleImport = async (req, res) => {
     try {
         const patientId = getPatientJWTID(req.cookies.jwt);
-        if (!patientId) return res.sendStatus(500);
+        if (!patientId) return res.sendStatus(400);
 
         const patient = await Patient.findById(patientId);
 
@@ -329,5 +333,4 @@ module.exports = {
     handleImport,
     handleExport,
     addReadingsDoctor
-
 }
