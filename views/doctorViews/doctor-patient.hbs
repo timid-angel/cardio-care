@@ -322,32 +322,33 @@
             <div class="shadow-md h-14 flex items-center justify-center text-2xl text-gray-600">
                 <p>Add an Order to the Patient</p>
             </div>
-            <form class="gap-4 my-6 flex flex-col justify-around items-center text-xl">
+            <form class="gap-4 my-6 flex flex-col justify-around items-center text-xl" id="doctor-order-form">
                 <div class="flex justify-between w-full">
                     <label class="w-20 ml-4 text-center py-2" for="type">Type</label>
                     <select name="type" id="orderTypeDropdown"
                         class="mx-auto w-8/12 text-center bg-rose-200 rounded-md">
-                        <option value="hr">Heart Rate</option>
-                        <option value="bt">Body Temperature</option>
-                        <option value="bs">Blood Sugar</option>
-                        <option value="bp">Blood Pressure</option>
-                        <option value="rr">Respiration Rate</option>
+                        <option value="medication">Medication</option>
+                        <option value="routine">Routine</option>
+                        <option value="lifestyle">Lifestyle</option>
                     </select>
                 </div>
 
                 <div class="flex justify-between w-full">
-                    <label class="w-20 ml-4 text-center py-1" for="value">Description</label>
-                    <input type="text" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm shadow-sm border">
+                    <label class="w-20 ml-4 text-center py-1" for="description">Description</label>
+                    <input type="text" name="description"
+                        class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm shadow-sm border">
                 </div>
 
                 <div class="flex justify-between w-full">
-                    <label class="w-20 ml-4 text-center py-1" for="date">Start Date</label>
-                    <input type="date" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm shadow-sm border">
+                    <label class="w-20 ml-4 text-center py-1" for="startTime">Start Date</label>
+                    <input name="startTime" type="date"
+                        class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm shadow-sm border">
                 </div>
 
                 <div class="flex justify-between w-full">
-                    <label class="w-20 ml-4 text-center py-1" for="date">End Date</label>
-                    <input type="date" class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm shadow-sm border">
+                    <label class="w-20 ml-4 text-center py-1" for="endTime">End Date</label>
+                    <input name="endTime" type="date"
+                        class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm shadow-sm border">
                 </div>
 
                 <button type="submit"
@@ -396,6 +397,7 @@
         </div>
     </div>
     <script src="/scripts/doctor/doctorsPatientModal.js"></script>
+    <script src="/scripts/doctor/doctorOrder.js"></script>
 </body>
 
 </html>

@@ -103,7 +103,7 @@ const deleteReading = async (req, res) => {
 const addDoctorOrder = async (req, res) => {
     const doctorId = getDoctorJWTID(req.cookies.jwt)
     if (!doctorId) return res.sendStatus(500)
-    const patient = await Patient.findOne({ email: req.body.patientEmail })
+    const patient = await Patient.findById(req.params.id)
     const doctor = await Doctor.findById(doctorId)
     if (!patient || !doctor) return res.sendStatus(400)
     if (!isLinked(patient, doctor)) return res.sendStatus(401) // unauthorized
@@ -115,7 +115,6 @@ const addDoctorOrder = async (req, res) => {
         startTime: req.body.startTime,
         endTime: req.body.endTime
     }
-
     patient.orderLog.push(order)
     await patient.save()
     res.status(201).json(patient.orderLog)
@@ -129,7 +128,8 @@ const getOrdersPatient = async (req, res) => {
 }
 
 const getOrdersDoctor = async (req, res) => {
-    const patient = await Patient.findOne({ email: req.body.patientEmail })
+    if (!req.params?.id) return res.sendStatus(400)
+    const patient = await Patient.findById(req.params.id)
     // check if doctor is linked to patient
     if (!patient) return res.sendStatus(400)
     const doctorId = getDoctorJWTID(req.cookies.jwt)
@@ -142,7 +142,7 @@ const getOrdersDoctor = async (req, res) => {
 
 // request to be sent by a doctor
 const deleteOrder = async (req, res) => {
-    const patient = await Patient.findOne({ email: req.body.patientEmail })
+    const patient = await Patient.findById({ email: req.body.patientEmail })
     if (!patient) return res.sendStatus(400)
     const dateReq = new Date(req.body.date).valueOf()
     if (!dateReq) {

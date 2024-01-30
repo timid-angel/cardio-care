@@ -45,9 +45,9 @@ router.get('/symptoms', authDoctor, getSymptomsDoctor)
 router.get('/readings', authDoctor, getReadingsDoctor)
 
 // doctor orders
-router.get('/orders', authDoctor, getOrdersDoctor)
-router.post('/orders', authDoctor, addDoctorOrder)
-router.delete('/orders', authDoctor, deleteOrder)
+router.get('/orders/:id', authDoctor, getOrdersDoctor)
+router.post('/orders/:id', authDoctor, addDoctorOrder)
+router.delete('/orders/:orderId', authDoctor, deleteOrder)
 
 // doctor notes
 router.get('/notes', authDoctor, getNotes)
