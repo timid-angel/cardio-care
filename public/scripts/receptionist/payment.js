@@ -15,14 +15,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             if (response.ok) {
                 alert('Payment proof sent successfully');
-                // Handle success (redirect, update UI, etc.)
+
             } else {
                 alert('Failed to send payment try again!');
-                // Handle failure (display error message, etc.)
+
             }
         } catch (error) {
             console.error('Error:', error);
-            // Handle other errors (network issues, etc.)
+
         }
     });
 });
