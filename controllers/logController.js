@@ -103,6 +103,21 @@ const getReadingsPatient = async (req, res) => {
     res.status(200).json(patient.dailyReading.slice(-5))
 }
 
+const getMedicalPatient = async (req, res) => {
+    const patientId = getPatientJWTID(req.cookies.jwt)
+    if (!patientId) return res.sendStatus(400)
+    const patient = await Patient.findById(patientId)
+    if (!patient) return res.sendStatus(400)
+    const medicalRecord = await MedicalRecord.findById(patient.medicalRecord._id)
+    res.status(200).json({
+        bloodPressure: medicalRecord.bloodPressure.slice(-5),
+        bloodSugar: medicalRecord.bloodSugar.slice(-5),
+        bodyTemperature: medicalRecord.bodyTemperature.slice(-5),
+        pulseRate: medicalRecord.pulseRate.slice(-5),
+        respirationRate: medicalRecord.respirationRate.slice(-5)
+    })
+}
+
 const getReadingsDoctor = async (req, res) => {
     if (!req.params?.id) return res.sendStatus(400)
     const patient = await Patient.findById(req.params.id)
@@ -332,5 +347,6 @@ module.exports = {
     deleteNote,
     handleImport,
     handleExport,
-    addReadingsDoctor
+    addReadingsDoctor,
+    getMedicalPatient
 }

@@ -26,23 +26,47 @@ const getDoctorPatients = async (req, res) => {
 const patientDashboard = async (req, res) => {
     const patientID = getPatientJWTID(req.cookies.jwt)
     const patient = await Patient.findById(patientID)
-    res.render('./patientViews/patient-dashboard', {
-        name: patient.name.first + " " + patient.name.middle[0] + ". " + patient.name.last,
-        gender: patient.gender,
-        image: '/patient/' + patient.img,
-        email: patient.email,
-        birthdate: patient.Date.toString(),
-        phone: patient.phoneNumber,
-        address: patient.address.city + "" + patient.address.subCity + "" + patient.address.woreda + "" + patient.address.houseNumber + "",
-        primaryDoctor: patient.mainDoctor,
-    })
+    const doctor = await Doctor.findById(patient.mainDoctor)
+    const medicalRecord = await MedicalRecord.findById(patient.medicalRecord.toString())
+    let name
+    let fName
+    if (patient.name.middle) {
+        name = patient.name.first + " " + patient.name.middle[0] + ". " + patient.name.last
+        fName = patient.name.first + " " + patient.name.middle[0] + "." + patient.name.last[0]
+    } else {
+        name = patient.name.first + " " + patient.name.last
+        fName = patient.name.first + " " + patient.name.last[0]
+    }
 
-    const medicalRecord = {
-        currentHealthCondition: ['Condition 1', 'Condition 2', 'Condition 3'],
-        allergies: ['Allergy 1', 'Allergy 2'],
-        medications: ['Medication 1', 'Medication 2', 'Medication 3'],
-        recentMedication: ['Medication 1', 'Medication 2', 'Medication 3'],
-    };
+    let doctorName
+    if (doctor.name.middle) {
+        doctorName = doctor.name.first + " " + doctor.name.middle[0] + ". " + doctor.name.last
+    } else {
+        doctorName = doctor.name.first + " " + doctor.name.last
+    }
+
+    res.render('./patientViews/patient-dashboard', {
+        name,
+        fName,
+        gender: patient.gender,
+        image: patient.img,
+        email: patient.email,
+        id: patient._id.toString(),
+        birthdate: patient.dateOfBirth.toLocaleDateString(),
+        phone: patient.phoneNumber,
+        address: patient.address.subCity + " Woreda " + patient.address.woreda + ", " + patient.address.houseNumber,
+        doctorName,
+        doctorEmail: doctor.email || "Not Available",
+        doctorPhone: doctor.phoneNumber || "Not Available",
+        expertise: doctor.expertise[0] || 'General Medicine',
+        doctorId: doctor._id.toString(),
+        doctorImage: doctor.img,
+        paymentDate: patient.lastPaymentDate.toLocaleDateString(),
+        geneticVulnerabilities: medicalRecord.geneticVulnerabilities.length === 0 ? ["-"] : medicalRecord.geneticVulnerabilities,
+        allergies: medicalRecord.allergies.length === 0 ? ["-"] : medicalRecord.allergies,
+        vaccinations: medicalRecord.vaccination.length === 0 ? ["-"] : medicalRecord.vaccination,
+        recentMedication: medicalRecord.currentMedication.length === 0 ? ["-"] : medicalRecord.currentMedication
+    })
 }
 
 const patientLogs = async (req, res) => {

@@ -15,7 +15,8 @@ const {
     deleteReading,
     getOrdersPatient,
     handleExport,
-    handleImport
+    handleImport,
+    getMedicalPatient
 } = require('../controllers/logController')
 // middleware
 const authPatient = require('../middleware/authPatient')
@@ -48,6 +49,7 @@ router.delete('/symptoms/:id', authPatient, deleteSymtpom)
 
 // daily readings
 router.get('/readings', authPatient, getReadingsPatient)
+router.get('/med-readings', authPatient, getMedicalPatient)
 router.post('/readings', authPatient, addDailyReading)
 router.delete('/readings', authPatient, deleteReading)
 
@@ -80,8 +82,6 @@ const fileFilter = (req, file, cb) => {
 };
 
 const u = multer({ storage: storage, fileFilter: fileFilter });
-
-
 router.post('/importRecord', u.single('jsonFile'), authPatient, handleImport, (req, res) => {
     res.json({ "message": "successfully imported" })
 })

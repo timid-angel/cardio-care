@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient dashboard</title>
+    <title>Patient | {{fName}}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Roboto:wght@300&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/styles/output.css">
+    <link rel="icon" href="/image/cardio-care logo-modified.png">
     <style>
         body {
             font-family: 'Raleway', sans-serif;
@@ -18,285 +19,311 @@
     </style>
 </head>
 
-<body class="bg-slate-200">
-    <div class="flex items-center justify-between p-4 bg-white">
+<body class="bg-slate-50 min-h-screen flex flex-col justify-between">
 
-        <div class="flex items-center">
-            <img src="/image/cclogo.png" alt="Logo" class="h-20 w-20">
-            <span class="text-red-600 font-bold text-5xl ml-1">Cardio Care</span>
-        </div>
+    <header>
+        <div class="flex items-center justify-between shadow-md px-4 py-2 bg-white">
+            <div class="flex items-center">
+                <img src="/image/cclogo.png" alt="Logo" class="h-12 w-12">
+                <span class="text-red-600 font-bold text-2xl ml-1">Cardio Care</span>
+            </div>
 
-
-        <div class="flex items-center">
-
-           <img src="/patients/{{image}}" alt="Profile Image" class="rounded-full h-12 w-12 mr-2 object-cover" >
-
-            <div>
-                <p class="text-gray-800 font-bold">Royal Hospital</p>
-                <div class="flex items-center">
-
-                    <span class="text-black font-bold"> <i class="fa-solid fa-user"></i> ph647745</span>
+            <div class="flex items-center">
+                <img src="/image/royal.png" alt="Profile Image" class="rounded-full h-12 w-12 mr-2 object-cover">
+                <div>
+                    <p class="text-gray-800 font-bold">Royal Hospital</p>
+                    <div class="flex items-center">
+                        <span class="text-black font-bold"> <i class="fa-solid fa-user"></i> ph647745</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <main>
+        <nav class="flex justify-between flex-no-wrap w-10/12 mx-auto">
 
-
-        <div class="four-box pt-10 flex justify-between flex-no-wrap ">
-            <div class="box shadow-md w-52 h-28 flex items-center justify-center flex-col rounded-lg m-3 bg-white">
+            <a
+                class="box shadow-md hover:shadow-lg w-52 h-28 flex items-center justify-center flex-col rounded-lg m-3 bg-white cursor-pointer">
                 <h5 class="text-lg">Appointment</h5>
                 <i class="far fa-clock text-xl" aria-hidden="true"></i>
-            </div>
-            <div class="box shadow-md w-52 h-28 flex items-center justify-center flex-col rounded-lg m-3 bg-white">
+            </a>
+
+            <a class="box shadow-md hover:shadow-lg w-52 h-28 flex items-center justify-center flex-col rounded-lg m-3 bg-white"
+                href="/patient/logs">
                 <h5 class="text-lg">Edit Log</h5>
                 <i class="far fa-edit text-xl" aria-hidden="true"></i>
-            </div>
-            <div class="box shadow-md w-52 h-28 flex items-center justify-center flex-col rounded-lg m-3 bg-white cursor-pointer"
+            </a>
+
+            <div class="box shadow-md hover:shadow-lg w-52 h-28 flex items-center justify-center flex-col rounded-lg m-3 bg-white cursor-pointer"
                 id="transfer">
                 <h5 class="text-lg">Transfer Data</h5>
                 <i class="fas fa-exchange-alt text-xl" aria-hidden="true"></i>
             </div>
-            <div class="box shadow-md w-52 h-28 flex items-center justify-center flex-col rounded-lg m-3 bg-white cursor-pointer"
+
+            <div class="box shadow-md hover:shadow-lg w-52 h-28 flex items-center justify-center flex-col rounded-lg m-3 bg-white cursor-pointer"
                 id="payment">
                 <h5 class="text-lg">Payment</h5>
                 <i class="fas fa-credit-card text-xl" aria-hidden="true"></i>
             </div>
-            <div class="box shadow-md w-52 h-28 flex items-center justify-center flex-col rounded-lg m-3 bg-white">
-                <h5 class="text-lg">My doctor</h5>
-                <i class="fa fa-user-md text-xl" aria-hidden="true"></i>
-                <div
-                    class="myDoctor p-2.5 bg-neutral-50 rounded-[10px] shadow-md justify-start items-center gap-[37px] inline-flex">
-                    <div class=" flex-col justify-start items-start gap-4 inline-flex">
-                    <p class=" text-black text-xl font-normal ">Dr. {{name}}</p>
-                    <p class=""><span class="text-black text-sm font-bold ">ID</span><span
-                    class="text-black text-sm font-normal ">: {{id}}</span></p>
-                    <p class=""><span class="text-black text-sm font-bold ">Expertise</span><span
-                    class="text-black text-sm font-normal ">: {{expertise}}</span></p>
-                    <p class=""><span class="text-black text-sm font-bold ">Work phone</span><span
-                    class="text-black text-sm font-normal ">: {{phone}}</span></p>
-                    <p class=""><span class="text-black text-sm font-bold ">Email</span><span
-                    class="text-black text-sm font-normal ">: {{email}}</span></p>
-                    </div>
+        </nav>
+    </header>
+
+    <!-- EXPORT MODAL -->
+    <section class="bg-slate-300 hidden" id="export-data">
+        <header class="flex justify-between p-4">
+            <h1 class="text-xl font-bold pt-3">Export Data</h1>
+            <img src="/image/cclogo.png" class="w-14 h-14">
+        </header>
+        <main class="p-4">
+            <div class="all mt-14">
+                <div class="choose1 mt-4">
+                    <label for="myInput">Select File:</label>
+                    <select id="myDropdown" name="myDropdown" class="w-48 h-8">
+                        <option value=""></option>
+                        <option value="patient_records">Patient Records</option>
+                        <option value="ecg_reports">ECG Reports</option>
+                        <option value="lab_results">Lab Results</option>
+                    </select>
+                </div>
+
+                <div class="choose2 mt-4">
+                    <label for="myInput">Select Format:</label>
+                    <select id="myDropdown" name="myDropdown" class="w-48 h-8">
+                        <option value=""></option>
+                        <option value="pdf">PDF</option>
+                        <option value="csv">CSV</option>
+                        <option value="excel">Excel</option>
+                    </select>
+                </div>
+
+                <div class="choose3 mt-4">
+                    <label for="myInput">Select Destination:</label>
+                    <select id="myDropdown" name="myDropdown" class="w-48 h-8">
+                        <option value=""></option>
+                        <option value="email">Email</option>
+                        <option value="cloud_storage">Cloud Storage</option>
+                        <option value="ftp">FTP</option>
+                    </select>
                 </div>
             </div>
+            <div class="button mt-6 text-center">
+                <button class="bg-black text-white w-48 h-12 rounded-full">Export</button>
+            </div>
+    </section>
+
+    <!-- PAYMENT MODAL -->
+    <section class="bg-slate-300 hidden text-center" id="Payment">
+
+        <header class="flex flex-col justify-center items-center bg-azure ml-auto mr-auto h-full">
+            <img src="/image/cclogo2.png" class="w-28 h-28 mt-4">
+            <h1 class="text-2xl font-bold text-center">Payment Section</h1>
+        </header>
+        <form id="paymentForm" enctype="multipart/form-data">
+            <label for="patientEmail">Patient Email:</label>
+            <input type="text" id="patientEmail" name="email" required>
+
+            <label for="receipt">Upload Receipt:</label>
+            <input type="file" id="image" class="border border-gray-300 rounded px-2 py-1" name="image" accept="image/*"
+                required>
+
+            <div class="button mt-4 text-center">
+                <button type="submit" class="bg-green-500 hover:bg-green-900 text-white w-40 h-8 rounded-full">Send
+                    now</button>
+            </div>
+        </form>
+        <ol id="paymentDetails"></ol>
+        <div class="check text-center font-semibold pt-12">
+            <label for="myCheckbox">I agree to the terms and conditions...</label>
+            <input type="checkbox" id="myCheckbox" name="myCheckbox">
         </div>
+    </section>
 
 
-        <!-- modal2 -->
-        <section class="bg-slate-300 hidden" id="export-data">
+    <main class="mt-6">
+        {{!-- PROFILE --}}
+        <section class="w-10/12 mx-auto flex flex-row flex-wrap">
 
-            <header class="flex justify-between p-4">
-                <h1 class="text-xl font-bold pt-3">Export Data</h1>
-                <img src="/image/cclogo.png" class="w-14 h-14">
-            </header>
-
-
-
-            <main class="p-4">
-                <div class="all mt-14">
-                    <div class="choose1 mt-4">
-                        <label for="myInput">Select File:</label>
-                        <select id="myDropdown" name="myDropdown" class="w-48 h-8">
-                            <option value=""></option>
-                            <option value="patient_records">Patient Records</option>
-                            <option value="ecg_reports">ECG Reports</option>
-                            <option value="lab_results">Lab Results</option>
-                        </select>
+            {{!-- PATIENT CARD --}}
+            <div class="bg-red-50 md:h-96 rounded-xl shadow-md w-8/12 mx-auto">
+                <!-- card header -->
+                <div class="h-16 flex justify-between rounded-t-xl border-b-2 border-red-900">
+                    <div class="flex items-center ml-2">
+                        <img src="/image/cardio-care logo.jpg" alt="" class="w-12 h-12 mr-4 rounded-full shadow-inner">
+                        <h3 class="text-2xl text-slate-600">{{name}}</h3>
                     </div>
-
-                    <div class="choose2 mt-4">
-                        <label for="myInput">Select Format:</label>
-                        <select id="myDropdown" name="myDropdown" class="w-48 h-8">
-                            <option value=""></option>
-                            <option value="pdf">PDF</option>
-                            <option value="csv">CSV</option>
-                            <option value="excel">Excel</option>
-                        </select>
-                    </div>
-
-                    <div class="choose3 mt-4">
-                        <label for="myInput">Select Destination:</label>
-                        <select id="myDropdown" name="myDropdown" class="w-48 h-8">
-                            <option value=""></option>
-                            <option value="email">Email</option>
-                            <option value="cloud_storage">Cloud Storage</option>
-                            <option value="ftp">FTP</option>
-                        </select>
+                    <div class="flex items-center mr-8">
+                        <p class="text-slate-600 text-xl font-semibold hidden md:block">Patient Card</p>
                     </div>
                 </div>
-                <div class="button mt-6 text-center">
-                    <button class="bg-black text-white w-48 h-12 rounded-full">Export</button>
+                <!-- card content -->
+                <div class="w-full md:h-80 mt-8 md:mt-0 rounded-b-xl flex flex-col md:flex-row relative">
+                    <div class="w-full md:w-3/12 h-full lg:mx-9 flex flex-col justify-center items-center">
+                        <img src="/patients/{{image}}" alt=""
+                            class="w-56 h-56 md:w-40 md:h-40 xl:w-48 xl:h-48 rounded-full mb-4 outline outline-4 outline-red-800">
+                        <p class="text-sm text-slate-700 whitespace-nowrap">ID: {{id}}</p>
+                    </div>
+                    <div
+                        class="w-10/12 mx-auto  md:w-7/12 flex flex-col mt-10 ml-8 mb-4 justify-between text-xl text-slate-800">
+                        <div>
+                            <p><span class="font-semibold">Gender: </span>{{gender}}</p>
+                            <p><span class="font-semibold">Birthdate: </span>{{birthdate}}</p>
+                            <p><span class="font-semibold">Address: </span>{{address}}</p>
+                            <p><span class="font-semibold">Email: </span>{{email}}</p>
+                            <p><span class="font-semibold">Cell phone: </span>{{phone}}</p>
+                            <p><span class="font-semibold">Primary doctor: </span>Dr. {{doctorName}}</p>
+                        </div>
+
+                        <div class="ml-auto mt-5 md:mt-0 mr-5">
+                            <p>Valid Until: {{paymentDate}}</p>
+                        </div>
+                    </div>
+                    <img src="/image/cardio-care logo.jpg" alt=""
+                        class="absolute w-40 h-40 rounded-full opacity-25 right-20 hidden sm:block bottom-20 md:top-10">
                 </div>
-        </section>
-         <!-- modals -->
-        <section class="bg-slate-300 hidden text-center" id="Payment">
+            </div>
 
-            <header class="flex flex-col justify-center items-center bg-azure ml-auto mr-auto h-full">
-                <img src="/image/cclogo2.png" class="w-28 h-28 mt-4">
-                <h1 class="text-2xl font-bold text-center">Payment Section</h1>
+            {{!-- <div
+                class="big-box bg-white shadow-md rounded-lg p-5 mt-16 ml-5 ring-2 ring-slate-600 ring-offset-2 mb-10 ">
+                <h1 class="text-center text-2xl sm:text-3xl p-6 font-semibold">My Profile</h1>
+                <div class="img-text">
+                    <section class="identity lg-flex lg-justify-around text-lg ">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-4">
+                            <div>
+                                <p class="pt-4"><span class="font-semibold">Gender: </span>{{gender}}</p>
+                                <p class="pt-4"><span class="font-semibold">Birthdate: </span>{{birthdate}}</p>
+                                <p class="pt-4"><span class="font-semibold">Address: </span>{{address}}</p>
+                            </div>
+                            <div>
+                                <p class="lg:pt-4"><span class="font-semibold">Email:
+                                    </span>{{email}}</p>
+                                <p class="pt-4"><span class="font-semibold">Cell phone: </span>{{phone}}</p>
+                                <p class="pt-4"><span class="font-semibold">Primary doctor:
+                                    </span>{{primaryDoctor}}</p>
+                            </div>
+                        </div>
+                    </section>
 
-            </header>
-
-
-            <form id="paymentForm" enctype="multipart/form-data">
-                <label for="patientEmail">Patient Email:</label>
-                <input type="text" id="patientEmail" name="email" required>
-
-                <label for="receipt">Upload Receipt:</label>
-                <input type="file" id="image" class="border border-gray-300 rounded px-2 py-1" name="image"
-                    accept="image/*" required>
-
-                <div class="button mt-4 text-center">
-                    <button type="submit" class="bg-green-500 hover:bg-green-900 text-white w-40 h-8 rounded-full">Send
-                        now</button>
                 </div>
-            </form>
+            </div> --}}
 
-            <ol id="paymentDetails"></ol>
-            <div class="check text-center font-semibold pt-12">
-                <label for="myCheckbox">I agree to the terms and conditions...</label>
-                <input type="checkbox" id="myCheckbox" name="myCheckbox">
+            {{!-- MY DOCTOR --}}
+            <div class="w-4/12 mx-auto flex justify-center items-center">
+                <div class="shadow-lg min-w-52 flex items-center justify-center flex-col rounded-lg bg-neutral-50">
+                    <h5 class="text-lg">My doctor</h5>
+                    <div
+                        class="myDoctor p-2.5 rounded-[10px] shadow-sm justify-start items-center inline-flex flex-col">
+                        <img src="/doctors/{{doctorImage}}" alt="" class="w-32 h-32 rounded-lg mb-3">
+                        <p class=" text-black text-xl font-normal ">Dr. {{doctorName}}</p>
+                        <p class=""><span class="text-black text-sm font-bold ">Expertise</span><span
+                                class="text-black text-sm font-normal ">: {{expertise}}</span></p>
+                        <p class=""><span class="text-black text-sm font-bold ">Work phone</span><span
+                                class="text-black text-sm font-normal ">: {{doctorPhone}}</span></p>
+                        <p class=""><span class="text-black text-sm font-bold ">Email</span><span
+                                class="text-black text-sm font-normal ">: {{doctorEmail}}</span></p>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- MEDICAL SUMMARY --}}
+            <div class="bg-neutral-50 shadow-md rounded-lg p-6 mt-10 mx-auto ring-2 ring-slate-400 text-lg w-10/12">
+                <h1 class="text-center text-2xl font-bold pb-3">Medical Summary</h1>
+                <div class="flex" style="box-sizing: border-box">
+                    <div class="w-1/4 border-r-2 border-slate-700">
+                        <h4 class="text-lg font-semibold text-center">Genetic</h4>
+                        <ul class="text-center">
+                            {{#each geneticVulnerabilities}}
+                            <li>{{this}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+
+                    <div class="w-1/4 border-r-2 border-slate-700">
+                        <h4 class="text-lg font-semibold text-center">Allergies</h4>
+                        <ul class="text-center">
+                            {{#each allergies}}
+                            <li>{{this}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+
+                    <div class="w-1/4 border-r-2 border-slate-700">
+                        <h4 class="text-lg font-semibold text-center">Vaccinations</h4>
+                        <ul class="text-center">
+                            {{#each vaccinations}}
+                            <li>{{this}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+
+                    <div class="w-1/4">
+                        <h4 class="text-lg font-semibold text-center">Medication</h4>
+                        <ul class="text-center">
+                            {{#each recentMedication}}
+                            <li>{{this}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- STATS --}}
+            <div
+                class="mx-auto mt-6 h-full bg-gray-100 rounded-lg py-6 flex flex-row flex-wrap gap-10 shadow-lg w-full">
+                <!-- individual stat -->
+                <div class="w-fit mx-auto px-5 pt-3 pb-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                    <h3 class="text-2xl text-center mb-3 font-semibold">Heart Rate</h3>
+                    <div class="w-40 h-40 bg-white mx-auto rounded-full border-8 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center"
+                        style="border-color: lightgray">
+                        <h4 class="text-4xl mt-2" id="heartRateField"></h4>
+                        <p class="font-light">bpm</p>
+                    </div>
+                </div>
+                <!-- individual stat -->
+                <div class="w-fit mx-auto px-5 pt-3 pb-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                    <h3 class="text-2xl text-center mb-3 font-semibold">Body Temperature</h3>
+                    <div class="w-40 h-40 bg-white mx-auto rounded-full border-8 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center"
+                        style="border-color: lightgray">
+                        <h4 class="text-4xl mt-2" id="bodyTemperatureField"></h4>
+                        <p class="font-light">°C</p>
+                    </div>
+                </div>
+                <!-- individual stat -->
+                <div class="w-fit mx-auto px-5 pt-3 pb-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                    <h3 class="text-2xl text-center mb-3 font-semibold">Blood Sugar</h3>
+                    <div class="w-40 h-40 bg-white mx-auto rounded-full border-8 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center"
+                        style="border-color: lightgray">
+                        <h4 class="text-4xl mt-2" id="bloodSugarField"></h4>
+                        <p class="font-light">mg/dL</p>
+                    </div>
+                </div>
+                <!-- individual stat -->
+                <div class="w-fit mx-auto px-5 pt-3 pb-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                    <h3 class="text-2xl text-center mb-3 font-semibold">Blood Pressure</h3>
+                    <div class="w-40 h-40 bg-white mx-auto rounded-full border-8 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center"
+                        style="border-color: lightgray">
+                        <h4 class="text-4xl mt-2" id="bloodPressureField"></h4>
+                        <p class="font-light">mmHg</p>
+                    </div>
+                </div>
+                <!-- individual stat -->
+                <div class="w-fit mx-auto px-5 pt-3 pb-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
+                    <h3 class="text-2xl text-center mb-3 font-semibold">Respiration Rate</h3>
+                    <div class="w-40 h-40 bg-white mx-auto rounded-full border-8 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center"
+                        style="border-color: lightgray">
+                        <h4 class="text-4xl mt-2" id="respirationRateField"></h4>
+                        <p class="font-light">breaths/min</p>
+                    </div>
+                </div>
             </div>
         </section>
-        <section class="section-three grid grid-cols-1 sm:grid-cols-2 gap-10  ">
-          
-
-                <div class="box-two h-full  justify-evenly">
-                    <div
-                        class="big-box bg-white shadow-md rounded-lg p-5 mt-16 ml-5 ring-2 ring-slate-600 ring-offset-2 mb-10 ">
-                        <h1 class="text-center text-2xl sm:text-3xl p-6 font-semibold">My Profile</h1>
-                        <div class="img-text">
-
-                            <section class="identity lg-flex lg-justify-around text-lg ">
-
-                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-4">
-                                    <div>
-                                        <p class="pt-4"><span class="font-semibold">Gender: </span>{{gender}}</p>
-                                        <p class="pt-4"><span class="font-semibold">Birthdate: </span>{{birthdate}}</p>
-                                        <p class="pt-4"><span class="font-semibold">Address: </span>{{address}}</p>
-                                    </div>
-                                    <div>
-                                        <p class="lg:pt-4"><span class="font-semibold">Email:
-                                            </span>{{email}}</p>
-                                        <p class="pt-4"><span class="font-semibold">Cell phone: </span>{{phone}}</p>
-                                        <p class="pt-4"><span class="font-semibold">Primary doctor:
-                                            </span>{{primaryDoctor}}</p>
-                                    </div>
-                                </div>
-                            </section>
-
-                        </div>
-                    </div>
-                    <div class="box-big-two bg-white shadow-md rounded-lg p-6 mt-32 ml-5 ring-2 ring-slate-600 ring-offset-2 text-lg">
-    <h1 class="text-center text-2xl font-bold pb-3">My medical Summary</h1>
-
-    <h4 class="text-lg font-semibold pb-3">Current Health Condition</h4>
-    <ul class="list-disc pl-10">
-        {{#each currentHealthCondition}}
-        <li>{{this}}</li>
-        {{/each}}
-    </ul>
-
-    <h4 class="text-lg font-semibold pb-3">Allergies</h4>
-    <ul class="list-disc pl-10">
-        {{#each allergies}}
-        <li>{{this}}</li>
-        {{/each}}
-    </ul>
-
-    <h4 class="text-lg font-semibold pb-3">Medication</h4>
-    <ul class="list-disc pl-10">
-        {{#each medications}}
-        <li>{{this}}</li>
-        {{/each}}
-    </ul>
-
-    <h4 class="text-lg font-semibold pb-3">Recent Medication</h4>
-    <ul class="list-disc pl-10">
-        {{#each recentMedication}}
-        <li>{{this}}</li>
-        {{/each}}
-    </ul>
-</div>
-
-                </div>
-
-               <div class="mx-auto rounded-lg py-6 flex flex-col md:flex-row gap-10">
-                    <!-- individual stat -->
-                    <div class="flex flex-col gap-10 justify-evenly">
-                    <div class="w-fit mx-auto px-5 py-2 hover:shadow-lg hover:bg-slate-100 rounded-xl ">
-                        <h3 class="text-2xl text-center mb-3 font-semibold">Heart Rate</h3>
-                        <div
-                            class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-green-600 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                            <h4 class="text-4xl mt-2">59</h4>
-                            <p class="font-light">bpm</p>
-                        </div>
-                        <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                            Recordings</a>
-                    </div>
-                    <!-- individual stat -->
-                    <div class="w-fit mx-auto px-5  hover:shadow-lg hover:bg-slate-100 rounded-xl">
-                        <h3 class="text-2xl text-center mb-3 font-semibold">Body Temperature</h3>
-                        <div
-                            class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-orange-400 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                            <h4 class="text-4xl mt-2">39</h4>
-                            <p class="font-light">°C</p>
-                        </div>
-                        <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                            Recordings</a>
-                    </div>
-                    <!-- individual stat -->
-                    <div class="w-fit mx-auto px-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
-                        <h3 class="text-2xl text-center mb-3 font-semibold">Blood Sugar</h3>
-                        <div
-                            class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-green-600 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                            <h4 class="text-4xl mt-2">116</h4>
-                            <p class="font-light">mg/dL</p>
-                        </div>
-                        <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                            Recordings</a>
-                    </div> </div>
-                    <!-- individual stat -->
-                    <div class="flex flex-col gap-10 justify-evenly">
-                    <div class="w-fit mx-auto px-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
-                        <h3 class="text-2xl text-center mb-3 font-semibold">Blood Pressure</h3>
-                        <div
-                            class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-red-700 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                            <h4 class="text-4xl mt-2">149/96</h4>
-                            <p class="font-light">mmHg</p>
-                        </div>
-                        <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                            Recordings</a>
-                    </div>
-                    <!-- individual stat -->
-                    <div class="w-fit mx-auto px-5 hover:shadow-lg hover:bg-slate-100 rounded-xl">
-                        <h3 class="text-2xl text-center mb-3 font-semibold">Respiration Rate</h3>
-                        <div
-                            class="w-40 h-40 bg-white mx-auto rounded-full border-8 border-yellow-500 shadow-[0_2px_2px_2px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center">
-                            <h4 class="text-4xl mt-2">25</h4>
-                            <p class="font-light">breaths/min</p>
-                        </div>
-                        <a href="" class="text-center block text-lg text-slate-700 hover:text-red-800">View Recent
-                            Recordings</a>
-                    </div>
-                    </div>
-                </div>
-        </section>
-        <!--<div class="button  flex justify-center" id="P-button">
-            <button
-                class="bg-orange-600 text-white pl-10 pr-10 pt-3 pb-3 font-bold rounded-full mb-4 mt-3">Payment</button>
-        </div> -->
-
-
-       
     </main>
-    <footer class="bg-red-900 w-full h-10 flex justify-center items-center">
+
+
+    <footer class="bg-red-900 w-full h-10 flex justify-center items-center mt-5">
         <p class="text-sm md:text-lg text-center text-white">Copyright &copy; Cardio Care</p>
     </footer>
 
-    <script src="/public/scripts/patient/patientDashboard.js"></script>
+    <script src="/scripts/patient/patientDashboard.js"></script>
+    <script src="/scripts/patient/patientDashboardReadings.js"></script>
     <script src="/scripts/modalController.js"></script>
     <script src="/scripts/receptionist/payment.js"></script>
 </body>

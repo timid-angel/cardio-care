@@ -23,7 +23,7 @@ const medicalRecordSchema = mongoose.Schema({
     respirationRate: [vitalReading],
     allergies: [String],
     lifestyleFactors: [String],
-    pastIllnersses: [String],
+    pastIllnesses: [String],
     geneticVulnerabilities: [String],
     currentMedication: [Medication],
     medicationHistory: [Medication],

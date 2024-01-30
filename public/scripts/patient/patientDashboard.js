@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const response = await fetch('patient/export-data', {
                 method: 'POST',
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
