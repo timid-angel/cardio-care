@@ -30,6 +30,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         for (const [key, value] of formData.entries()) {
             payload[key] = value;
         }
+
+        if (trigger.trim().length <= 5) {
+            alert('Your trigger input should be at least 5 characters long')
+            return
+        }
+
+        if (trigger.trim().length <= 10) {
+            alert('Your description should be at least 10 characters long')
+            return
+        }
+
         const symptom = {
             description: payload.description,
             startTime: new Date(payload.startTime),
