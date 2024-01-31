@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const note = notes[i]
                 str += `<div class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900" data-id="${note._id.toString()}"><div class="flex gap-4 items-center w-full overflow-hidden"><p>${note.description}</p></div><div class="flex gap-3 justify-end w-20"><div class=""><img src="/image/delete.svg" alt="" class="w-7"></div></div></div>`
             }
-            noteContainer.innerHTML = str
+            noteContainer.innerHTML = str || noteContainer.innerHTML
 
         } catch (err) {
             noteContainer.innerHTML = ""
@@ -31,6 +31,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         for (const [key, value] of formData.entries()) {
             payload[key] = value;
         }
+
+        if (payload.description.length <= 10) {
+            alert('Descriptions must be atleast 10 characters long.')
+            return
+        }
+
         const note = {
             noteType: payload.type,
             description: payload.description
@@ -42,6 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         })
 
         if (response.ok) {
+            noteForm.reset()
             location.reload()
         } else {
             alert('Error while creating note')
@@ -56,7 +63,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const response = await fetch('/doctor/notes/' + noteId, {
                 method: 'DELETE'
             })
-            reloadNotes()
+            window.location.reload()
         })
     })
 })

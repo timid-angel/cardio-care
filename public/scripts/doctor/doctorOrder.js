@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const noteType = order.noteType[0].toUpperCase() + order.noteType.slice(1).toLowerCase()
                 str += `<div class="h-min min-h-12 py-1 w-full flex justify-between items-center text-xl text-slate-700 px-4 border-t border-red-900" data-id="${order._id.toString()}"><div class="flex gap-4 overflow-hidden w-full"><p class="border-r-2 border-slate-500 pr-3 w-32 items-center justify-center hidden lg:flex">${noteType}</p><p class=" flex items-center justify-center">${order.description}</p></div><div class="flex justify-end gap-3 w-20"><div class=""><img src="/image/delete.svg" alt="" class="w-7"></div></div></div>`
             }
-            orderContainer.innerHTML = str
+            orderContainer.innerHTML = str || orderContainer.innerHTML
 
         } catch (err) {
             orderContainer.innerHTML = ""
@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             headers: { "Content-Type": 'application/json' }
         })
         if (response.ok) {
+            orderForm.reset()
             location.reload()
         } else {
             alert('Error while creating order')
@@ -60,7 +61,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const response = await fetch('/doctor/orders/' + id + "/" + orderId, {
                 method: 'DELETE'
             })
-            reloadOrders()
+            window.location.reload()
         })
     })
 })

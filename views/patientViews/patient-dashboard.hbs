@@ -79,47 +79,19 @@
             <img src="/image/cclogo.png" class="w-14 h-14">
         </header>
         <main class="p-4">
-            {{!-- <div class="all mt-14">
-                <div class="choose1 mt-4">
-                    <label for="myInput">Select File:</label>
-                    <select id="myDropdown" name="myDropdown1" class="w-48 h-8">
-                        <option value=""></option>
-                        <option value="patient_records">Patient Records</option>
-                        <option value="ecg_reports">ECG Reports</option>
-                        <option value="lab_results">Lab Results</option>
-                    </select>
-                </div>
-
-                <div class="choose2 mt-4">
-                    <label for="myInput">Select Format:</label>
-                    <select id="myDropdown2" name="myDropdown" class="w-48 h-8">
-                        <option value=""></option>
-                        <option value="pdf">PDF</option>
-                        <option value="csv">CSV</option>
-                        <option value="excel">Excel</option>
-                    </select>
-                </div>
-
-                <div class="choose3 mt-4">
-                    <label for="myInput">Select Destination:</label>
-                    <select id="myDropdown3" name="myDropdown" class="w-48 h-8">
-                        <option value=""></option>
-                        <option value="email">Email</option>
-                        <option value="cloud_storage">Cloud Storage</option>
-                        <option value="ftp">FTP</option>
-                    </select>
-                </div>
-            </div> --}}
             <form class="flex justify-center items-end gap-4" id="importForm" method="POST"
                 enctype="multipart/form-data">
-                <div class="button mt-6 text-center" id="exportButton">
+                <div class="button mt-2 text-center bg-slate-300 px-10 shadow-md hover:shadow-lg rounded-2xl py-5"
+                    id="exportButton">
                     <button class="bg-black text-white w-48 h-12 rounded-full">Export</button>
                 </div>
-                <div class="border bg-gray-900 p-1 rounded-2xl">
-                    <label for="jsonFile">Upload file:</label>
-                    <input type="file" id="jsonFile" class="border border-gray-300 rounded px-2 py-1" name="jsonFile"
-                        required>
-                    <div class="button mt-6 text-center" id="importButton">
+                <div class="bg-slate-300 px-1 shadow-md hover:shadow-lg rounded-2xl py-2">
+                    <div class="mx-auto text-center">
+                        <label for="jsonFile">Upload file:</label>
+                        <input type="file" id="jsonFile" class="border border-gray-300 rounded px-2 py-1"
+                            name="jsonFile" required>
+                    </div>
+                    <div class="button mt-3 text-center" id="importButton">
                         <button class="bg-black text-white w-48 h-12 rounded-full">Import</button>
                     </div>
                 </div>

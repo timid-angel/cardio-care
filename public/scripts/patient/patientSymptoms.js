@@ -31,16 +31,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             payload[key] = value;
         }
 
-        if (trigger.trim().length <= 5) {
+        if (payload.trigger.trim().length <= 5) {
             alert('Your trigger input should be at least 5 characters long')
             return
         }
 
-        if (trigger.trim().length <= 10) {
+        if (payload.description.trim().length <= 10) {
             alert('Your description should be at least 10 characters long')
             return
         }
-
         const symptom = {
             description: payload.description,
             startTime: new Date(payload.startTime),
@@ -54,6 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         })
 
         if (response.ok) {
+            symptomForm.reset()
             location.reload()
         } else {
             alert('Error while creating note')

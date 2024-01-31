@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (response.ok) {
-                alert('Login Successful');
                 window.location.href = '/receptionist/dashboard';
             } else {
                 console.log("unable to login")
