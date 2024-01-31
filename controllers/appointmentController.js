@@ -35,7 +35,7 @@ const addAppointment = async (req, res) => {
             patientId: patient._id.valueOf(),
             date: new Date(req.body.date),
             durationMins: req.body.durationMins,
-            status: "unresolved" // to be accepted by the doctor
+            status: "Upcoming" // to be accepted by the doctor
         })
 
         await patient.save()
@@ -45,7 +45,6 @@ const addAppointment = async (req, res) => {
     } catch (err) {
         res.status(400).json({ 'error': err.message })
     }
-
 }
 
 // obtain appointments that are yet to be resolved
@@ -116,5 +115,45 @@ const changeAppointmentStatus = async (req, res) => {
     }
 }
 
+// get appointments relevant to the patient from doctor's calendar
+const getRelevantAppointments = async (req, res) => {
+    const patientId = getPatientJWTID(req.cookies.jwt)
+    if (!patientId) return res.sendStatus(400)
+    const patient = await Patient.findById(patientId)
+    const doctor = await Doctor.findById(patient.mainDoctor)
+    const calendar = await Calendar.findById(doctor.calendar.toString())
 
-module.exports = { addAppointment, getUnresolvedAppointments, changeAppointmentStatus, getUpcomingAppointments }
+    const relevantAppointments = calendar.upcomingAppointments.slice(-10).filter(appointment => appointment.patientId === patient._id.toString())
+    relevantAppointments.forEach(appointment => {
+        appointment.doctorName = doctor.name.first + " " + doctor.name.last
+    })
+    res.status(200).json(relevantAppointments)
+}
+
+// delete appointment by id
+const deleteAppointment = async (req, res) => {
+    if (!req.params?.id) return res.sendStatus(400)
+    const appId = req.params.id
+    const patientId = getPatientJWTID(req.cookies.jwt)
+
+    if (!patientId) return res.sendStatus(400)
+    const patient = await Patient.findById(patientId)
+    const doctor = await Doctor.findById(patient.mainDoctor)
+    const calendar = await Calendar.findById(doctor.calendar.toString())
+
+    calendar.upcomingAppointments = calendar.upcomingAppointments.filter(appointment => {
+        return appointment._id.toString() !== appId
+    })
+    await calendar.save()
+    res.sendStatus(204)
+}
+
+
+module.exports = {
+    addAppointment,
+    getUnresolvedAppointments,
+    changeAppointmentStatus,
+    getUpcomingAppointments,
+    getRelevantAppointments,
+    deleteAppointment
+}

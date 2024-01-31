@@ -74,7 +74,7 @@ router.post('/patients/link', authReceptionist, async (req, res) => {
         await patient.save(); // Save the updated patient record
 
         // Update doctor's patients array with patient's email
-        doctor.patients.push(patient.email);
+        doctor.patients.push(patient._id.toString());
         await doctor.save(); // Save the updated doctor record
 
         return res.status(200).json({ success: true, message: 'Patient-doctor linkage updated' });
@@ -86,6 +86,7 @@ router.post('/patients/link', authReceptionist, async (req, res) => {
 
 router.delete('/unlink/:email', authReceptionist, async (req, res) => {
     const patientEmail = req.params.email;
+    const patient = await Patient.findOne({ email: patientEmail });
 
 
     try {
@@ -108,7 +109,7 @@ router.delete('/unlink/:email', authReceptionist, async (req, res) => {
                 console.log(`Removing ${patientEmail} from doctor ${doctorId}`);
                 await Doctor.updateOne(
                     { _id: doctorId },
-                    { $pull: { patients: patientEmail } }
+                    { $pull: { patients: patient._id.toString() } }
                 );
             }
         };

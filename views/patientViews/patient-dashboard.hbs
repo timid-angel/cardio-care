@@ -46,8 +46,8 @@
 
         <nav class="flex justify-between flex-no-wrap w-10/12 mx-auto">
 
-            <a
-                class="box shadow-md hover:shadow-lg w-52 h-28 flex items-center justify-center flex-col rounded-lg m-3 bg-white cursor-pointer">
+            <a class="box shadow-md hover:shadow-lg w-52 h-28 flex items-center justify-center flex-col rounded-lg m-3 bg-white cursor-pointer"
+                href="/patient/appointments">
                 <h5 class="text-lg">Appointment</h5>
                 <i class="far fa-clock text-xl" aria-hidden="true"></i>
             </a>
@@ -110,13 +110,15 @@
                     </select>
                 </div>
             </div> --}}
-            <form class="flex justify-center items-end gap-4" id="importForm" method="POST" enctype="multipart/form-data">
+            <form class="flex justify-center items-end gap-4" id="importForm" method="POST"
+                enctype="multipart/form-data">
                 <div class="button mt-6 text-center" id="exportButton">
                     <button class="bg-black text-white w-48 h-12 rounded-full">Export</button>
                 </div>
                 <div class="border bg-gray-900 p-1 rounded-2xl">
                     <label for="jsonFile">Upload file:</label>
-                    <input type="file" id="jsonFile" class="border border-gray-300 rounded px-2 py-1" name="jsonFile" required>
+                    <input type="file" id="jsonFile" class="border border-gray-300 rounded px-2 py-1" name="jsonFile"
+                        required>
                     <div class="button mt-6 text-center" id="importButton">
                         <button class="bg-black text-white w-48 h-12 rounded-full">Import</button>
                     </div>
@@ -149,7 +151,7 @@
             </div>
         </form>
         <ol id="paymentDetails"></ol>
-        
+
     </section>
 
 
@@ -337,10 +339,12 @@
         <p class="text-sm md:text-lg text-center text-white">Copyright &copy; Cardio Care</p>
     </footer>
 
-    {{!-- <script src="/scripts/patient/patientDashboard.js"></script> --}}
+    {{!--
+    <script src="/scripts/patient/patientDashboard.js"></script> --}}
     <script src="/scripts/patient/patientDashboardReadings.js"></script>
     <script src="/scripts/modalController.js"></script>
-    {{!-- <script src="/scripts/receptionist/payment.js"></script> --}}
+    {{!--
+    <script src="/scripts/receptionist/payment.js"></script> --}}
     <script src="/scripts/patient/postPayment.js"></script>
     <script src="/scripts/patient/exportRecord.js"></script>
     <script src="/scripts/patient/importRecord.js"></script>

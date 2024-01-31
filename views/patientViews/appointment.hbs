@@ -4,55 +4,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appointment Page</title>
-    <link rel="stylesheet" href="styles/output.css">
+    <title>Appointments</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Roboto:wght@300&display=swap"
         rel="stylesheet">
-    <link rel="icon" href="../../public/image/favicon.ico" type="image/x-icon">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="styles/output.css">
-    <link rel="stylesheet" href="appointment-styles.css">
+    <link rel="icon" href="/image/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/output.css">
 </head>
 
-<body class="bg-slate-200">
-    <header class="bg-white shadow-lg">
-        <div class="flex justify-between px-5 py-3">
-            <div class="flex justify-start ">
-                <img src="image/cardio_care-removebg-preview 6.png" alt="">
-                <h1 class="text-red-600  text-3xl pt-5">Cardio Care</h1>
-            </div>
+<body class="bg-slate-200 min-h-screen flex flex-col justify-between">
+    <header>
+        <div class="flex items-center justify-between shadow-md px-4 py-2 bg-white">
+            <a class="flex items-center" href="/patient/dashboard">
+                <img src="/image/cclogo.png" alt="Logo" class="h-12 w-12">
+                <span class="text-red-600 font-bold text-2xl ml-1">Cardio Care</span>
+            </a>
 
-            <div>
-                <h1 class=" text-3xl pt-5">Royal Hospital</h1>
+            <div class="flex items-center">
+                <a class=" border-2 hover:shadow-sm hover:bg-gray-50 rounded-md text-slate-800 font-semibold px-2 py-2 text-center mr-5 flex flex-row"
+                    href="/patient/logout">
+                    <img src="/image/door.svg" alt="" class="w-6 h-6 mr-1">
+                    <p>Logout</p>
+                </a>
+                <img src="/image/royal.png" alt="Profile Image" class="rounded-full h-12 w-12 mr-2 object-cover">
+                <div>
+                    <p class="text-gray-800 font-bold">Royal Hospital</p>
+                    <div class="flex items-center">
+                        <span class="text-black font-bold"> <i class="fa-solid fa-user"></i> ph647745</span>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <section class="m-8" id="appointmentsSection">
-        <section class="m-8">
-            <h1 class="text-3xl  font-bold text-red-800 px-4 py-2 mb-5">Appointments </h1>
-            <section class="flex-col justify-between items-center mx-auto font-bold bg-red-600 py-4 flex">
-                <ul style="width:90%;" class="flex flex-col items-start gap-16 lg:flex-row justify-between text-xl  text-white font-bold font-serif">
-                    <li>Status</li>
-                    <li>Date</li>
-                    <li>Time</li>
-                    <li>Doctor</li>
-                    <li>Instructions</li>
-                    <li>Options</li>
-                </ul>
-            </section>
-            <section class="mb-5" id="appointmentsContainer">
-                <!-- Empty container for appointment cards -->
-            </section>
-        </section>
-        <button id="scheduleAppointmentBtn" class="bg-green-500 text-white text-xl font-bold px-4 ml-6 py-2 rounded-full mr-2 mt-5 hover:bg-green-600 hover:text-gray-100 transition duration-300 ease-in-out">Schedule Appointment</button>
-    </section>
+    <main class="m-4" style="box-sizing: border-box">
+        <h1 class="text-3xl font-bold text-red-900 px-4 py-2 mb-3 text-center">Appointments</h1>
 
-    <script src="../../public/scripts/patient/appointment.js"></script>
+        {{!-- TABLE --}}
+        <div>
+            {{!-- HEADER --}}
+            <div class="w-full flex flex-row text-center text-xl font-bold" style="">
+                <div class="w-1/6 px-6">
+                    <p class="border-b-2 border-black mx-auto">Status</p>
+                </div>
+                <div class="w-3/12 px-6">
+                    <p class="border-b-2 border-black mx-auto">Date</p>
+                </div>
+                <div class="w-1/6 px-6">
+                    <p class="border-b-2 border-black mx-auto">Duration</p>
+                </div>
+                <div class="w-4/12 px-6">
+                    <p class="border-b-2 border-black mx-auto">Doctor</p>
+                </div>
+                <div class="w-1/12 px-12">
+                    <p class="border-b-2 border-black mx-auto"></p>
+                </div>
+            </div>
+        </div>
+
+        {{!-- CONTENT CONTAINER--}}
+        <div class="w-full flex flex-col mt-2 mx-auto text-center" id="appointmentContainer">
+            {{!-- CONTENT ITEM --}}
+            <div class="py-4 flex bg-neutral-50 h-16 mt-4 rounded-md">
+                <p class="text-center w-full">No appointments found...</p>
+            </div>
+        </div>
+    </main>
+
+    {{!-- ADD APPOINTMENT BUTTON --}}
+    <div class="mx-auto text-center">
+        <button
+            class="text-white font-semibold bg-red-700 hover:bg-red-800 rounded-md px-4 py-2 text-center mx-auto text-lg"
+            id="patient-appointment-modal-button">
+            Reserve Appointment
+        </button>
+    </div>
+
+    <footer class="bg-red-900 w-full h-8 flex justify-center items-center mt-5">
+        <p class="text-sm md:text-lg text-center text-white">Copyright &copy; Cardio Care</p>
+    </footer>
+
+    <div id="patient-appointment-modal" class="w-full h-full fixed bg-gray-950 bg-opacity-35 hidden">
+        <div id="patient-appointment-background" class="w-full h-full"></div>
+        <div
+            class="bg-slate-50 w-11/12 sm:w-3/4 md:w-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl z-10">
+            <div class="shadow-md h-14 flex items-center justify-center text-2xl text-gray-600">
+                <p>Reserve Appointment</p>
+            </div>
+            <form class="gap-4 my-6 flex flex-col justify-around items-center text-xl" id="patient-appointment-form">
+
+                <div class="flex justify-between w-full">
+                    <label class="w-20 ml-4 text-center py-1" for="date">Date</label>
+                    <input name="date" type="date"
+                        class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm shadow-sm border">
+                </div>
+
+                <div class="flex justify-between w-full">
+                    <label class="w-20 ml-4 text-center py-1" for="startTime">Start</label>
+                    <input name="startTime" type="time"
+                        class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm shadow-sm border">
+                </div>
+
+                <div class="flex justify-between w-full">
+                    <label class="w-20 ml-4 text-center py-1" for="endTime">End</label>
+                    <input name="endTime" type="time"
+                        class="mx-auto w-8/12 text-left px-2 text-slate-600 rounded-sm shadow-sm border">
+                </div>
+
+                <button type="submit"
+                    class="bg-red-800 text-slate-100 text-lg py-1 px-3 flex items-center justify-center rounded-3xl hover:bg-red-900 active:bg-red-800 hover:transition-colors shadow-md">
+                    Confirm
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/scripts/patient/appointment.js"></script>
+    <script src="/scripts/patient/appointmentModal.js"></script>
 </body>
 
 </html>
-

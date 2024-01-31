@@ -4,12 +4,14 @@ const { ObjectId } = require('mongodb')
 //calendar
 const calendar = mongoose.Schema({
     oldAppointments: [{
+        doctorName: String,
         patientId: String,
         date: Date,
         durationMins: Number,
         status: String
     }],
     upcomingAppointments: [{
+        doctorName: String,
         patientId: String,
         date: Date,
         durationMins: Number,

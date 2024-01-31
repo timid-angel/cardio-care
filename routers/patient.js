@@ -2,7 +2,7 @@ const express = require('express')
 // controllers
 const { getPage, postPayment, upload } = require('../controllers/paymentVerification')
 const { patientLoginController } = require('../controllers/loginController')
-const appointmentController = require('../controllers/appointmentController')
+const { addAppointment, getRelevantAppointments, deleteAppointment } = require('../controllers/appointmentController')
 const multer = require('multer')
 const path = require('path')
 const { patientDashboard, patientLogs, getAppointment } = require('../controllers/dashboardController')
@@ -36,9 +36,13 @@ router.get('/logout', (req, res) => {
 // dashboard
 router.get('/dashboard', authPatient, patientDashboard)
 
-// appointment routes
+// appointment
 router.get('/appointments', authPatient, getAppointment)
-router.post('/appointments', authPatient, appointmentController.addAppointment)
+
+// appointment routes
+router.get('/rel-appointments', authPatient, getRelevantAppointments)
+router.post('/appointments', authPatient, addAppointment)
+router.delete('/appointments/:id', authPatient, deleteAppointment)
 
 // payment verification routes
 router.get('/payment', getPage)
