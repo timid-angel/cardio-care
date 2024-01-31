@@ -268,7 +268,7 @@ const handleImport = async (req, res) => {
             return res.status(400).json({ error: 'No file uploaded' });
         }
         if (req.file.originalname.indexOf("json") == -1 || req.file.filename.indexOf("json") == -1) {
-            console.log("Substring found!");
+            console.log("the file should be of json fileformat or should contain jsonFile inits name!");
         }
         const fileContent = fs.readFileSync(req.file.path, 'utf-8');
 
