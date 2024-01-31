@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 let address = patient.address.subCity + " " + patient.address.woreda + ", " + patient.address.houseNumber
                 let imagePath = "/patients/" + patient.img
 
-                str += `<div class="pl-6 py-3 bg-white flex shadow-md hover:shadow-lg hover:bg-red-50 justify-around items-center cursor-pointer" data-id="${patient._id.toString()}">
+                str += `<div class="pl-6 py-3 bg-white flex shadow-md hover:shadow-lg hover:bg-slate-50 justify-around items-center cursor-pointer" data-id="${patient._id.toString()}">
                     <div class=" flex-col justify-start items-start flex gap-2">
                         <div class=" self-stretch justify-start items-start gap-4 flex">
                             <div class=" flex-col justify-start items-start gap-1 flex">

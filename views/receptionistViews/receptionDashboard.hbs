@@ -23,11 +23,10 @@
 
 <body class="bg-slate-200 flex flex-col justify-between min-h-screen">
     <div class="fixed top-0 w-full bg-white z-50 ">
-        <div class="flex items-center justify-between p-4">
-
+        <div class="flex items-center justify-between px-4 py-2">
             <div class="flex items-center">
-                <img src="/image/cclogo2.png" alt="Logo" class="h-20 w-20">
-                <span class="text-black font-bold text-5xl ml-1">Cardio Care</span>
+                <img src="/image/cclogo2.png" alt="Logo" class="h-14 w-14">
+                <span class="text-black font-bold text-3xl ml-1">Cardio Care</span>
             </div>
             <div class="flex">
                 <a class=" border-2 hover:shadow-sm hover:bg-gray-50 rounded-md text-slate-800 font-semibold px-2 py-2 text-center mr-5 flex flex-row"
@@ -49,32 +48,33 @@
     </div>
 
     <section>
-        <div class="flex flex-col justify-center items-center md:flex md:flex-row" style="padding-top: 120px; ">
-            <div style="width: 450px;"
+        <div class="flex flex-col justify-center items-center md:flex md:flex-row" style="padding-top: 90px; ">
+            <a style="width: 450px;" href="/receptionist/patientRegistration"
                 class="mr-5 rounded-lg p-8 font-bold text-2xl py-11 mt-5 bg-white text-center justify-center items-center text-gray-800 mb-5 hover:shadow-2xl cursor-pointer">
-                <a id="openModalBtn" href="/receptionist/patientRegistration">Add Patient</a>
+                <p id="openModalBtn" class="inline">Add Patient
+                </p>
                 <i class="fa-regular fa-plus font-bold text-3xl"></i>
-            </div>
-            <div style="width:450px;"
+            </a>
+            <a style="width:450px;" href="/receptionist/payments"
                 class="mt-5 mr-5 ml-3 rounded-lg p-8 py-11 font-bold text-2xl bg-gray-600 text-center justify-center items-center text-white mb-5 hover:shadow-2xl cursor-pointer">
-                <a href="/receptionist/payments" class="text-white mr-1">Pending Payment</a>
+                <p class="text-white mr-1 inline">Pending Payment
+                </p>
                 <i class="fa-solid fa-coins text-yellow-400"></i>
-            </div>
+            </a>
 
         </div>
     </section>
 
     <section style="width:78%;"
-        class="flex-row justify-between items-center mx-auto font-bold  bg-slate-500 py-2  md:flex md-block">
-        <h1 style="width:90%;" class=" text-2xl  text-white font-semibold font-sans pl-10">
+        class="flex-row justify-between items-center mx-auto font-bold rounded-md bg-slate-500 py-2  md:flex md-block">
+        <h1 style="width:90%;" class=" text-2xl text-white font-semibold font-sans pl-10">
             Patient List
         </h1>
     </section>
 
-    <section class="mb-5  md:block ">
+    <section class="mb-5 md:block ">
         <div style="width:78%;"
-            class=" flex flex-col justify-center items-center mx-auto font-bold py-4 mt-4 rounded-lg">
-
+            class=" flex flex-col justify-center items-center mx-auto font-bold py-4 mt-1 rounded-lg">
             <ol style="width:90%;" id="patientList"
                 class=" patient-list  text-gray-800 font-bold font-serif rounded-lg">
             </ol>

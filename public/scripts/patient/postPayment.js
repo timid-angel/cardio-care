@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
 
             if (response.ok) {
-                alert('payment Receipt uploaded successfully');
+                postPaymentForm.reset()
+                alert('Payment receipt uploaded successfully');
             } else {
                 const resp = await response.json()
                 console.log(resp)

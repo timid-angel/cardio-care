@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             payload[key] = value;
         }
 
-        if (!Number.isInteger(value) || value.length == 0) {
+        if (!Number.isInteger(Number(payload.value)) || payload.value.length == 0) {
             alert('Please enter an integer value.')
             return
         }
