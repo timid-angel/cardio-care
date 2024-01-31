@@ -1,6 +1,7 @@
 const Payment = require('../model/Payment')
 const Patient = require('../model/Patient')
 const path = require('path')
+const { getPatientJWTID } = require('./jwtIDs')
 
 // image upload
 const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
@@ -18,7 +19,7 @@ const storage = multer.diskStorage({
 const fileFilter = (req, file, cb) => {
 
     if (allowedImageTypes.includes(file.mimetype)) {
-        cb(null, true); 
+        cb(null, true);
     } else {
         console.log('invalid file type ')
         cb(new Error('Invalid file type. Only images (JPEG, PNG, GIF) are allowed.'), false); // Reject the file

@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-
         const postPaymentForm = document.getElementById('paymentForm')
-        
+
         postPaymentForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
@@ -11,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 alert('Please agree to the terms and conditions.');
                 return;
             }
-            
+
             const formInput = new FormData(postPaymentForm)
             const response = await fetch('/patient/payment/', {
                 method: 'POST',
@@ -21,6 +20,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (response.ok) {
                 alert('payment Receipt uploaded successfully');
             } else {
+                const resp = await response.json()
+                console.log(resp)
                 alert('Failed to upload payment receipt');
             }
         })
