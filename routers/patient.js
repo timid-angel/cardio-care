@@ -5,7 +5,7 @@ const { patientLoginController } = require('../controllers/loginController')
 const appointmentController = require('../controllers/appointmentController')
 const multer = require('multer')
 const path = require('path')
-const { patientDashboard, patientLogs } = require('../controllers/dashboardController')
+const { patientDashboard, patientLogs, getAppointment } = require('../controllers/dashboardController')
 const {
     addSymptom,
     getSymptomsPatient,
@@ -37,6 +37,7 @@ router.get('/logout', (req, res) => {
 router.get('/dashboard', authPatient, patientDashboard)
 
 // appointment routes
+router.get('/appointments', authPatient, getAppointment)
 router.post('/appointments', authPatient, appointmentController.addAppointment)
 
 // payment verification routes

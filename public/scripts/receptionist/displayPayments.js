@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             acceptStatus.style.display = 'block';
 
             const imageElement = document.createElement('img');
-            imageElement.src = `/cardio-care/images/payments/${payment.img}`;
+            imageElement.src = `/payments/${payment.img}`;
             imageElement.alt = 'No Receipt';
             imageElement.classList.add('payment-image');
             imageElement.style.padding = '30px';
