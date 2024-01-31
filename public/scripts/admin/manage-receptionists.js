@@ -9,9 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return button;
     }
 
-
-
-
     // Function to handle deactivation
     function deactivateReceptionist(receptionistId, receptionist, receptionistContainer) {
         // Display confirmation message
@@ -52,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 .catch(error => console.error('Error reactivating receptionist:', error));
         }
     }
-
 
 
     // Function to handle deletion
@@ -104,12 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Create a white div container for the receptionist's data
                 const dataDiv = document.createElement('div');
                 dataDiv.classList.add('data-container');
-
-                // Create an ordered list number
-                const numberDiv = document.createElement('div');
-                numberDiv.textContent = `${index + 1}.`;
-                numberDiv.classList.add('number');
-                dataDiv.appendChild(numberDiv);
 
                 // Display receptionist's full name
                 const fullName = `${receptionist.name.first} ${receptionist.name.middle} ${receptionist.name.last}`;

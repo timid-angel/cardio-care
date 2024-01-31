@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             patientInfo.style.gap = '5px';
 
             const patientName = document.createElement('span');
-            const fullName = `${index + 1}. Full Name :  ${patient.name?.first || ''} ${patient.name?.middle || ''} ${patient.name?.last || ''}`;
+            const fullName = `Name:  ${patient.name?.first || ''} ${patient.name?.middle || ''} ${patient.name?.last || ''}`;
             patientName.textContent = fullName.trim() || 'No Name Available';
             patientName.style.fontWeight = 'bold';
             patientName.style.color = '#4E402C';
@@ -325,14 +325,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
             const authorized = document.createElement('span');
-            const auth = `Authorized : ${patient.authorized}`;
+            const auth = `Authorized: ${patient.authorized}`;
             authorized.textContent = auth.trim() || 'information Unavailable ';
             authorized.style.fontWeight = 'bold';
             authorized.style.color = '#4E402C';
             patientInfo.appendChild(authorized);
 
             const linkState = document.createElement('span');
-            const link = `Linkage Status : ${patient.linkState}`;
+            const link = `Linkage Status: ${patient.linkState}`;
             linkState.textContent = link.trim() || 'link State Unavailable ';
             linkState.style.fontWeight = 'bold';
             linkState.style.color = '#4E402C';
@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 
-            patientEmail.textContent = `Patient email : ${patient.email || 'No Email Available'}`;
+            patientEmail.textContent = `Email: ${patient.email || 'No Email Available'}`;
             patientEmail.style.color = '#377989';
             patientInfo.appendChild(patientEmail);
 

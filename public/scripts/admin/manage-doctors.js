@@ -99,12 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dataDiv = document.createElement('div');
                 dataDiv.classList.add('data-container');
 
-                // Create an ordered list number
-                const numberDiv = document.createElement('div');
-                numberDiv.textContent = `${index + 1}.`;
-                numberDiv.classList.add('number');
-                dataDiv.appendChild(numberDiv);
-
                 // Display doctor's full name
                 const fullName = `${doctor.name.first} ${doctor.name.middle} ${doctor.name.last}`;
                 const fullNameDiv = document.createElement('div');
