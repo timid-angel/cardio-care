@@ -189,13 +189,12 @@ router.put('/reactivate-patient/:email', authReceptionist, async (req, res) => {
     }
 });
 
-router.put(`/verify-payment/:email`, authReceptionist, async (req, res) => {
-    const patientEmail = req.params.email;
+router.put(`/verify-payment/:id`, authReceptionist, async (req, res) => {
+    const id = req.params.id;
 
     try {
-        // Find the payment by patient email and update the 'checked' and 'accepted' attributes
         const updatedPayment = await Payment.findOneAndUpdate(
-            { patient: patientEmail },
+            { _id: id },
             { checked: true, accepted: true },
             { new: true } // To return the updated document
         );
@@ -211,13 +210,13 @@ router.put(`/verify-payment/:email`, authReceptionist, async (req, res) => {
     }
 });
 
-router.put(`/decline-payment/:email`, authReceptionist, async (req, res) => {
-    const patientEmail = req.params.email;
+router.put(`/decline-payment/:id`, authReceptionist, async (req, res) => {
+    const id = req.params.id;
 
     try {
         // Find the payment by patient email and update the 'checked' and 'activated' attributes
         const updatedPayment = await Payment.findOneAndUpdate(
-            { patient: patientEmail },
+            { _id: id },
             { checked: true, accepted: false },
             { new: true } // To return the updated document
         );

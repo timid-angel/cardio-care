@@ -30,16 +30,19 @@
                 <span class="text-black font-bold text-5xl ml-1">Cardio Care</span>
             </div>
 
-
             <div class="flex items-center">
-
-                <img src="/image/royal.png" alt="Profile Image" class="rounded-full h-12 w-12 mr-2 object-cover">
-
-
+                <div class="max-w-2xl ml-auto mr-6">
+                    <button
+                        class="flex items-center bg-black text-white px-4 py-2 rounded-md hover:bg-blue-500 transition duration-300 ease-in-out">
+                        <i class="fas fa-arrow-left mr-2"></i> <a href="/receptionist/dashboard" class="text-white">Back
+                            to
+                            Dashboard</a>
+                    </button>
+                </div>
+                <img src="/image/royal.png" alt="Profile Image" class="rounded-full h-12 w-12 ml-2 object-cover">
                 <div>
                     <p class="text-gray-800 font-bold">Royal Hospital</p>
                     <div class="flex items-center">
-
                         <span class="text-black font-bold"> <i class="fa-solid fa-hospital"></i> RH647745</span>
                     </div>
                 </div>
@@ -49,26 +52,11 @@
 
 
     <div class="flex justify-between p-4" style="padding-top: 120px;">
-        <h1 class="text-3xl  font-bold text-red-800 px-4 py-2">Payments Verification </h1>
-
-
-
-
-
+        <h1 class="text-3xl  font-bold text-red-950 px-4 py-2">Payments Verification</h1>
     </div>
 
-    <div id="paymentDetails"></div>
-
-
-
-    <div class="max-w-2xl ml-auto mt-8">
-        <button
-            class="flex items-center bg-black text-white px-4 py-2 rounded-md hover:bg-blue-500 transition duration-300 ease-in-out">
-            <i class="fas fa-arrow-left mr-2"></i> <a href="/receptionist/dashboard" class="text-white">Back to
-                Dashboard</a>
-        </button>
+    <div class=" w-11/12 mx-auto flex flex-row flex-wrap gap-8 justify-center" id="paymentContainer">
     </div>
-
 
     <script src="/scripts/receptionist/displayPayments.js"></script>
 
