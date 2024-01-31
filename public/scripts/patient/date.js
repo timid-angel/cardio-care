@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
     document.getElementById("previousBtn").addEventListener("click", function () {
         // Redirect to test.html when the "Previous" button is clicked
-        window.location.href = "appointment.hbs";
+        window.location.href = "appointment.html";
     });
   
     const timeSlots = document.querySelectorAll('.time-slot');
