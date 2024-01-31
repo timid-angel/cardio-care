@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (response.ok) {
             location.reload()
         } else {
-            alert('Error while creating note')
+            alert('Error while creating order')
         }
     })
 
