@@ -47,22 +47,17 @@ router.post('/unlink', authReceptionist, unlinkController)
 // Route for linking patients with doctors
 router.post('/patients/link', authReceptionist, async (req, res) => {
     try {
-        const { patientEmail, doctorEmail, linkType } = req.body; // Assuming this data is sent from the frontend
-
-        // Fetch patient and doctor records from MongoDB based on the provided emails
+        const { patientEmail, doctorEmail, linkType } = req.body;
         const patient = await Patient.findOne({ email: patientEmail });
         const doctor = await Doctor.findOne({ email: doctorEmail });
-
 
         if (!patient) {
             return res.status(404).json({ success: false, message: 'Patient not found' });
         }
-
         if (!doctor) {
             return res.status(404).json({ success: false, message: 'Doctor not found' });
         }
 
-        // Update patient's mainDoctor or tempDoctor based on the linkType provided
         if (linkType === 'mainDoctor') {
             patient.mainDoctor = doctor._id;
             patient.linkState = 'active'
@@ -71,12 +66,9 @@ router.post('/patients/link', authReceptionist, async (req, res) => {
             patient.linkState = 'active'
         }
 
-        await patient.save(); // Save the updated patient record
-
-        // Update doctor's patients array with patient's email
         doctor.patients.push(patient._id.toString());
-        await doctor.save(); // Save the updated doctor record
-
+        await patient.save();
+        await doctor.save();
         return res.status(200).json({ success: true, message: 'Patient-doctor linkage updated' });
     } catch (error) {
         console.error(error);
@@ -88,25 +80,21 @@ router.delete('/unlink/:email', authReceptionist, async (req, res) => {
     const patientEmail = req.params.email;
     const patient = await Patient.findOne({ email: patientEmail });
 
-
     try {
         const updatedPatient = await Patient.findOneAndUpdate(
             { email: patientEmail },
             { $unset: { mainDoctor: 1, tempDoctor: 1 }, $set: { linkState: 'inactive' } },
             { new: true }
         );
-
         if (!updatedPatient) {
             return res.status(404).json({ error: 'Patient not found' });
         }
 
-        // Remove patientEmail from all doctors' patients arrays
         const mainDoctorId = updatedPatient.mainDoctor;
         const tempDoctorId = updatedPatient.tempDoctor;
-
         const removePatientFromDoctor = async (doctorId) => {
             if (doctorId) {
-                console.log(`Removing ${patientEmail} from doctor ${doctorId}`);
+                console.log(`Removing ${patient._id.toString()} from doctor ${doctorId}`);
                 await Doctor.updateOne(
                     { _id: doctorId },
                     { $pull: { patients: patient._id.toString() } }

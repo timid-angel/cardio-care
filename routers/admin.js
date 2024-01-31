@@ -54,8 +54,6 @@ router.put('/doctor/deactivate/:email', authAdmin, deactivateDoctor);
 router.put('/doctor/reactivate/:email', authAdmin, reactivateDoctor);
 router.put('/receptionist/reactivate/:email', authAdmin, reactivateReceptionist);
 
-
-
 router.delete('/receptionist/:id', authAdmin, deleteReceptionist);
 // test route
 router.get('/authTEST', authAdmin, (req, res) => {

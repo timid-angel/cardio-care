@@ -164,6 +164,12 @@ const deletePatient = async (req, res) => {
     if (!patient) {
         return res.status(400).json({ 'error': 'Patient ID not found' })
     }
+    if (patient.mainDoctor) {
+        const doctor = await Doctor.findById(patient.mainDoctor)
+        doctor.patients = doctor.patients.filter(patientId => patientId !== patient._id.toString())
+        await doctor.save()
+    }
+
     await MedicalRecord.deleteOne({ _id: patient.medicalRecord })
     await Patient.deleteOne({ _id: patientId })
     res.status(200).json({ 'success': 'Deleted patient ID: ' + patientId })
