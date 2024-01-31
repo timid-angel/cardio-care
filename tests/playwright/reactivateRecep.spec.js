@@ -11,7 +11,7 @@ test('test', async ({ page }) => {
     dialog.dismiss().catch(() => {});
   });
   await page.getByRole('button', { name: 'Login' }).click();
-  await page.getByRole('link', { name: 'Logo Manage Receptionists ' }).click();
+  await page.getByRole('link', { name: 'Logo Manage Receptionists' }).click();
   page.once('dialog', dialog => {
     console.log(`Dialog message: ${dialog.message()}`);
     dialog.dismiss().catch(() => {});

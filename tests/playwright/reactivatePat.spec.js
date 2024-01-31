@@ -13,9 +13,11 @@ test('test', async ({ page }) => {
   await page.getByRole('button', { name: 'Login' }).click();
   await page.goto('http://localhost:3000/receptionist/dashboard');
   
+  await page.waitForTimeout(2000)
   page.once('dialog', dialog => {
     console.log(`Dialog message: ${dialog.message()}`);
     dialog.dismiss().catch(() => {});
   });
+  await page.waitForTimeout(2000)
   await page.locator('li').filter({ hasText: '1. Full Name : Fpat Mpat' }).locator('#reactivateButton').click();
 });
