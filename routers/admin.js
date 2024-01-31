@@ -1,15 +1,13 @@
 const express = require('express')
 const router = express.Router()
-
-
 // controllers
-const { createAdminController, createReceptionistController, createDoctorController, uploadDoctor, deleteDoctor, deleteReceptionist, deactivateReceptionist, deactivateDoctor, reactivateDoctor, reactivateReceptionist } = require('../controllers/accountController')
+const { createAdminController, createReceptionistController, createDoctorController, uploadDoctor, deleteDoctor, deleteReceptionist, deactivateReceptionist, deactivateDoctor, reactivateDoctor, reactivateReceptionist, deletePatient } = require('../controllers/accountController')
 const { adminLoginController } = require('../controllers/loginController')
 const { getDoctors } = require('../controllers/getController')
 const { getReceptionists } = require('../controllers/getController')
 // middleware
 const authAdmin = require('../middleware/authAdmin')
-const { adminDashboard, addDoctor, manageDoctors, manageReceptionits } = require('../controllers/dashboardController')
+const { adminDashboard, addDoctor, manageDoctors, manageReceptionits, getAllPatients, getAdminPatients } = require('../controllers/dashboardController')
 
 // login
 router.get('/', (req, res) => res.redirect('/admin/dashboard'))
@@ -26,12 +24,13 @@ router.get('/dashboard', authAdmin, adminDashboard);
 router.get('/doctorRegistration', authAdmin, addDoctor);
 router.get('/doctorManagement', authAdmin, manageDoctors);
 router.get('/receptionistManagement', authAdmin, manageReceptionits);
+router.get('/patients', authAdmin, getAdminPatients)
+router.get('/patient-list', authAdmin, getAllPatients)
 
 // account creation
 router.post('/', authAdmin, createAdminController)
 router.post('/receptionist', authAdmin, createReceptionistController)
 router.post('/doctors', authAdmin, uploadDoctor.single('image'), createDoctorController)
-
 
 // Account creation temp
 router.post('/', authAdmin, createAdminController)
@@ -39,6 +38,7 @@ router.post('/receptionists', authAdmin, createReceptionistController)
 router.post('/Doctor', authAdmin, uploadDoctor.single('image'), createDoctorController)
 
 // account deletion
+router.delete('/patients/:id', authAdmin, deletePatient)
 router.delete('/doctors/:id', authAdmin, deleteDoctor)
 router.delete('/receptionists/:id', authAdmin, deleteReceptionist)
 

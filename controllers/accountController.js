@@ -200,14 +200,14 @@ const deleteReceptionist = async (req, res) => {
     if (!req.params?.email) {
         return res.status(400).json({ 'error': "Route parameter not found." })
     }
-    
+
     const receptionistEmail = req.params.email;
 
     const receptionist = await Receptionist.findOne({ email: receptionistEmail })
     if (!receptionist) {
         return res.status(400).json({ 'error': 'Receptionist email not found' })
     }
-    
+
     await Receptionist.deleteOne({ email: receptionistEmail })
     res.status(200).json({ 'success': 'Deleted receptionist email: ' + receptionistEmail })
 }
@@ -223,7 +223,7 @@ const deactivateReceptionist = async (req, res) => {
 
         // Find the receptionist by email
         const receptionist = await Receptionist.findOne({ email: receptionistEmail });
-        
+
         if (!receptionist) {
             return res.status(400).json({ 'error': 'Receptionist email not found' });
         }
@@ -248,9 +248,9 @@ const deactivateDoctor = async (req, res) => {
 
         const doctorEmail = req.params.email;
 
-     
-        const doctor= await Doctor.findOne({ email: doctorEmail });
-        
+
+        const doctor = await Doctor.findOne({ email: doctorEmail });
+
         if (!doctor) {
             return res.status(400).json({ 'error': 'doctor email not found' });
         }
@@ -275,14 +275,14 @@ const reactivateDoctor = async (req, res) => {
 
         const doctorEmail = req.params.email;
 
-     
-        const doctor= await Doctor.findOne({ email: doctorEmail });
-        
+
+        const doctor = await Doctor.findOne({ email: doctorEmail });
+
         if (!doctor) {
             return res.status(400).json({ 'error': 'doctor email not found' });
         }
 
- 
+
         doctor.state = 'active';
         await doctor.save();
 
@@ -303,14 +303,14 @@ const reactivateReceptionist = async (req, res) => {
         const receptionistEmail = req.params.email;
 
 
-     
-        const receptionist= await Receptionist.findOne({ email: receptionistEmail });
-        
+
+        const receptionist = await Receptionist.findOne({ email: receptionistEmail });
+
         if (!receptionist) {
             return res.status(400).json({ 'error': 'receptionist email not found' });
         }
 
- 
+
         receptionist.state = 'active';
         await receptionist.save();
 

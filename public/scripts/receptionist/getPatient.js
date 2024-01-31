@@ -168,11 +168,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             unlinkPatient(email);
         });
 
-
-
-
-
-
         const contentContainer = document.createElement('div');
         contentContainer.style.display = 'flex';
         contentContainer.style.flexDirection = 'column';
@@ -184,9 +179,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         contentContainer.appendChild(linkAsMainButton);
         contentContainer.appendChild(linkAsTempButton);
         contentContainer.appendChild(unlinkButton);
-
-
-
 
         async function unlinkPatient(email) {
             try {
@@ -208,9 +200,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Handle unexpected errors
             }
         }
-
-
-
 
         const linkPatientWithDoctor = async (patientEmail, doctorEmail, linkType) => {
             try {
@@ -236,8 +225,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.error('Error:', error);
             }
         };
-
-
 
         const closeButton = document.createElement('button');
         closeButton.textContent = 'Cancel';

@@ -164,4 +164,13 @@ const getAppointment = (req, res) => {
     res.render('./patientViews/appointment')
 }
 
-module.exports = { patientDashboard, doctorDashboard, getDoctorPatients, getPatientDetails, patientLogs, receptionistDashboard, paymentsPage, addPatient, adminDashboard, addDoctor, manageDoctors, manageReceptionits, getAppointment }
+const getAdminPatients = (req, res) => {
+    res.render('./adminViews/patientList')
+}
+
+const getAllPatients = async (req, res) => {
+    const patients = await Patient.find({})
+    res.status(200).json(patients)
+}
+
+module.exports = { patientDashboard, doctorDashboard, getDoctorPatients, getPatientDetails, patientLogs, receptionistDashboard, paymentsPage, addPatient, adminDashboard, addDoctor, manageDoctors, manageReceptionits, getAppointment, getAllPatients, getAdminPatients }
