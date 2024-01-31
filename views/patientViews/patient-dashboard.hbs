@@ -79,10 +79,10 @@
             <img src="/image/cclogo.png" class="w-14 h-14">
         </header>
         <main class="p-4">
-            <div class="all mt-14">
+            {{!-- <div class="all mt-14">
                 <div class="choose1 mt-4">
                     <label for="myInput">Select File:</label>
-                    <select id="myDropdown" name="myDropdown" class="w-48 h-8">
+                    <select id="myDropdown" name="myDropdown1" class="w-48 h-8">
                         <option value=""></option>
                         <option value="patient_records">Patient Records</option>
                         <option value="ecg_reports">ECG Reports</option>
@@ -92,7 +92,7 @@
 
                 <div class="choose2 mt-4">
                     <label for="myInput">Select Format:</label>
-                    <select id="myDropdown" name="myDropdown" class="w-48 h-8">
+                    <select id="myDropdown2" name="myDropdown" class="w-48 h-8">
                         <option value=""></option>
                         <option value="pdf">PDF</option>
                         <option value="csv">CSV</option>
@@ -102,17 +102,26 @@
 
                 <div class="choose3 mt-4">
                     <label for="myInput">Select Destination:</label>
-                    <select id="myDropdown" name="myDropdown" class="w-48 h-8">
+                    <select id="myDropdown3" name="myDropdown" class="w-48 h-8">
                         <option value=""></option>
                         <option value="email">Email</option>
                         <option value="cloud_storage">Cloud Storage</option>
                         <option value="ftp">FTP</option>
                     </select>
                 </div>
-            </div>
-            <div class="button mt-6 text-center">
-                <button class="bg-black text-white w-48 h-12 rounded-full">Export</button>
-            </div>
+            </div> --}}
+            <form class="flex justify-center items-end gap-4" id="importForm" method="POST" enctype="multipart/form-data">
+                <div class="button mt-6 text-center" id="exportButton">
+                    <button class="bg-black text-white w-48 h-12 rounded-full">Export</button>
+                </div>
+                <div class="border bg-gray-900 p-1 rounded-2xl">
+                    <label for="jsonFile">Upload file:</label>
+                    <input type="file" id="jsonFile" class="border border-gray-300 rounded px-2 py-1" name="jsonFile" required>
+                    <div class="button mt-6 text-center" id="importButton">
+                        <button class="bg-black text-white w-48 h-12 rounded-full">Import</button>
+                    </div>
+                </div>
+            </form>
     </section>
 
     <!-- PAYMENT MODAL -->
@@ -124,22 +133,23 @@
         </header>
         <form id="paymentForm" enctype="multipart/form-data">
             <label for="patientEmail">Patient Email:</label>
-            <input type="text" id="patientEmail" name="email" required>
+            <input type="email" id="patientEmail" name="email" required>
 
             <label for="receipt">Upload Receipt:</label>
             <input type="file" id="image" class="border border-gray-300 rounded px-2 py-1" name="image" accept="image/*"
                 required>
 
+            <div class="check text-center font-semibold pt-12">
+                <label for="myCheckbox">I agree to the terms and conditions...</label>
+                <input type="checkbox" id="myCheckbox" name="myCheckbox">
+            </div>
             <div class="button mt-4 text-center">
                 <button type="submit" class="bg-green-500 hover:bg-green-900 text-white w-40 h-8 rounded-full">Send
                     now</button>
             </div>
         </form>
         <ol id="paymentDetails"></ol>
-        <div class="check text-center font-semibold pt-12">
-            <label for="myCheckbox">I agree to the terms and conditions...</label>
-            <input type="checkbox" id="myCheckbox" name="myCheckbox">
-        </div>
+        
     </section>
 
 
@@ -327,10 +337,13 @@
         <p class="text-sm md:text-lg text-center text-white">Copyright &copy; Cardio Care</p>
     </footer>
 
-    <script src="/scripts/patient/patientDashboard.js"></script>
+    {{!-- <script src="/scripts/patient/patientDashboard.js"></script> --}}
     <script src="/scripts/patient/patientDashboardReadings.js"></script>
     <script src="/scripts/modalController.js"></script>
-    <script src="/scripts/receptionist/payment.js"></script>
+    {{!-- <script src="/scripts/receptionist/payment.js"></script> --}}
+    <script src="/scripts/patient/postPayment.js"></script>
+    <script src="/scripts/patient/exportRecord.js"></script>
+    <script src="/scripts/patient/importRecord.js"></script>
 </body>
 
 </html>

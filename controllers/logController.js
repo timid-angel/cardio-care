@@ -274,7 +274,10 @@ const handleImport = async (req, res) => {
 
         const importedMedicalRecordData = JSON.parse(fileContent);
 
-        const importedMedicalRecord = new MedicalRecord(importedMedicalRecordData);
+        const importedMedicalRecord = new MedicalRecord({
+            ...importedMedicalRecordData,
+            _id: undefined, // Exclude the _id field
+        });
 
         await importedMedicalRecord.save();
 

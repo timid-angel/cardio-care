@@ -7,20 +7,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     exportButton.addEventListener('click', async () => {
         try {
-            const selectedFile = document.getElementById('myDropdown1').value;
-            const selectedFormat = document.getElementById('myDropdown2').value;
-            const selectedDestination = document.getElementById('myDropdown3').value;
+            // const selectedFile = document.getElementById('myDropdown1').value;
+            // const selectedFormat = document.getElementById('myDropdown2').value;
+            // const selectedDestination = document.getElementById('myDropdown3').value;
 
             const response = await fetch('patient/export-data', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    file: selectedFile,
-                    format: selectedFormat,
-                    destination: selectedDestination,
-                }),
+                // body: JSON.stringify({
+                //     file: selectedFile,
+                //     format: selectedFormat,
+                //     destination: selectedDestination,
+                // }),
             });
 
             if (response.ok) {

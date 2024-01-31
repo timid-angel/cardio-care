@@ -3,6 +3,7 @@ const Patient = require('../model/Patient')
 const path = require('path')
 
 // image upload
+const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
 const multer = require('multer')
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -13,6 +14,17 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + path.extname(file.originalname))
     }
 })
+
+const fileFilter = (req, file, cb) => {
+
+    if (allowedImageTypes.includes(file.mimetype)) {
+        cb(null, true); 
+    } else {
+        console.log('invalid file type ')
+        cb(new Error('Invalid file type. Only images (JPEG, PNG, GIF) are allowed.'), false); // Reject the file
+    }
+};
+
 const upload = multer({ storage: storage })
 
 // get upload page
@@ -51,11 +63,36 @@ const postPayment = async (req, res) => {
         res.status(400).json({ 'error': 'Please enter your email' })
         return
     }
-    const payment = await Payment.create({
-        patient: req.body.email,
-        img: req.file.filename
-    })
-    res.sendStatus(201)
+
+    const email = req.body?.email
+    try {
+        /* // checking if email is present in the db */
+        const exists = await Patient.findOne({ email });
+        if (!exists) {
+            res.status(404).json({ error: 'Incorrect email' });
+            return;
+        }
+
+        /* // checking if the input Email matches the logged in account */
+        const patientId = getPatientJWTID(req.cookies.jwt)
+        if (!patientId) return res.sendStatus(400)
+        const patient = await Patient.findById(patientId)
+        if (patient.email !== email) {
+            res.status(404).json({ error: 'The input email doesnt match to this account' });
+            return;
+        }
+
+        const payment = await Payment.create({
+            patient: req.body.email,
+            img: req.file.filename
+        })
+        res.sendStatus(201)
+
+    } catch (err) {
+        res.status(500).json({ 'error': err.message })
+    }
+
+
 }
 
 // verify/reject receipt
