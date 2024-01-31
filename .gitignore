@@ -3,3 +3,7 @@ node_modules
 images
 importUploads
 exports
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
